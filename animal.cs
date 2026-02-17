@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.Globalization;
 using System.Net.Mail;
+using System.Runtime.Intrinsics.X86;
 
 public class Animal
 {
@@ -9,6 +10,7 @@ public class Animal
     private string _name = "";
     private int _age = 0;
     private string _diet = "";
+    private double _kgPerDay = 0.0;
     private int _daysBeforeStarvation = 0;
     private bool _sex = true;
     private int _sexualMaturity = 0;
@@ -31,14 +33,15 @@ public class Animal
     //     }
     // }
     public void ShowInfo(){
-                Console.WriteLine($"\nSpecies : {_species}\nName : {_name}\nAge (month): {_age}\nSex : {_sex}\nDiet : {_diet}\nDays before starvation : {_daysBeforeStarvation}\nSexual maturity : {_sexualMaturity}\nAge of the end of reproduction (years): {_endOfReproduction}\nLife time (years): {_lifeTime}\nIllness : {_illOrNot}\n");
+                Console.WriteLine($"\nSpecies : {_species}\nName : {_name}\nAge (month): {_age}\nSex : {_sex}\nDiet : {_diet}\nHow much I eat per day (Kg): {_kgPerDay}\nDays before starvation : {_daysBeforeStarvation}\nSexual maturity : {_sexualMaturity}\nAge of the end of reproduction (years): {_endOfReproduction}\nLife time (years): {_lifeTime}\nIllness : {_illOrNot}\n");
         }
-        public Animal(string species, string name, int age, string diet, int daysBeforeStarvation, bool sex, int sexualMaturity, int endOfReproduction,int lifeTime, bool illOrNot)
+        public Animal(string species, string name, int age, string diet, int daysBeforeStarvation,double kgPerDay, bool sex, int sexualMaturity, int endOfReproduction,int lifeTime, bool illOrNot)
     {
         _species = species;
         _name = name;
         _age = age;
         _diet = diet;
+        _kgPerDay = kgPerDay;
         _daysBeforeStarvation = daysBeforeStarvation;
         _sex = sex;
         _sexualMaturity = sexualMaturity;
