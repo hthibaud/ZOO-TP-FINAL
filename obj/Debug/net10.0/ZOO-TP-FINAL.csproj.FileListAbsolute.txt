@@ -1,0 +1,15 @@
+C:\Users\1roma\Desktop\zoo\ZOO-TP-FINAL\bin\Debug\net10.0\ZOO-TP-FINAL.exe
+C:\Users\1roma\Desktop\zoo\ZOO-TP-FINAL\bin\Debug\net10.0\ZOO-TP-FINAL.deps.json
+C:\Users\1roma\Desktop\zoo\ZOO-TP-FINAL\bin\Debug\net10.0\ZOO-TP-FINAL.runtimeconfig.json
+C:\Users\1roma\Desktop\zoo\ZOO-TP-FINAL\bin\Debug\net10.0\ZOO-TP-FINAL.dll
+C:\Users\1roma\Desktop\zoo\ZOO-TP-FINAL\bin\Debug\net10.0\ZOO-TP-FINAL.pdb
+C:\Users\1roma\Desktop\zoo\ZOO-TP-FINAL\obj\Debug\net10.0\ZOO-TP-FINAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\1roma\Desktop\zoo\ZOO-TP-FINAL\obj\Debug\net10.0\ZOO-TP-FINAL.AssemblyInfoInputs.cache
+C:\Users\1roma\Desktop\zoo\ZOO-TP-FINAL\obj\Debug\net10.0\ZOO-TP-FINAL.AssemblyInfo.cs
+C:\Users\1roma\Desktop\zoo\ZOO-TP-FINAL\obj\Debug\net10.0\ZOO-TP-FINAL.csproj.CoreCompileInputs.cache
+C:\Users\1roma\Desktop\zoo\ZOO-TP-FINAL\obj\Debug\net10.0\ZOO-TP-FINAL.sourcelink.json
+C:\Users\1roma\Desktop\zoo\ZOO-TP-FINAL\obj\Debug\net10.0\ZOO-TP-FINAL.dll
+C:\Users\1roma\Desktop\zoo\ZOO-TP-FINAL\obj\Debug\net10.0\refint\ZOO-TP-FINAL.dll
+C:\Users\1roma\Desktop\zoo\ZOO-TP-FINAL\obj\Debug\net10.0\ZOO-TP-FINAL.pdb
+C:\Users\1roma\Desktop\zoo\ZOO-TP-FINAL\obj\Debug\net10.0\ZOO-TP-FINAL.genruntimeconfig.cache
+C:\Users\1roma\Desktop\zoo\ZOO-TP-FINAL\obj\Debug\net10.0\ref\ZOO-TP-FINAL.dll
