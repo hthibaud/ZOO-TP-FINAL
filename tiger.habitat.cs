@@ -1,7 +1,14 @@
 public class Tiger_Habitat : Habitat
 {
-    public Tiger_Habitat(int numberOfTigers) : base (0)
+
+    public int numberOfTigers {get; private set;}
+    private int _maxTigers = 2;
+
+    private int _price = 2000;
+
+    public Tiger_Habitat(int numberOfTigers, int maxTigers, int price) : base (0, 2, 2000)
     {
-        numberOfTigers = 0;
+        _maxTigers = maxTigers;
+        _price = price;
     }
 }
