@@ -19,11 +19,6 @@ public class Animal
     private bool _illOrNot = false;
     private bool _firstMonth = true;
 
-    public void Cry()
-    {
-        Console.WriteLine(" ");
-    }
-
     // public void IllOrNot()
     // {
     //     if (_illOrNot == false) {
