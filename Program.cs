@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using System.Linq.Expressions;
+using System.Xml.Serialization;
 
 class Program {
     Zoo thisZoo = new Zoo(0,0,0,0);
@@ -25,11 +26,25 @@ public void menu()
         Console.WriteLine("\n 1. Chicken\n 2. Eagle \n 3. Tiger \n");
 
         var animal_choice = Console.ReadLine();
-
         switch (animal_choice)
                 {
                     case "1":
-                    Console.WriteLine("\n 1. Female chicken (6 months) : 20€ \n 2.Male chicken (6 months) : 100€\n");
+
+                    if (thisZoo.numberOfChickenHabitats == 0)
+                    {
+                        Console.WriteLine("You don't have enough habitats");
+                        menu();
+                        break;
+                    }
+                    
+                    Console.WriteLine("\n 1. Female chicken (6 months) : 20€\n 2.Male chicken (6 months) : 100€\n");
+
+                    var chicken_choice = Console.ReadLine();               
+                    switch (chicken_choice)
+                        {
+                            case "1":
+                            break;
+                        }
                     break;
 
                     case "2":
@@ -47,13 +62,12 @@ public void menu()
 
 
                 }
-        menu();
         break;
 
         case "2":
 
         Console.WriteLine("\n ########### Buy an habitat for your Zoo! ########### \n");
-        Console.WriteLine("\n 1.Chicken habitat (10 chickens)\n 2.Eagle habitat (4 eagles) \n 3. Tiger habitat (2 tigers)\n");
+        Console.WriteLine("\n 1.Chicken habitat (10 chickens)\n 2.Eagle habitat (4 eagles) \n 3.Tiger habitat (2 tigers)\n");
                
                 var habitat_choice = Console.ReadLine();
 
@@ -83,15 +97,15 @@ public void menu()
 
                     case "2":
 
-                    Console.WriteLine("\n Buy an eagle habitat (4 eagles) for 2000€? \n");
+                    Console.WriteLine("\n Buy an eagle habitat (4 eagles) for 2000€? (type yes or no)\n");
 
                     var confirm_eagle_habitat_choice = Console.ReadLine();
                     switch (confirm_eagle_habitat_choice)
                         {
                             case "yes":
                             myAccount.Buy(2000);
-                            thisZoo.addEagleHabitat();
                             Console.WriteLine($"Your money : {myAccount.currentMoney}");
+                            thisZoo.addEagleHabitat();
                             menu();
                             break;
 
@@ -105,13 +119,7 @@ public void menu()
                    
                     case "3":
 
-                    if (thisZoo.numberOfChickenHabitats == 0)
-                    {
-                        Console.WriteLine("You don't have enough habitats");
-                        menu();
-                    }
-
-                    Console.WriteLine("\n Buy a tiger habitat (2 tigers) for 2000€? \n");
+                    Console.WriteLine("\n Buy a tiger habitat (2 tigers) for 2000€? (type yes or no)\n");
 
                     var confirm_tiger_habitat_choice = Console.ReadLine();
                     switch (confirm_tiger_habitat_choice)
@@ -133,6 +141,8 @@ public void menu()
                     default:
 
                     Console.WriteLine("invalid choice");
+                    Console.Clear();
+                    menu();
                     break;
 
                 }
@@ -149,11 +159,9 @@ public void menu()
         default:
 
             Console.WriteLine("invalid choice");
+            Console.Clear();
+            menu();
             break;
     }
 }
-
-public void addChicken() {
-    Chicken_Female chicken1 = new Chicken_Female("chicken", "TestPoule1", 3, "seeds", 1, 0.15, true, 6, 8, 15, false, true);
-    }
 }
