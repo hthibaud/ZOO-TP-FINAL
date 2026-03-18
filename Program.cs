@@ -49,11 +49,13 @@ class Program
                             switch (chicken_choice)
                             {
                                 case "1":
+                                    myAccount.Buy(20);
                                     thisZoo.addChickenFemale();
                                     menu();
                                     break;
 
                                 case "2":
+                                    myAccount.Buy(100);
                                     thisZoo.addChickenMale();
                                     menu();
                                     break;
@@ -92,6 +94,8 @@ class Program
                             {
 
                                 case "1":
+                                    myAccount.Buy(1000);
+
 
                                     if (choixAleatoire == 0)
                                     {
@@ -105,6 +109,8 @@ class Program
                                     break;
 
                                 case "2":
+                                    myAccount.Buy(4000);
+
                                     if (choixAleatoire == 0)
                                     {
                                         thisZoo.addEagleFemale(48); //48 months = 4 years
@@ -117,6 +123,8 @@ class Program
                                     break;
 
                                 case "3":
+                                    myAccount.Buy(2000);
+
                                     if (choixAleatoire == 0)
                                     {
                                         thisZoo.addEagleFemale(168); //168 months = 14 years
@@ -164,6 +172,8 @@ class Program
                             {
 
                                 case "1":
+                                    myAccount.Buy(3000);
+
 
                                     if (choixAleatoire == 0)
                                     {
@@ -177,6 +187,8 @@ class Program
                                     break;
 
                                 case "2":
+                                    myAccount.Buy(120000);
+
                                     if (choixAleatoire == 0)
                                     {
                                         thisZoo.addTigerFemale(48); //48 months = 4 years
@@ -189,6 +201,8 @@ class Program
                                     break;
 
                                 case "3":
+                                    myAccount.Buy(60000);
+
                                     if (choixAleatoire == 0)
                                     {
                                         thisZoo.addTigerFemale(168); //168 months = 14 years

@@ -11,7 +11,6 @@ public class BankAccount
 
     public BankAccount(float startingMoney)
     {
-        // On s'assure que le zoo ne commence pas avec un montant négatif
         if (startingMoney < 0)
         {
             currentMoney = 0;
