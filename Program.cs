@@ -9,6 +9,8 @@ class Program
     {
         Program myZoo = new Program();
 
+        Console.Clear();
+
         myZoo.menu();
     }
 

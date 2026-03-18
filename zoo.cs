@@ -89,7 +89,7 @@ public class Zoo
         }
 
         Chicken_Female ChickenFemale = new Chicken_Female("chicken", chosenChickenFemaleName, 6, "seeds", 1, 0.15, true, 6, 8, 15, false, true);
-
+        
         _chickensFemales.Add(ChickenFemale);
 
         Console.WriteLine($"Your new chicken {chosenChickenFemaleName} of 6 months has been added to your chicken habitat!");
