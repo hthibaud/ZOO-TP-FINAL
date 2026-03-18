@@ -12,14 +12,4 @@ public class Chicken_Habitat : Habitat
         _maxChickens = maxChickens;
         _price = price;
     }
-
-    public void addOneChicken()
-    {
-        if (numberOfChickens >= maxChickens)
-        {
-            Console.WriteLine("Habitat full");
-            return;
-        }
-        numberOfChickens += 1;
-    }
 }
