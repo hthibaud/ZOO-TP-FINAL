@@ -90,7 +90,7 @@ class Program
                             var eagle_choice = Console.ReadLine();
 
                             Random rand = new Random();
-                            int choixAleatoire = rand.Next(2);
+                            int randomChoice = rand.Next(2);
 
                             switch (eagle_choice)
                             {
@@ -99,7 +99,7 @@ class Program
                                     myAccount.Buy(1000);
 
 
-                                    if (choixAleatoire == 0)
+                                    if (randomChoice == 0)
                                     {
                                         thisZoo.addEagleFemale(6);
                                     }
@@ -113,7 +113,7 @@ class Program
                                 case "2":
                                     myAccount.Buy(4000);
 
-                                    if (choixAleatoire == 0)
+                                    if (randomChoice == 0)
                                     {
                                         thisZoo.addEagleFemale(48); //48 months = 4 years
                                     }
@@ -127,7 +127,7 @@ class Program
                                 case "3":
                                     myAccount.Buy(2000);
 
-                                    if (choixAleatoire == 0)
+                                    if (randomChoice == 0)
                                     {
                                         thisZoo.addEagleFemale(168); //168 months = 14 years
                                     }
@@ -168,7 +168,7 @@ class Program
                             var tiger_choice = Console.ReadLine();
 
                             Random rand = new Random();
-                            int choixAleatoire = rand.Next(2);
+                            int randomChoice = rand.Next(2);
 
                             switch (tiger_choice)
                             {
@@ -177,7 +177,7 @@ class Program
                                     myAccount.Buy(3000);
 
 
-                                    if (choixAleatoire == 0)
+                                    if (randomChoice == 0)
                                     {
                                         thisZoo.addTigerFemale(6);
                                     }
@@ -191,7 +191,7 @@ class Program
                                 case "2":
                                     myAccount.Buy(120000);
 
-                                    if (choixAleatoire == 0)
+                                    if (randomChoice == 0)
                                     {
                                         thisZoo.addTigerFemale(48); //48 months = 4 years
                                     }
@@ -205,7 +205,7 @@ class Program
                                 case "3":
                                     myAccount.Buy(60000);
 
-                                    if (choixAleatoire == 0)
+                                    if (randomChoice == 0)
                                     {
                                         thisZoo.addTigerFemale(168); //168 months = 14 years
                                     }
