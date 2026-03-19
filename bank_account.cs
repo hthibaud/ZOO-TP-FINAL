@@ -1,3 +1,5 @@
+using System.Reflection.Metadata;
+
 public class BankAccount
 {
     public float currentMoney;
@@ -65,5 +67,9 @@ public class BankAccount
             return;
         }
         currentMoney -= amount;
+    }
+    public void ShowInfos()
+    {
+        Console.WriteLine($" Balance : {currentMoney}€\n");
     }
 }

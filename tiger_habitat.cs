@@ -6,10 +6,7 @@ public class Tiger_Habitat : Habitat
 
     // private int _price = 2000;
 
-    public Tiger_Habitat()
+    public Tiger_Habitat() : base(0, 2, 2000)
     {
-        _numberOfAnimals = 0;
-        _maxAnimals = 2;
-        _price = 2000;
     }
 }

@@ -45,7 +45,7 @@ public class Zoo
 
     public void ShowChickensDetailedInfo()
     {
-        Console.WriteLine($"\nTotal of chicken habitats : {_chickenHabitats.Count}\n");
+        Console.WriteLine($"\nTotal of chickens habitats : {_chickenHabitats.Count}\n");
 
         for (var i = 0; i < _chickenHabitats.Count; i++)
         {
@@ -65,6 +65,56 @@ public class Zoo
         {
             Console.WriteLine($"male chicken {i + 1}:");
             _chickensMales[i].ShowInfo();
+        }
+    }
+
+        public void ShowEaglesDetailedInfo()
+    {
+        Console.WriteLine($"\nTotal of eagles habitats : {_eagleHabitats.Count}\n");
+
+        for (var i = 0; i < _eagleHabitats.Count; i++)
+        {
+            Console.WriteLine($"\neagle habitat {i + 1}:");
+            _eagleHabitats[i].ShowInfo();
+        }
+
+        Console.WriteLine($"\nTotal of eagles : {_eaglesFemales.Count + _eaglesMales.Count}\n");
+
+        for (var i = 0; i < _eaglesFemales.Count; i++)
+        {
+            Console.WriteLine($"female chicken {i + 1}:");
+            _eaglesFemales[i].ShowInfo();
+        }
+
+        for (var i = 0; i < _eaglesMales.Count; i++)
+        {
+            Console.WriteLine($"male chicken {i + 1}:");
+            _eaglesMales[i].ShowInfo();
+        }
+    }
+
+            public void ShowTigersDetailedInfo()
+    {
+        Console.WriteLine($"\nTotal of tigers habitats : {_tigerHabitats.Count}\n");
+
+        for (var i = 0; i < _tigerHabitats.Count; i++)
+        {
+            Console.WriteLine($"\ntiger habitat {i + 1}:");
+            _eagleHabitats[i].ShowInfo();
+        }
+
+        Console.WriteLine($"\nTotal of tigers : {_tigersFemales.Count + _tigersMales.Count}\n");
+
+        for (var i = 0; i < _tigersFemales.Count; i++)
+        {
+            Console.WriteLine($"female tiger {i + 1}:");
+            _tigersFemales[i].ShowInfo();
+        }
+
+        for (var i = 0; i < _tigersMales.Count; i++)
+        {
+            Console.WriteLine($"male tiger {i + 1}:");
+            _tigersMales[i].ShowInfo();
         }
     }
 
@@ -120,7 +170,7 @@ public class Zoo
             chosenChickenFemaleName = "Unnamed chicken";
         }
 
-        Chicken_Female ChickenFemale = new Chicken_Female("", chosenChickenFemaleName, 6, "seeds", 1, 0.15, true, 6, 8, 15, false, true);
+        Chicken_Female ChickenFemale = new Chicken_Female(chosenChickenFemaleName, 6, false, true);
 
         _chickensFemales.Add(ChickenFemale);
 
@@ -141,7 +191,7 @@ public class Zoo
             chosenChickenMaleName = "Unnamed chicken";
         }
 
-        Chicken_Male ChickenMale = new Chicken_Male("Chicken (male)", chosenChickenMaleName, 6, "seeds", 2, 0.18, false, 6, 96, 180, false, true);
+        Chicken_Male ChickenMale = new Chicken_Male(chosenChickenMaleName, 6, false, true);
 
         _chickensMales.Add(ChickenMale);
 
@@ -162,7 +212,7 @@ public class Zoo
             chosenEagleFemaleName = "Unnamed eagle";
         }
 
-        Eagle_Female EagleFemale = new Eagle_Female("Eagle (female)", chosenEagleFemaleName, age, "meat", 10, 0.3, true, 48, 168, 300, false, true);
+        Eagle_Female EagleFemale = new Eagle_Female(chosenEagleFemaleName, age, false, true);
 
         _eaglesFemales.Add(EagleFemale);
 
@@ -183,7 +233,7 @@ public class Zoo
             chosenEagleMaleName = "Unnamed eagle";
         }
 
-        Eagle_Male EagleMale = new Eagle_Male("Eagle (male)", chosenEagleMaleName, age, "meat", 10, 0.25, false, 48, 168, 300, false, true);
+        Eagle_Male EagleMale = new Eagle_Male(chosenEagleMaleName, age, false, true);
 
         _eaglesMales.Add(EagleMale);
 
@@ -204,7 +254,7 @@ public class Zoo
             chosenTigerFemaleName = "Unnamed tiger";
         }
 
-        Tiger_Female TigerFemale = new Tiger_Female("Tiger (female)", chosenTigerFemaleName, age, "meat", 2, 10, true, 48, 168, 300, false, true);
+        Tiger_Female TigerFemale = new Tiger_Female(chosenTigerFemaleName, age, false, true);
 
         _tigersFemales.Add(TigerFemale);
 
@@ -225,7 +275,7 @@ public class Zoo
             chosenTigerMaleName = "Unnamed tiger";
         }
 
-        Tiger_Male TigerMale = new Tiger_Male("Tiger (male)", chosenTigerMaleName, age, "meat", 2, 12, false, 36, 168, 300, false, true);
+        Tiger_Male TigerMale = new Tiger_Male(chosenTigerMaleName, age, false, true);
 
         _tigersMales.Add(TigerMale);
 

@@ -7,6 +7,8 @@ class Program
     BankAccount myAccount = new BankAccount(80000);
 
     Chicken_Habitat chicken_habitat = new Chicken_Habitat();
+
+    Time time = new Time();
     static void Main()
     {
         Program myZoo = new Program();
@@ -30,8 +32,8 @@ class Program
             switch (choice)
             {
                 case "0":
-                    isPlaying = false;
                     Console.WriteLine("Goodbye!");
+                    isPlaying = false;
                     break;
 
                 case "1":
@@ -45,17 +47,26 @@ class Program
                 case "3":
                     StatsMenu();
                     break;
+
+                case "4":
+                    PassTheMonth();
+                    break;
             }
             Console.Clear();
         }
     }
+
+
+
     private void ShowMainMenu()
     {
         Console.WriteLine("\n\n########### WELCOME TO YOUR ZOO ###########\n");
-        Console.WriteLine($" Balance : {myAccount.currentMoney}€\n");
+        myAccount.ShowInfos();
+        time.ShowInfos();
         Console.WriteLine(" 1. Buy Animals");
         Console.WriteLine(" 2. Buy Habitats");
         Console.WriteLine(" 3. View Stats");
+        Console.WriteLine(" 4. Pass the month");
         Console.WriteLine(" 0. Exit Game");
         Console.Write("\nChoice: ");
     }
@@ -73,6 +84,7 @@ class Program
 
                 if (thisZoo.EnoughChickenHabitats() == false)
                 {
+                    Console.Clear();
                     Console.WriteLine("\nYou don't have enough habitats\n");
                     break;
                 }
@@ -88,7 +100,6 @@ class Program
                         case "1":
                             myAccount.Buy(20);
                             thisZoo.addChickenFemale();
-                            chicken_habitat.AddAnimal();
                             Console.WriteLine($"Balance : {myAccount.currentMoney}");
 
                             break;
@@ -116,6 +127,7 @@ class Program
 
                 if (thisZoo.EnoughEagleHabitats() == false)
                 {
+                    Console.Clear();
                     Console.WriteLine("You don't have enough habitats");
                     break;
                 }
@@ -198,6 +210,7 @@ class Program
 
                 if (thisZoo.EnoughTigerHabitats() == false)
                 {
+                    Console.Clear();
                     Console.WriteLine("\nYou don't have enough habitats\n");
                     break;
                 }
@@ -370,7 +383,7 @@ class Program
     private void StatsMenu()
     {
         Console.WriteLine("\n ########### STATS OF YOUR ZOO! ########### \n");
-        Console.WriteLine("\n 1. See details of chickens\n 2. See details of eagles\n 3. See details of tigers\n 4. See all stats 5. Back");
+        Console.WriteLine("\n 1. See details of chickens\n 2. See details of eagles\n 3. See details of tigers\n 4. See Zoo stats \n 5. Back");
 
         var detailchoice = Console.ReadLine();
 
@@ -381,11 +394,11 @@ class Program
                 break;
 
             case "2":
-
+                thisZoo.ShowEaglesDetailedInfo();
                 break;
 
             case "3":
-
+                thisZoo.ShowTigersDetailedInfo();
                 break;
 
             case "4":
@@ -399,5 +412,10 @@ class Program
         }
         Console.WriteLine("\n[Press any key to return to Main Menu]");
         Console.ReadKey();
+    }
+
+    private void PassTheMonth()
+    {
+        time.IncrMonths();
     }
 }
