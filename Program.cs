@@ -5,6 +5,7 @@ class Program
 {
     Zoo thisZoo = new Zoo(0, 0, 0, 0);
     BankAccount myAccount = new BankAccount(80000);
+
     static void Main()
     {
         Program myZoo = new Program();
@@ -337,6 +338,7 @@ class Program
 
                 Console.WriteLine("\n ########### Stats of your Zoo! ########### \n");
                 thisZoo.ShowInfo();
+                thisZoo.ShowDetailedInfo();
                 Console.WriteLine($"Current money : {myAccount.currentMoney}\n");
                 menu();
                 break;

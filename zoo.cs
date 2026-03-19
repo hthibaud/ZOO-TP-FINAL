@@ -40,6 +40,31 @@ public class Zoo
         Console.WriteLine($"\nTotal of habitats : {numberOfHabitats}\nTotal of chicken habitats : {numberOfChickenHabitats}\nTotal of eagle habitats : {numberOfEagleHabitats}\nTotal of tiger habitats : {numberOfTigerHabitats}\nTotal of animals : {numberOfAnimals}\nTotal of chickens : {numberOfChickens}\nTotal of eagles : {numberOfEagles}\nTotal of tigers : {numberOfTigers}\n");
     }
 
+    public void ShowDetailedInfo()
+    {
+        Console.WriteLine($"\nTotal of chicken habitats : {numberOfChickenHabitats}\n");
+
+        for (var i = 0; i < numberOfChickenHabitats; i++)
+        {
+            Console.WriteLine($"\nchicken habitat {i + 1}:");
+            _chickenHabitats[i].ShowInfo();
+        }
+
+        Console.WriteLine($"\nTotal of chickens : {numberOfChickens}\n");
+
+        for (var i = 0; i < _chickensFemales.Count; i++)
+        {
+            Console.WriteLine($"\nfemale chicken {i + 1}:");
+            _chickensFemales[i].ShowInfo();
+        }
+
+        for (var i = 0; i < _chickensMales.Count; i++)
+        {
+            Console.WriteLine($"\nmale chicken {i + 1}:");
+            _chickensMales[i].ShowInfo();
+        }
+    }
+
     public Zoo(int numberOfHabitats, int numberOfChickenHabitats, int numberOfEagleHabitats, int numberOfTigerHabitats)
     {
     }
@@ -47,7 +72,7 @@ public class Zoo
     public void addChickenHabitat()
     {
 
-        Chicken_Habitat newChickenHabitat = new Chicken_Habitat(0, 10, 300);
+        Chicken_Habitat newChickenHabitat = new Chicken_Habitat();
 
         _chickenHabitats.Add(newChickenHabitat);
 
@@ -58,7 +83,7 @@ public class Zoo
 
     public void addEagleHabitat()
     {
-        Eagle_Habitat newEagleHabitat = new Eagle_Habitat(0, 4, 2000);
+        Eagle_Habitat newEagleHabitat = new Eagle_Habitat();
 
         _eagleHabitats.Add(newEagleHabitat);
 
@@ -69,7 +94,7 @@ public class Zoo
 
     public void addTigerHabitat()
     {
-        Tiger_Habitat newTigerHabitat = new Tiger_Habitat(0, 2, 2000);
+        Tiger_Habitat newTigerHabitat = new Tiger_Habitat();
 
         _tigerHabitats.Add(newTigerHabitat);
 
@@ -88,8 +113,8 @@ public class Zoo
             chosenChickenFemaleName = "Unnamed chicken";
         }
 
-        Chicken_Female ChickenFemale = new Chicken_Female("chicken", chosenChickenFemaleName, 6, "seeds", 1, 0.15, true, 6, 8, 15, false, true);
-        
+        Chicken_Female ChickenFemale = new Chicken_Female("", chosenChickenFemaleName, 6, "seeds", 1, 0.15, true, 6, 8, 15, false, true);
+
         _chickensFemales.Add(ChickenFemale);
 
         Console.WriteLine($"Your new chicken {chosenChickenFemaleName} of 6 months has been added to your chicken habitat!");

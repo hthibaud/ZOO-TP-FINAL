@@ -28,10 +28,7 @@ public class Animal
     //         Console.WriteLine("Ill");
     //     }
     // }
-    public void ShowInfo(){
-                Console.WriteLine($"\nSpecies : {_species}\nName : {_name}\nAge (month): {_age}\nSex : {_sex}\nDiet : {_diet}\nHow much I eat per day (Kg): {_kgPerDay}\nDays before starvation : {_daysBeforeStarvation}\nSexual maturity (years) : {_sexualMaturity}\nAge of the end of reproduction (years): {_endOfReproduction / 12}\nLife time (years): {_lifeTime / 12}\nIllness : {_illOrNot}\n");
-        }
-        public Animal(string species, string name, int age, string diet, int daysBeforeStarvation,double kgPerDay, bool sex, int sexualMaturity, int endOfReproduction,int lifeTime, bool illOrNot, bool firstMonth)
+            public Animal(string species, string name, int age, string diet, int daysBeforeStarvation,double kgPerDay, bool sex, int sexualMaturity, int endOfReproduction,int lifeTime, bool illOrNot, bool firstMonth)
     {
         _species = species;
         _name = name;
@@ -46,4 +43,9 @@ public class Animal
         _illOrNot = illOrNot;
         _firstMonth = firstMonth;
     }
+
+    public void ShowInfo(){
+                Console.WriteLine($"\nSpecies : {_species}\nName : {_name}\nAge (month): {_age}\nSex : {_sex}\nDiet : {_diet}\nHow much I eat per day (Kg): {_kgPerDay}\nDays before starvation : {_daysBeforeStarvation}\nSexual maturity (years) : {_sexualMaturity}\nAge of the end of reproduction (years): {_endOfReproduction / 12}\nLife time (years): {_lifeTime / 12}\nIllness : {_illOrNot}\n");
+        }
+
 }

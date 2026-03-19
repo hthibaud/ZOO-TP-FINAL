@@ -1,15 +1,17 @@
 public class Chicken_Habitat : Habitat
 {
 
-    public int numberOfChickens {get; private set;}
-    private int _maxChickens = 10;
-    public int maxChickens => maxChickens;
+    // public int numberOfChickens {get; private set;}
+    // private int _maxChickens = 0;
 
-    private int _price = 300;
+    // //public int maxChickens => maxChickens;
 
-    public Chicken_Habitat(int numberOfChickens, int maxChickens, int price) : base (0, 10, 300)
+    // private int _price = 0;
+
+    public Chicken_Habitat()
     {
-        _maxChickens = maxChickens;
-        _price = price;
+        _numberOfAnimals = 0;
+        _maxAnimals = 10;
+        _price = 300;
     }
 }
