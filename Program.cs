@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 
 class Program
@@ -9,13 +10,15 @@ class Program
     Chicken_Habitat chicken_habitat = new Chicken_Habitat();
 
     Time time = new Time();
+
+    Food food = new Food();
     static void Main()
     {
-        Program myZoo = new Program();
+        Program myProg = new Program();
 
         Console.Clear();
 
-        myZoo.run();
+        myProg.run();
 
     }
     public void run()
@@ -51,8 +54,12 @@ class Program
                 case "4":
                     PassTheMonth();
                     break;
+
+                case "5":
+                    BuyFoodMenu();
+                    break;
             }
-            Console.Clear();
+            //Console.Clear();
         }
     }
 
@@ -67,6 +74,7 @@ class Program
         Console.WriteLine(" 2. Buy Habitats");
         Console.WriteLine(" 3. View Stats");
         Console.WriteLine(" 4. Pass the month");
+        Console.WriteLine(" 5. Buy food");
         Console.WriteLine(" 0. Exit Game");
         Console.Write("\nChoice: ");
     }
@@ -403,6 +411,7 @@ class Program
 
             case "4":
                 thisZoo.ShowInfo();
+                food.ShowInfo();
                 Console.WriteLine($"Balance : {myAccount.currentMoney}");
                 break;
 
@@ -416,6 +425,97 @@ class Program
 
     private void PassTheMonth()
     {
+
         time.IncrMonths();
+        thisZoo.GrowUpAnimals();
+        FeedAnimals();
+        //animals update
+        //test subvention
     }
+
+    public void BuyFoodMenu()
+    {
+        Console.WriteLine("\n########### Buy food for your animals! ###########\n");
+
+        food.ShowInfo();
+
+        Console.WriteLine("\n1. Seeds\n2. Meat \n");
+
+        var animal_choice = Console.ReadLine();
+        switch (animal_choice)
+        {
+
+            case "1":
+
+            int kgSeeds;
+
+            while (true) {
+                Console.WriteLine("\nHow many Kg of seeds do you want?\n");
+
+                var StrKgSeeds = Console.ReadLine();
+                if (int.TryParse(StrKgSeeds, out kgSeeds))
+                    {
+                        break;
+                    }
+                    Console.WriteLine("Invalid input");
+            }
+                myAccount.Buy(kgSeeds * food.seedsPricePerKg);
+                food.IncreaseSeeds(kgSeeds);
+                Console.WriteLine($"Balance : {myAccount.currentMoney}");
+                break;
+
+            case "2":
+
+            int kgMeat;
+
+            while (true) {
+                Console.WriteLine("\nHow many Kg of meat do you want?\n");
+
+                var StrKgMeat = Console.ReadLine();
+                if (int.TryParse(StrKgMeat, out kgMeat))
+                    {
+                        break;
+                    }
+                    Console.WriteLine("Invalid input");
+            }
+                myAccount.Buy(kgMeat * food.seedsPricePerKg);
+                food.IncreaseSeeds(kgMeat);
+                Console.WriteLine($"Balance : {myAccount.currentMoney}");
+                break;
+        }
+        Console.WriteLine("\n[Press any key to return to Main Menu]");
+        Console.ReadKey();
+    }
+
+        public void FeedAnimals()
+    {
+        for (var i = 0; i < thisZoo._animals.Count; i++)
+        {
+            double kgPerDay = thisZoo._animals[i].GetKgPerDay();
+
+           if (thisZoo._animals[i].GetSpecies().Contains("Chicken"))
+            {
+                double nbRemainingKg = food.DecreaseSeeds(kgPerDay * 30);
+                double nbDaysWithoutFeeding = 0;
+
+                if (nbRemainingKg < 0 ){
+                    nbDaysWithoutFeeding = -1 * nbRemainingKg / kgPerDay;
+                }
+                Console.WriteLine($"Days without feeding {thisZoo._animals[i].GetName()}: {nbDaysWithoutFeeding}");
+
+            }else
+
+            {
+                double nbRemainingKg = food.DecreaseMeat(kgPerDay * 30 );
+                double nbDaysWithoutFeeding = 0;
+
+                if (nbRemainingKg < 0 ){
+                    nbDaysWithoutFeeding = -1 * nbRemainingKg / kgPerDay;
+                }
+                Console.WriteLine($"Days without feeding {thisZoo._animals[i].GetName()}: {nbDaysWithoutFeeding}");
+            }
+            
+        }
+    }
+
 }

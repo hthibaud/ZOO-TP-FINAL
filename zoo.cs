@@ -34,6 +34,9 @@ public class Zoo
 
     private List<Tiger_Male> _tigersMales = new List<Tiger_Male>();
 
+    public List<Animal> _animals = new List<Animal>();
+
+
     public Zoo(int numberOfHabitats, int numberOfChickenHabitats, int numberOfEagleHabitats, int numberOfTigerHabitats)
     {
     }
@@ -41,6 +44,7 @@ public class Zoo
     public void ShowInfo()
     {
         Console.WriteLine($"\nTotal of habitats : {numberOfHabitats}\nTotal of chicken habitats : {numberOfChickenHabitats}\nTotal of eagle habitats : {numberOfEagleHabitats}\nTotal of tiger habitats : {numberOfTigerHabitats}\nTotal of animals : {numberOfAnimals}\nTotal of chickens : {numberOfChickens}\nTotal of eagles : {numberOfEagles}\nTotal of tigers : {numberOfTigers}\n");
+
     }
 
     public void ShowChickensDetailedInfo()
@@ -173,12 +177,15 @@ public class Zoo
         Chicken_Female ChickenFemale = new Chicken_Female(chosenChickenFemaleName, 6, false, true);
 
         _chickensFemales.Add(ChickenFemale);
+        numberOfChickens += 1;
+
+        _animals.Add(ChickenFemale);
+        numberOfAnimals += 1;
 
         Console.Clear();
 
         Console.WriteLine($"\n\n\nYour new chicken {chosenChickenFemaleName} of 6 months has been added to your chicken habitat!\n");
-        numberOfChickens += 1;
-        numberOfAnimals += 1;
+
     }
 
     public void addChickenMale()
@@ -194,12 +201,13 @@ public class Zoo
         Chicken_Male ChickenMale = new Chicken_Male(chosenChickenMaleName, 6, false, true);
 
         _chickensMales.Add(ChickenMale);
+        numberOfChickens += 1;
+        _animals.Add(ChickenMale);
+        numberOfAnimals += 1;
 
         Console.Clear();
 
         Console.WriteLine($"\n\n\nYour new chicken {chosenChickenMaleName} of 6 months has been added to your chicken habitat!\n");
-        numberOfChickens += 1;
-        numberOfAnimals += 1;
     }
 
     public void addEagleFemale(int age)
@@ -215,12 +223,15 @@ public class Zoo
         Eagle_Female EagleFemale = new Eagle_Female(chosenEagleFemaleName, age, false, true);
 
         _eaglesFemales.Add(EagleFemale);
+        numberOfEagles += 1;
+
+        _animals.Add(EagleFemale);
+        numberOfAnimals += 1;
 
         Console.Clear();
 
         Console.WriteLine($"\n\n\nYour new eagle {chosenEagleFemaleName} of {age} months has been added to your eagles habitat!\n");
-        numberOfEagles += 1;
-        numberOfAnimals += 1;
+
     }
 
     public void addEagleMale(int age)
@@ -236,12 +247,15 @@ public class Zoo
         Eagle_Male EagleMale = new Eagle_Male(chosenEagleMaleName, age, false, true);
 
         _eaglesMales.Add(EagleMale);
+        numberOfEagles += 1;
+
+        _animals.Add(EagleMale);
+        numberOfAnimals += 1;
 
         Console.Clear();
 
         Console.WriteLine($"\n\n\nYour new eagle {chosenEagleMaleName} of {age} months has been added to your eagles habitat!\n");
-        numberOfEagles += 1;
-        numberOfAnimals += 1;
+
     }
 
     public void addTigerFemale(int age)
@@ -257,12 +271,15 @@ public class Zoo
         Tiger_Female TigerFemale = new Tiger_Female(chosenTigerFemaleName, age, false, true);
 
         _tigersFemales.Add(TigerFemale);
+        numberOfTigers += 1;
+        _animals.Add(TigerFemale);
+        numberOfAnimals += 1;
+
 
         Console.Clear();
 
         Console.WriteLine($"\n\n\nYour new tiger {chosenTigerFemaleName} of {age} months has been added to your tigers habitat!\n");
-        numberOfTigers += 1;
-        numberOfAnimals += 1;
+
     }
 
     public void addTigerMale(int age)
@@ -278,13 +295,15 @@ public class Zoo
         Tiger_Male TigerMale = new Tiger_Male(chosenTigerMaleName, age, false, true);
 
         _tigersMales.Add(TigerMale);
+        numberOfTigers += 1;
+
+        _animals.Add(TigerMale);
+        numberOfAnimals += 1;
 
         Console.Clear();
         
         Console.WriteLine($"\n\n\nYour new eagle {chosenTigerMaleName} of {age} months has been added to your eagles habitat!\n");
 
-        numberOfTigers += 1;
-        numberOfAnimals += 1;
     }
 
     public bool EnoughChickenHabitats()
@@ -320,4 +339,13 @@ public class Zoo
             return false;
         }
     }
+
+    public void GrowUpAnimals()
+    {
+        for (var i = 0; i < _animals.Count; i++)
+        {
+            _animals[i].GrowUp();
+        }
+    }
+
 }

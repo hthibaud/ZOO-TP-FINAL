@@ -14,7 +14,7 @@ public class Habitat
 
     public void ShowInfo()
     {
-        Console.WriteLine($"\nNumber of animals : {NumberOfAnimals} /{_maxAnimals}");
+    //    Console.WriteLine($"\nNumber of animals : {NumberOfAnimals} /{_maxAnimals}");
     }
     public void AddAnimal()
     {

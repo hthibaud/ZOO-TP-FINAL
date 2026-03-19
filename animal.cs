@@ -43,4 +43,18 @@ public class Animal
             _age++;
         }
 
+        public string GetSpecies()
+        {
+                return _species;
+
+        }
+        public double GetKgPerDay()
+        {
+                return _kgPerDay;
+        }
+
+        public string GetName()
+        {
+                return _name;
+        }
 }
