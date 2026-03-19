@@ -4,12 +4,14 @@ public class Habitat
     protected int _maxAnimals = 0;
     protected int _price = 0;
 
+    public int NumberOfAnimals => _numberOfAnimals;
+
     public Habitat()
     {
     }
     public void ShowInfo()
     {
-        Console.WriteLine($"\nNumber of animals : {_numberOfAnimals} /{_maxAnimals}");
+        Console.WriteLine($"\nNumber of animals : {NumberOfAnimals} /{_maxAnimals}");
     }
     public void AddAnimal()
     {
