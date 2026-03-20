@@ -39,9 +39,14 @@ public class Animal
                 Console.WriteLine($"\nSpecies : {_species}\nName : {_name}\nAge (month): {_age}\nSex : {_sex}\nDiet : {_diet}\nHow much I eat per day (Kg): {_kgPerDay}\nDays before starvation : {_daysBeforeStarvation}\nSexual maturity (years) : {_sexualMaturity}\nAge of the end of reproduction (years): {_endOfReproduction / 12}\nLife time (years): {_lifeTime / 12}\nIllness : {_illOrNot}\n");
         }
 
-        public void GrowUp()
+        public void GrowUpMonths()
         {
                 _age++;
+        }
+
+        public void GrowUpYears()
+        {
+                _age+=12;
         }
 
         public string GetSpecies()

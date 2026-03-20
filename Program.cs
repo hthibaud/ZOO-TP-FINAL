@@ -48,16 +48,24 @@ class Program
                     break;
 
                 case "3":
+                    BuyFoodMenu();
+                    break;
+
+
+                case "4":
                     StatsMenu();
                     break;
 
-                case "4":
+
+                case "5":
                     PassTheMonth();
                     break;
 
-                case "5":
-                    BuyFoodMenu();
+                case "6":
+                    PassTheYear();
                     break;
+
+
             }
             //Console.Clear();
         }
@@ -72,15 +80,17 @@ class Program
         time.ShowInfos();
         Console.WriteLine(" 1. Buy Animals");
         Console.WriteLine(" 2. Buy Habitats");
-        Console.WriteLine(" 3. View Stats");
-        Console.WriteLine(" 4. Pass the month");
-        Console.WriteLine(" 5. Buy food");
+        Console.WriteLine(" 3. Buy food");
+        Console.WriteLine(" 4. View Stats");
+        Console.WriteLine(" 5. Pass the month");
+        Console.WriteLine(" 6. Pass the year");
         Console.WriteLine(" 0. Exit Game");
         Console.Write("\nChoice: ");
     }
 
     private void BuyAnimalsMenu()
     {
+        Console.Clear();
         Console.WriteLine("\n ########### Buy an animal for your Zoo! ########### \n");
         Console.WriteLine("\n 1. Chicken\n 2. Eagle \n 3. Tiger \n");
 
@@ -93,7 +103,7 @@ class Program
                 if (thisZoo.EnoughChickenHabitats() == false)
                 {
                     Console.Clear();
-                    Console.WriteLine("\nYou don't have enough habitats\n");
+                    Console.WriteLine("\nYou don't have enough habitats, buy a new one.\n");
                     break;
                 }
 
@@ -107,18 +117,39 @@ class Program
                     {
                         case "1":
                             myAccount.Buy(20);
-                            thisZoo.addChickenFemale();
-                            Console.WriteLine($"Balance : {myAccount.currentMoney}");
+
+                            if (myAccount.hasError)
+                            {
+                                Console.Clear();
+                                Console.WriteLine($"\n{myAccount.errorString}");
+                            }
+                            else
+                            {
+
+                                thisZoo.addChickenFemale();
+                                chicken_habitat.AddAnimal();
+                                Console.WriteLine($"Balance : {myAccount.currentMoney}");
+
+                            }
 
                             break;
 
                         case "2":
                             myAccount.Buy(100);
-                            thisZoo.addChickenMale();
-                            chicken_habitat.AddAnimal();
-                            Console.WriteLine($"Balance : {myAccount.currentMoney}");
 
+                            if (myAccount.hasError)
+                            {
+                                Console.Clear();
+                                Console.WriteLine($"\n{myAccount.errorString}");
+                            }
+                            else
+                            {
+                                thisZoo.addChickenMale();
+                                chicken_habitat.AddAnimal();
+                                Console.WriteLine($"Balance : {myAccount.currentMoney}");
+                            }
                             break;
+
 
                         case "3":
                             break;
@@ -126,17 +157,15 @@ class Program
                         default:
                             Console.WriteLine("invalid choice");
                             break;
-
                     }
                 }
                 break;
 
             case "2":
-
                 if (thisZoo.EnoughEagleHabitats() == false)
                 {
                     Console.Clear();
-                    Console.WriteLine("You don't have enough habitats");
+                    Console.WriteLine("You don't have enough habitats, buy a new one.");
                     break;
                 }
                 if (thisZoo.EnoughEagleHabitats() == true)
@@ -154,52 +183,72 @@ class Program
                         case "1":
                             myAccount.Buy(1000);
 
-
-                            if (randomChoice == 0)
+                            if (myAccount.hasError)
                             {
-                                thisZoo.addEagleFemale(6);
-                                Console.WriteLine($"Balance : {myAccount.currentMoney}");
-
+                                Console.Clear();
+                                Console.WriteLine($"\n{myAccount.errorString}");
                             }
                             else
                             {
-                                thisZoo.addEagleMale(6);
-                                Console.WriteLine($"Balance : {myAccount.currentMoney}");
+                                if (randomChoice == 0)
+                                {
 
+                                    thisZoo.addEagleFemale(6);
+                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
+
+                                }
+                                else
+                                {
+                                    thisZoo.addEagleMale(6);
+                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
+
+                                }
                             }
                             break;
 
                         case "2":
                             myAccount.Buy(4000);
 
-                            if (randomChoice == 0)
+                            if (myAccount.hasError)
                             {
-                                thisZoo.addEagleFemale(48); //48 months = 4 years
-                                Console.WriteLine($"Balance : {myAccount.currentMoney}");
-
+                                Console.Clear();
+                                Console.WriteLine($"\n{myAccount.errorString}");
                             }
                             else
                             {
-                                thisZoo.addEagleMale(48);
-                                Console.WriteLine($"Balance : {myAccount.currentMoney}");
-
+                                if (randomChoice == 0)
+                                {
+                                    thisZoo.addEagleFemale(48); //48 months = 4 years
+                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
+                                }
+                                else
+                                {
+                                    thisZoo.addEagleMale(48);
+                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
+                                }
                             }
                             break;
 
                         case "3":
                             myAccount.Buy(2000);
 
-                            if (randomChoice == 0)
+                            if (myAccount.hasError)
                             {
-                                thisZoo.addEagleFemale(168); //168 months = 14 years
-                                Console.WriteLine($"Balance : {myAccount.currentMoney}");
-
+                                Console.Clear();
+                                Console.WriteLine($"\n{myAccount.errorString}");
                             }
                             else
                             {
-                                thisZoo.addEagleMale(168);
-                                Console.WriteLine($"Balance : {myAccount.currentMoney}");
-
+                                if (randomChoice == 0)
+                                {
+                                    thisZoo.addEagleFemale(168); //168 months = 14 years
+                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
+                                }
+                                else
+                                {
+                                    thisZoo.addEagleMale(168);
+                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
+                                }
                             }
                             break;
 
@@ -219,7 +268,7 @@ class Program
                 if (thisZoo.EnoughTigerHabitats() == false)
                 {
                     Console.Clear();
-                    Console.WriteLine("\nYou don't have enough habitats\n");
+                    Console.WriteLine("\nYou don't have enough habitats, buy a new one.\n");
                     break;
                 }
                 if (thisZoo.EnoughTigerHabitats() == true)
@@ -236,53 +285,76 @@ class Program
 
                         case "1":
                             myAccount.Buy(3000);
-
-
-                            if (randomChoice == 0)
+                            if (myAccount.hasError)
                             {
-                                thisZoo.addTigerFemale(6);
-                                Console.WriteLine($"Balance : {myAccount.currentMoney}");
+                                Console.Clear();
+                                Console.WriteLine($"\n{myAccount.errorString}");
 
                             }
                             else
                             {
-                                thisZoo.addTigerMale(6);
-                                Console.WriteLine($"Balance : {myAccount.currentMoney}");
+                                if (randomChoice == 0)
+                                {
+                                    thisZoo.addTigerFemale(6);
+                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
 
+                                }
+                                else
+                                {
+                                    thisZoo.addTigerMale(6);
+                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
+
+                                }
                             }
                             break;
 
                         case "2":
                             myAccount.Buy(120000);
-
-                            if (randomChoice == 0)
+                            if (myAccount.hasError)
                             {
-                                thisZoo.addTigerFemale(48); //48 months = 4 years
-                                Console.WriteLine($"Balance : {myAccount.currentMoney}");
-
+                                Console.Clear();
+                                Console.WriteLine($"\n{myAccount.errorString}");
                             }
                             else
                             {
-                                thisZoo.addTigerMale(48);
-                                Console.WriteLine($"Balance : {myAccount.currentMoney}");
 
+                                if (randomChoice == 0)
+                                {
+                                    thisZoo.addTigerFemale(48); //48 months = 4 years
+                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
+
+                                }
+                                else
+                                {
+                                    thisZoo.addTigerMale(48);
+                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
+
+                                }
                             }
                             break;
 
                         case "3":
                             myAccount.Buy(60000);
-
-                            if (randomChoice == 0)
+                            if (myAccount.hasError)
                             {
-                                thisZoo.addTigerFemale(168); //168 months = 14 years
-                                Console.WriteLine($"Balance : {myAccount.currentMoney}");
-
+                                Console.Clear();
+                                Console.WriteLine($"\n{myAccount.errorString}");
                             }
                             else
                             {
-                                thisZoo.addTigerMale(168);
-                                Console.WriteLine($"Balance : {myAccount.currentMoney}");
 
+                                if (randomChoice == 0)
+                                {
+                                    thisZoo.addTigerFemale(168); //168 months = 14 years
+                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
+
+                                }
+                                else
+                                {
+                                    thisZoo.addTigerMale(168);
+                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
+
+                                }
                             }
                             break;
 
@@ -427,7 +499,18 @@ class Program
     {
 
         time.IncrMonths();
-        thisZoo.GrowUpAnimals();
+        thisZoo.GrowUpAnimalsMonths();
+        thisZoo.DeathByAge();
+        FeedAnimals();
+        //animals update
+        //test subvention
+    }
+
+    private void PassTheYear()
+    {
+
+        time.IncrYears();
+        thisZoo.GrowUpAnimalsYears();
         thisZoo.DeathByAge();
         FeedAnimals();
         //animals update
@@ -448,18 +531,19 @@ class Program
 
             case "1":
 
-            int kgSeeds;
+                int kgSeeds;
 
-            while (true) {
-                Console.WriteLine("\nHow many Kg of seeds do you want?\n");
+                while (true)
+                {
+                    Console.WriteLine("\nHow many Kg of seeds do you want?\n");
 
-                var StrKgSeeds = Console.ReadLine();
-                if (int.TryParse(StrKgSeeds, out kgSeeds))
+                    var StrKgSeeds = Console.ReadLine();
+                    if (int.TryParse(StrKgSeeds, out kgSeeds))
                     {
                         break;
                     }
                     Console.WriteLine("Invalid input");
-            }
+                }
                 myAccount.Buy(kgSeeds * food.seedsPricePerKg);
                 food.IncreaseSeeds(kgSeeds);
                 Console.WriteLine($"Balance : {myAccount.currentMoney}");
@@ -467,18 +551,19 @@ class Program
 
             case "2":
 
-            int kgMeat;
+                int kgMeat;
 
-            while (true) {
-                Console.WriteLine("\nHow many Kg of meat do you want?\n");
+                while (true)
+                {
+                    Console.WriteLine("\nHow many Kg of meat do you want?\n");
 
-                var StrKgMeat = Console.ReadLine();
-                if (int.TryParse(StrKgMeat, out kgMeat))
+                    var StrKgMeat = Console.ReadLine();
+                    if (int.TryParse(StrKgMeat, out kgMeat))
                     {
                         break;
                     }
                     Console.WriteLine("Invalid input");
-            }
+                }
                 myAccount.Buy(kgMeat * food.seedsPricePerKg);
                 food.IncreaseSeeds(kgMeat);
                 Console.WriteLine($"Balance : {myAccount.currentMoney}");
@@ -494,27 +579,30 @@ class Program
         {
             double kgPerDay = thisZoo._animals[i].GetKgPerDay();
 
-           if (thisZoo._animals[i].GetSpecies().Contains("Chicken"))
+            if (thisZoo._animals[i].GetSpecies().Contains("Chicken"))
             {
                 double nbRemainingKg = food.DecreaseSeeds(kgPerDay * 30);
                 double nbDaysWithoutFeeding = 0;
 
-                if (nbRemainingKg < 0 ){
+                if (nbRemainingKg < 0)
+                {
                     nbDaysWithoutFeeding = -1 * nbRemainingKg / kgPerDay;
                 }
                 Console.WriteLine($"Days without feeding {thisZoo._animals[i].GetName()}: {nbDaysWithoutFeeding}");
 
-            }else
+            }
+            else
 
             {
-                double nbRemainingKg = food.DecreaseMeat(kgPerDay * 30 );
+                double nbRemainingKg = food.DecreaseMeat(kgPerDay * 30);
                 double nbDaysWithoutFeeding = 0;
 
-                if (nbRemainingKg < 0 ){
+                if (nbRemainingKg < 0)
+                {
                     nbDaysWithoutFeeding = -1 * nbRemainingKg / kgPerDay;
                 }
                 Console.WriteLine($"Days without feeding {thisZoo._animals[i].GetName()}: {nbDaysWithoutFeeding}");
-            }  
+            }
         }
     }
 }

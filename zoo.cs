@@ -302,7 +302,7 @@ public class Zoo
 
         Console.Clear();
 
-        Console.WriteLine($"\n\n\nYour new eagle {chosenTigerMaleName} of {age} months has been added to your eagles habitat!\n");
+        Console.WriteLine($"\n\n\nYour new tiger {chosenTigerMaleName} of {age} months has been added to your tigers habitat!\n");
 
     }
 
@@ -339,15 +339,20 @@ public class Zoo
             return false;
         }
     }
-
-    public void GrowUpAnimals()
+    public void GrowUpAnimalsMonths()
     {
         for (var i = 0; i < _animals.Count; i++)
         {
-            _animals[i].GrowUp();
+            _animals[i].GrowUpMonths();
         }
     }
-
+    public void GrowUpAnimalsYears()
+    {
+        for (var i = 0; i < _animals.Count; i++)
+        {
+            _animals[i].GrowUpYears();
+        }
+    }
     public void DeathByAge()
     {
         for (int i = _animals.Count - 1; i >= 0; i--)
@@ -361,6 +366,10 @@ public class Zoo
                 _animals.RemoveAt(i);
 
                 numberOfAnimals -= 1;
+
+                Console.WriteLine("\n[Press any key to return to Main Menu]");
+                Console.ReadKey();
+
 
                 if (thisAnimal.GetSpecies().Contains("Chicken"))
                 {
