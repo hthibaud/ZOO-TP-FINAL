@@ -3,7 +3,7 @@ public class Food
     private double _meatKg = 0;
     private double _seedsKg = 0;
 
-    public float meatPricePerKg = 5;
+    public float meatPricePerKg = 5f;
     public float seedsPricePerKg = 2.5f;
 
     public Food()
@@ -51,7 +51,7 @@ public class Food
 
     public void ShowInfo()
     {
-        Console.WriteLine($"Seeds available (Kg): {_seedsKg}");
-        Console.WriteLine($"Meat available (Kg): {_meatKg}\n");
+        Console.WriteLine($"Seeds in your stock: {_seedsKg}Kg");
+        Console.WriteLine($"Meat in your stock: {_meatKg}Kg\n");
     }
 }

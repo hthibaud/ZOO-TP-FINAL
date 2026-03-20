@@ -75,6 +75,7 @@ class Program
 
     private void ShowMainMenu()
     {
+        Console.Clear();
         Console.WriteLine("\n\n########### WELCOME TO YOUR ZOO ###########\n");
         myAccount.ShowInfos();
         time.ShowInfos();
@@ -92,7 +93,9 @@ class Program
     {
         Console.Clear();
         Console.WriteLine("\n ########### Buy an animal for your Zoo! ########### \n");
-        Console.WriteLine("\n 1. Chicken\n 2. Eagle \n 3. Tiger \n");
+        Console.WriteLine("\n 1. Chickens \n 2. Eagles \n 3. Tigers \n\n 4. Back");
+        Console.Write("\nChoice: ");
+
 
         var animal_choice = Console.ReadLine();
         switch (animal_choice)
@@ -372,13 +375,16 @@ class Program
                 break;
         }
         Console.WriteLine("\n[Press any key to return to Main Menu]");
-        Console.ReadKey();
+        Console.ReadLine();
     }
 
     private void BuyHabitatsMenu()
     {
+        Console.Clear();
         Console.WriteLine("\n ########### Buy an habitat for your Zoo! ########### \n");
         Console.WriteLine("\n 1.Chicken habitat (10 chickens)\n 2.Eagle habitat (4 eagles) \n 3.Tiger habitat (2 tigers)\n");
+        Console.Write("\nChoice: ");
+
 
         var habitat_choice = Console.ReadLine();
 
@@ -457,13 +463,16 @@ class Program
 
         }
         Console.WriteLine("\n[Press any key to return to Main Menu]");
-        Console.ReadKey();
+        Console.ReadLine();
     }
 
     private void StatsMenu()
     {
-        Console.WriteLine("\n ########### STATS OF YOUR ZOO! ########### \n");
+        Console.Clear();
+        Console.WriteLine("\n ########### ALL STATS! ########### \n");
         Console.WriteLine("\n 1. See details of chickens\n 2. See details of eagles\n 3. See details of tigers\n 4. See Zoo stats \n 5. Back");
+        Console.Write("\nChoice: ");
+
 
         var detailchoice = Console.ReadLine();
 
@@ -487,12 +496,15 @@ class Program
                 Console.WriteLine($"Balance : {myAccount.currentMoney}");
                 break;
 
+            case "5":
+                break;
+
             default:
                 Console.WriteLine("invalid choice");
                 break;
         }
         Console.WriteLine("\n[Press any key to return to Main Menu]");
-        Console.ReadKey();
+        Console.ReadLine();
     }
 
     private void PassTheMonth()
@@ -502,6 +514,7 @@ class Program
         thisZoo.GrowUpAnimalsMonths();
         thisZoo.DeathByAge();
         FeedAnimals();
+        thisZoo.CheckStarvation();
         //animals update
         //test subvention
     }
@@ -513,17 +526,20 @@ class Program
         thisZoo.GrowUpAnimalsYears();
         thisZoo.DeathByAge();
         FeedAnimals();
+        thisZoo.CheckStarvation();
         //animals update
         //test subvention
     }
 
     public void BuyFoodMenu()
     {
+        Console.Clear();
         Console.WriteLine("\n########### Buy food for your animals! ###########\n");
 
         food.ShowInfo();
 
         Console.WriteLine("\n1. Seeds\n2. Meat \n");
+        Console.Write("\nChoice: ");
 
         var animal_choice = Console.ReadLine();
         switch (animal_choice)
@@ -546,6 +562,8 @@ class Program
                 }
                 myAccount.Buy(kgSeeds * food.seedsPricePerKg);
                 food.IncreaseSeeds(kgSeeds);
+                Console.Clear();
+                Console.WriteLine($"\nYou bought {kgSeeds}kg of seeds for {food.seedsPricePerKg * kgSeeds}€\n");
                 Console.WriteLine($"Balance : {myAccount.currentMoney}");
                 break;
 
@@ -555,7 +573,7 @@ class Program
 
                 while (true)
                 {
-                    Console.WriteLine("\nHow many Kg of meat do you want?\n");
+                    Console.WriteLine("\nHow many kg of meat do you want?\n");
 
                     var StrKgMeat = Console.ReadLine();
                     if (int.TryParse(StrKgMeat, out kgMeat))
@@ -566,11 +584,13 @@ class Program
                 }
                 myAccount.Buy(kgMeat * food.seedsPricePerKg);
                 food.IncreaseSeeds(kgMeat);
+                Console.Clear();
+                Console.WriteLine($"\nYou bought {kgMeat}kg of meat for {food.meatPricePerKg * kgMeat}€\n");
                 Console.WriteLine($"Balance : {myAccount.currentMoney}");
                 break;
         }
         Console.WriteLine("\n[Press any key to return to Main Menu]");
-        Console.ReadKey();
+        Console.ReadLine();
     }
 
     public void FeedAnimals()
@@ -578,31 +598,34 @@ class Program
         for (var i = 0; i < thisZoo._animals.Count; i++)
         {
             double kgPerDay = thisZoo._animals[i].GetKgPerDay();
+            double nbDaysWithoutFeeding = 0;
+            Animal thisAnimal = thisZoo._animals[i];
 
-            if (thisZoo._animals[i].GetSpecies().Contains("Chicken"))
+
+            if (thisAnimal.GetSpecies().Contains("Chicken"))
             {
                 double nbRemainingKg = food.DecreaseSeeds(kgPerDay * 30);
-                double nbDaysWithoutFeeding = 0;
 
                 if (nbRemainingKg < 0)
                 {
                     nbDaysWithoutFeeding = -1 * nbRemainingKg / kgPerDay;
                 }
-                Console.WriteLine($"Days without feeding {thisZoo._animals[i].GetName()}: {nbDaysWithoutFeeding}");
+                
+                Console.WriteLine($"Your animal {thisAnimal} didn't eat for {nbDaysWithoutFeeding} days");
 
             }
             else
-
             {
                 double nbRemainingKg = food.DecreaseMeat(kgPerDay * 30);
-                double nbDaysWithoutFeeding = 0;
-
                 if (nbRemainingKg < 0)
                 {
                     nbDaysWithoutFeeding = -1 * nbRemainingKg / kgPerDay;
                 }
-                Console.WriteLine($"Days without feeding {thisZoo._animals[i].GetName()}: {nbDaysWithoutFeeding}");
+                Console.WriteLine($"Your animal {thisAnimal} didn't eat for {nbDaysWithoutFeeding} days");
             }
+
+                thisAnimal.SetHunger(nbDaysWithoutFeeding);
         }
     }
+    
 }

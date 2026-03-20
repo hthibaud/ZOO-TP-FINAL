@@ -22,17 +22,17 @@ public class Zoo
 
     private List<Tiger_Habitat> _tigerHabitats = new List<Tiger_Habitat>();
 
-    private List<Chicken_Female> _chickensFemales = new List<Chicken_Female>();
+    //private List<Chicken_Female> _chickensFemales = new List<Chicken_Female>();
 
-    private List<Chicken_Male> _chickensMales = new List<Chicken_Male>();
+    //private List<Chicken_Male> _chickensMales = new List<Chicken_Male>();
 
-    private List<Eagle_Female> _eaglesFemales = new List<Eagle_Female>();
+    //private List<Eagle_Female> _eaglesFemales = new List<Eagle_Female>();
 
-    private List<Eagle_Male> _eaglesMales = new List<Eagle_Male>();
+    //private List<Eagle_Male> _eaglesMales = new List<Eagle_Male>();
 
-    private List<Tiger_Female> _tigersFemales = new List<Tiger_Female>();
+    //private List<Tiger_Female> _tigersFemales = new List<Tiger_Female>();
 
-    private List<Tiger_Male> _tigersMales = new List<Tiger_Male>();
+    //private List<Tiger_Male> _tigersMales = new List<Tiger_Male>();
 
     public List<Animal> _animals = new List<Animal>();
 
@@ -43,8 +43,9 @@ public class Zoo
 
     public void ShowInfo()
     {
+        Console.Clear();
+        Console.WriteLine("\n ########### STATS OF YOUR ZOO! ########### \n");
         Console.WriteLine($"\nTotal of habitats : {numberOfHabitats}\nTotal of chicken habitats : {numberOfChickenHabitats}\nTotal of eagle habitats : {numberOfEagleHabitats}\nTotal of tiger habitats : {numberOfTigerHabitats}\nTotal of animals : {numberOfAnimals}\nTotal of chickens : {numberOfChickens}\nTotal of eagles : {numberOfEagles}\nTotal of tigers : {numberOfTigers}\n");
-
     }
 
     public void ShowChickensDetailedInfo()
@@ -57,24 +58,25 @@ public class Zoo
             _chickenHabitats[i].ShowInfo();
         }
 
-        Console.WriteLine($"\nTotal of chickens : {_chickensFemales.Count + _chickensMales.Count}\n");
+        Console.WriteLine($"\nTotal of chickens : {numberOfChickens}\n");
 
-        for (var i = 0; i < _chickensFemales.Count; i++)
+        for (var i = 0; i <_animals.Count(); i++)
         {
-            Console.WriteLine($"female chicken {i + 1}:");
-            _chickensFemales[i].ShowInfo();
-        }
+            int nbChickens = 0;
 
-        for (var i = 0; i < _chickensMales.Count; i++)
-        {
-            Console.WriteLine($"male chicken {i + 1}:");
-            _chickensMales[i].ShowInfo();
+            if (_animals[i].GetSpecies().Contains("Chicken")){
+
+                nbChickens ++;
+                Console.WriteLine($"Chicken {nbChickens}:");
+
+                _animals[i].ShowInfo();
+            }
         }
     }
 
     public void ShowEaglesDetailedInfo()
     {
-        Console.WriteLine($"\nTotal of eagles habitats : {_eagleHabitats.Count}\n");
+               Console.WriteLine($"\nTotal of eagles habitats : {_eagleHabitats.Count}\n");
 
         for (var i = 0; i < _eagleHabitats.Count; i++)
         {
@@ -82,43 +84,46 @@ public class Zoo
             _eagleHabitats[i].ShowInfo();
         }
 
-        Console.WriteLine($"\nTotal of eagles : {_eaglesFemales.Count + _eaglesMales.Count}\n");
+        Console.WriteLine($"\nTotal of eagles : {numberOfEagles}\n");
 
-        for (var i = 0; i < _eaglesFemales.Count; i++)
+        for (var i = 0; i <_animals.Count(); i++)
         {
-            Console.WriteLine($"female chicken {i + 1}:");
-            _eaglesFemales[i].ShowInfo();
+            int nbEagles = 0;
+
+            if (_animals[i].GetSpecies().Contains("Eagle")){
+
+                nbEagles ++;
+                Console.WriteLine($"Eagle {nbEagles}:");
+
+                _animals[i].ShowInfo();
+            }
         }
 
-        for (var i = 0; i < _eaglesMales.Count; i++)
-        {
-            Console.WriteLine($"male chicken {i + 1}:");
-            _eaglesMales[i].ShowInfo();
-        }
     }
 
     public void ShowTigersDetailedInfo()
     {
-        Console.WriteLine($"\nTotal of tigers habitats : {_tigerHabitats.Count}\n");
+       Console.WriteLine($"\nTotal of tigers habitats : {_tigerHabitats.Count}\n");
 
-        for (var i = 0; i < _tigerHabitats.Count; i++)
+        for (var i = 0; i < _chickenHabitats.Count; i++)
         {
             Console.WriteLine($"\ntiger habitat {i + 1}:");
-            _eagleHabitats[i].ShowInfo();
+            _tigerHabitats[i].ShowInfo();
         }
 
-        Console.WriteLine($"\nTotal of tigers : {_tigersFemales.Count + _tigersMales.Count}\n");
+        Console.WriteLine($"\nTotal of tigers : {numberOfTigers}\n");
 
-        for (var i = 0; i < _tigersFemales.Count; i++)
+        for (var i = 0; i <_animals.Count(); i++)
         {
-            Console.WriteLine($"female tiger {i + 1}:");
-            _tigersFemales[i].ShowInfo();
-        }
+            int nbTigers = 0;
 
-        for (var i = 0; i < _tigersMales.Count; i++)
-        {
-            Console.WriteLine($"male tiger {i + 1}:");
-            _tigersMales[i].ShowInfo();
+            if (_animals[i].GetSpecies().Contains("Tiger")){
+
+                nbTigers ++;
+                Console.WriteLine($"Tiger {nbTigers}:");
+
+                _animals[i].ShowInfo();
+            }
         }
     }
 
@@ -169,14 +174,14 @@ public class Zoo
         Console.Write("Enter a name for your new chicken: ");
         string? chosenChickenFemaleName = Console.ReadLine();
 
-        if (chosenChickenFemaleName == null || chosenChickenFemaleName == " ")
+        if (chosenChickenFemaleName == null || chosenChickenFemaleName == "")
         {
             chosenChickenFemaleName = "Unnamed chicken";
         }
 
         Chicken_Female ChickenFemale = new Chicken_Female(chosenChickenFemaleName, 6, false, true);
 
-        _chickensFemales.Add(ChickenFemale);
+        //_chickensFemales.Add(ChickenFemale);
         numberOfChickens += 1;
 
         _animals.Add(ChickenFemale);
@@ -193,14 +198,14 @@ public class Zoo
         Console.Write("Enter a name for your new chicken: ");
         string? chosenChickenMaleName = Console.ReadLine();
 
-        if (chosenChickenMaleName == null || chosenChickenMaleName == " ")
+        if (chosenChickenMaleName == null || chosenChickenMaleName == "")
         {
             chosenChickenMaleName = "Unnamed chicken";
         }
 
         Chicken_Male ChickenMale = new Chicken_Male(chosenChickenMaleName, 6, false, true);
 
-        _chickensMales.Add(ChickenMale);
+        //_chickensMales.Add(ChickenMale);
         numberOfChickens += 1;
         _animals.Add(ChickenMale);
         numberOfAnimals += 1;
@@ -215,14 +220,14 @@ public class Zoo
         Console.Write("Enter a name for your new eagle: ");
         string? chosenEagleFemaleName = Console.ReadLine();
 
-        if (chosenEagleFemaleName == null || chosenEagleFemaleName == " ")
+        if (chosenEagleFemaleName == null || chosenEagleFemaleName == "")
         {
             chosenEagleFemaleName = "Unnamed eagle";
         }
 
         Eagle_Female EagleFemale = new Eagle_Female(chosenEagleFemaleName, age, false, true);
 
-        _eaglesFemales.Add(EagleFemale);
+        //_eaglesFemales.Add(EagleFemale);
         numberOfEagles += 1;
 
         _animals.Add(EagleFemale);
@@ -239,14 +244,14 @@ public class Zoo
         Console.Write("Enter a name for your new eagle: ");
         string? chosenEagleMaleName = Console.ReadLine();
 
-        if (chosenEagleMaleName == null || chosenEagleMaleName == " ")
+        if (chosenEagleMaleName == null || chosenEagleMaleName == "")
         {
             chosenEagleMaleName = "Unnamed eagle";
         }
 
         Eagle_Male EagleMale = new Eagle_Male(chosenEagleMaleName, age, false, true);
 
-        _eaglesMales.Add(EagleMale);
+        //_eaglesMales.Add(EagleMale);
         numberOfEagles += 1;
 
         _animals.Add(EagleMale);
@@ -263,14 +268,14 @@ public class Zoo
         Console.Write("Enter a name for your new tiger: ");
         string? chosenTigerFemaleName = Console.ReadLine();
 
-        if (chosenTigerFemaleName == null || chosenTigerFemaleName == " ")
+        if (chosenTigerFemaleName == null || chosenTigerFemaleName == "")
         {
             chosenTigerFemaleName = "Unnamed tiger";
         }
 
         Tiger_Female TigerFemale = new Tiger_Female(chosenTigerFemaleName, age, false, true);
 
-        _tigersFemales.Add(TigerFemale);
+        //_tigersFemales.Add(TigerFemale);
         numberOfTigers += 1;
         _animals.Add(TigerFemale);
         numberOfAnimals += 1;
@@ -287,14 +292,14 @@ public class Zoo
         Console.Write("Enter a name for your new tiger: ");
         string? chosenTigerMaleName = Console.ReadLine();
 
-        if (chosenTigerMaleName == null || chosenTigerMaleName == " ")
+        if (chosenTigerMaleName == null || chosenTigerMaleName == "")
         {
             chosenTigerMaleName = "Unnamed tiger";
         }
 
         Tiger_Male TigerMale = new Tiger_Male(chosenTigerMaleName, age, false, true);
 
-        _tigersMales.Add(TigerMale);
+        //_tigersMales.Add(TigerMale);
         numberOfTigers += 1;
 
         _animals.Add(TigerMale);
@@ -386,4 +391,40 @@ public class Zoo
             }
         }
     }
+    public void CheckStarvation()
+    {
+
+        for (int i = _animals.Count -1; i >= 0; i--)
+        {
+            Animal thisAnimal = _animals[i];
+            thisAnimal.ShowInfo();
+
+            if (thisAnimal.GetHunger() > (thisAnimal.GetDaysBeforeStarvation() * 2))
+            {
+                Console.Clear();
+                Console.WriteLine($"[DEATH] : You didn't feed {thisAnimal.GetName()} for {thisAnimal.GetHunger()} days");
+
+                _animals.RemoveAt(i);
+
+                numberOfAnimals -= 1;
+
+                if (thisAnimal.GetSpecies().Contains("Chicken"))
+                {
+                    numberOfChickens -= 1;
+                }
+                else if (thisAnimal.GetSpecies().Contains("Eagles"))
+                {
+                    numberOfEagles -= 1;
+                }
+                else
+                {
+                    numberOfTigers -= 1;
+                }
+
+                Console.WriteLine("\n[Press any key to continue]");
+                Console.ReadKey();
+            }
+        }
+    }
 }
+
