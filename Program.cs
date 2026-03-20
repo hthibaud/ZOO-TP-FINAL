@@ -428,6 +428,7 @@ class Program
 
         time.IncrMonths();
         thisZoo.GrowUpAnimals();
+        thisZoo.DeathByAge();
         FeedAnimals();
         //animals update
         //test subvention
@@ -487,7 +488,7 @@ class Program
         Console.ReadKey();
     }
 
-        public void FeedAnimals()
+    public void FeedAnimals()
     {
         for (var i = 0; i < thisZoo._animals.Count; i++)
         {
@@ -513,9 +514,7 @@ class Program
                     nbDaysWithoutFeeding = -1 * nbRemainingKg / kgPerDay;
                 }
                 Console.WriteLine($"Days without feeding {thisZoo._animals[i].GetName()}: {nbDaysWithoutFeeding}");
-            }
-            
+            }  
         }
     }
-
 }

@@ -72,7 +72,7 @@ public class Zoo
         }
     }
 
-        public void ShowEaglesDetailedInfo()
+    public void ShowEaglesDetailedInfo()
     {
         Console.WriteLine($"\nTotal of eagles habitats : {_eagleHabitats.Count}\n");
 
@@ -97,7 +97,7 @@ public class Zoo
         }
     }
 
-            public void ShowTigersDetailedInfo()
+    public void ShowTigersDetailedInfo()
     {
         Console.WriteLine($"\nTotal of tigers habitats : {_tigerHabitats.Count}\n");
 
@@ -141,8 +141,8 @@ public class Zoo
         Eagle_Habitat newEagleHabitat = new Eagle_Habitat();
 
         _eagleHabitats.Add(newEagleHabitat);
-        
-                Console.Clear();
+
+        Console.Clear();
 
 
         Console.WriteLine("\n\n\nNew habitat for eagles has been built!\n");
@@ -156,7 +156,7 @@ public class Zoo
 
         _tigerHabitats.Add(newTigerHabitat);
 
-                Console.Clear();
+        Console.Clear();
 
 
         Console.WriteLine("\n\n\nNew habitat for tigers has been built!\n");
@@ -301,7 +301,7 @@ public class Zoo
         numberOfAnimals += 1;
 
         Console.Clear();
-        
+
         Console.WriteLine($"\n\n\nYour new eagle {chosenTigerMaleName} of {age} months has been added to your eagles habitat!\n");
 
     }
@@ -348,4 +348,33 @@ public class Zoo
         }
     }
 
+    public void DeathByAge()
+    {
+        for (int i = _animals.Count - 1; i >= 0; i--)
+        {
+            Animal thisAnimal = _animals[i];
+
+            if (thisAnimal.GetAge() >= thisAnimal.GetLifeTime())
+            {
+                Console.WriteLine($"\n[DEATH] : {thisAnimal.GetName()} has passed away due to old age.");
+
+                _animals.RemoveAt(i);
+
+                numberOfAnimals -= 1;
+
+                if (thisAnimal.GetSpecies().Contains("Chicken"))
+                {
+                    numberOfChickens -= 1;
+                }
+                else if (thisAnimal.GetSpecies().Contains("Eagle"))
+                {
+                    numberOfEagles -= 1;
+                }
+                else
+                {
+                    numberOfTigers -= 1;
+                }
+            }
+        }
+    }
 }
