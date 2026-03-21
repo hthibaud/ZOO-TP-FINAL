@@ -49,6 +49,15 @@ public class Food
         return surplus;
     }
 
+    public double GetMeatKg()
+    {
+        return _meatKg;
+    }
+        public double GetSeedsKg()
+    {
+        return _seedsKg;
+    }
+
     public void ShowInfo()
     {
         Console.WriteLine($"Seeds in your stock: {_seedsKg}Kg");

@@ -71,6 +71,10 @@ class Program
                     PassTheYear();
                     break;
 
+                case "7":
+                    SellStuffMenu();
+                    break;
+
                 case "i":
                     InitScenario1();
                     break;
@@ -92,6 +96,7 @@ class Program
         Console.WriteLine(" 4. View Stats");
         Console.WriteLine(" 5. Pass the month");
         Console.WriteLine(" 6. Pass the year");
+        Console.WriteLine(" 7. Sell your stuff to merchant");
         Console.WriteLine(" 0. Exit Game");
         Console.Write("\nChoice: ");
     }
@@ -646,7 +651,7 @@ class Program
     {
         int subvention = 0;
         if (myAccount.GetNbSubvention() != time.GetNbYears())
-        {            
+        {
             for (var i = 0; i < thisZoo._animals.Count; i++)
             {
                 subvention += thisZoo._animals[i].GetSubvention();
@@ -663,44 +668,45 @@ class Program
     {
         float priceVisitors = 0f;
         float nbVisitors = 0;
-          
-            for (var i = 0; i < thisZoo._animals.Count; i++)
-            {
-                priceVisitors += thisZoo._animals[i].GetPriceVisitors_low();
-                nbVisitors += thisZoo._animals[i].GetNbVisitors_low();
-            }
-            
-            visitors.IncrVisitors(nbVisitors);
 
-            myAccount.IncrVisitorsMoney(priceVisitors);
-            myAccount.Sell(priceVisitors);
+        for (var i = 0; i < thisZoo._animals.Count; i++)
+        {
+            priceVisitors += thisZoo._animals[i].GetPriceVisitors_low();
+            nbVisitors += thisZoo._animals[i].GetNbVisitors_low();
+        }
 
-            Console.WriteLine($"The {nbVisitors} visitors payed {priceVisitors}€ in total during the low season.");
+        visitors.IncrVisitors(nbVisitors);
+
+        myAccount.IncrVisitorsMoney(priceVisitors);
+        myAccount.Sell(priceVisitors);
+
+        Console.WriteLine($"The {nbVisitors} visitors payed {priceVisitors}€ in total during the low season.");
     }
     public void HaveVisitors_high()
     {
         float priceVisitors = 0f;
         float nbVisitors = 0;
-          
-            for (var i = 0; i < thisZoo._animals.Count; i++)
-            {
-                priceVisitors += thisZoo._animals[i].GetPriceVisitors_high();
-                nbVisitors += thisZoo._animals[i].GetNbVisitors_high();
-            }
-            
-            visitors.IncrVisitors(nbVisitors);
 
-            myAccount.IncrVisitorsMoney(priceVisitors);
-            myAccount.Sell(priceVisitors);
+        for (var i = 0; i < thisZoo._animals.Count; i++)
+        {
+            priceVisitors += thisZoo._animals[i].GetPriceVisitors_high();
+            nbVisitors += thisZoo._animals[i].GetNbVisitors_high();
+        }
 
-            Console.WriteLine($"The {nbVisitors} visitors payed {priceVisitors}€ in total during the high season.\n");
+        visitors.IncrVisitors(nbVisitors);
+
+        myAccount.IncrVisitorsMoney(priceVisitors);
+        myAccount.Sell(priceVisitors);
+
+        Console.WriteLine($"The {nbVisitors} visitors payed {priceVisitors}€ in total during the high season.\n");
     }
     public void HaveVisitors()
     {
-            if (time.GetCurrentMonth() < 7)
+        if (time.GetCurrentMonth() < 7)
         {
             HaveVisitors_low();
-        } else
+        }
+        else
         {
             HaveVisitors_high();
         }
@@ -710,6 +716,408 @@ class Program
     public void PressKeyToContinue()
     {
         Console.WriteLine("\n[Press key to return to main menu]");
+        Console.ReadLine();
+    }
+
+    public void SellStuffMenu()
+    {
+
+        Console.Clear();
+        Console.WriteLine("\n########### Sell stuff to customers! ###########\n");
+        Console.WriteLine("\nWhat do you want to sell?\n");
+        Console.WriteLine("1. Sell animals\n2. Sell Habitats\n3. Sell Food");
+        Console.Write("\nChoice: ");
+
+        var sellMenuChoice = Console.ReadLine();
+
+        switch (sellMenuChoice)
+        {
+            case "1":
+                SellAnimalsMenu();
+                break;
+
+            case "2":
+                //SellHabitatsMenu();
+                break;
+
+            case "3":
+                SellFoodMenu();
+                break;
+        }
+    }
+    public void SellAnimalsMenu()
+    {
+        Console.Clear();
+        if (thisZoo.numberOfAnimals <= 0)
+        {
+            Console.WriteLine("You don't have any animal to sell.");
+            PressKeyToContinue();         
+            return;
+        }
+        Console.WriteLine("\n ########### Sell animals from your Zoo! ########### \n");
+        myAccount.ShowInfos();
+        Console.WriteLine("\n 1. Chickens \n 2. Eagles \n 3. Tigers \n\n 4. Back");
+        Console.Write("\nChoice: ");
+
+
+        var animal_choice = Console.ReadLine();
+        switch (animal_choice)
+        {
+
+            case "1":
+
+                if (thisZoo.EnoughChickens() == false)
+                {
+                    Console.Clear();
+                    Console.WriteLine("\nYou don't have any chicken to sell.\n");
+                    break;
+                }
+
+                if (thisZoo.EnoughChickens() == true)
+                {
+
+                    Console.WriteLine("\n 1. Female chicken (6 months) : +10€\n 2. Male chicken (6 months) : +20€\n 3. Back");
+
+                    var chicken_choice = Console.ReadLine();
+                    switch (chicken_choice)
+                    {
+                        case "1":
+                            myAccount.Sell(10);
+
+                                thisZoo.removeChickenFemale();
+                                chicken_habitat.RemoveAnimal();
+                                Console.WriteLine($"Balance : {myAccount.currentMoney}");
+
+                            break;
+
+                        case "2":
+                            myAccount.Sell(20);
+
+                            if (myAccount.hasError)
+                            {
+                                Console.Clear();
+                                Console.WriteLine($"\n{myAccount.errorString}");
+                            }
+                            else
+                            {
+                                thisZoo.removeChickenMale();
+                                chicken_habitat.RemoveAnimal();
+                                Console.WriteLine($"Balance : {myAccount.currentMoney}");
+                            }
+                            break;
+
+
+                        case "3":
+                            break;
+
+                        default:
+                            Console.WriteLine("invalid choice");
+                            break;
+                    }
+                }
+                break;
+
+            case "2":
+                if (thisZoo.EnoughEagles() == false)
+                {
+                    Console.Clear();
+                    Console.WriteLine("You don't have any eagle to sell.");
+                    break;
+                }
+                if (thisZoo.EnoughEagles() == true)
+                {
+                    Console.WriteLine("\n 1. Eagle (6 months) : +500€ \n 2. Eagle (4 years) : +2 000€ \n 3. Eagle (14 years) : +400€ \n 4. Back\n");
+
+                    var eagle_choice = Console.ReadLine();
+
+                    Random rand = new Random();
+                    int randomChoice = rand.Next(2);
+
+                    switch (eagle_choice)
+                    {
+
+                        case "1":
+                            myAccount.Sell(500);
+
+                            if (myAccount.hasError)
+                            {
+                                Console.Clear();
+                                Console.WriteLine($"\n{myAccount.errorString}");
+                            }
+                            else
+                            {
+                                if (randomChoice == 0)
+                                {
+
+                                    thisZoo.addEagleFemale(6);
+                                    eagle_habitat.AddAnimal();
+                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
+
+                                }
+                                else
+                                {
+                                    thisZoo.addEagleMale(6);
+                                    eagle_habitat.AddAnimal();
+                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
+
+                                }
+                            }
+                            break;
+
+                        case "2":
+                            myAccount.Sell(2000);
+
+                            if (myAccount.hasError)
+                            {
+                                Console.Clear();
+                                Console.WriteLine($"\n{myAccount.errorString}");
+                            }
+                            else
+                            {
+                                if (randomChoice == 0)
+                                {
+                                    thisZoo.addEagleFemale(48); //48 months = 4 years
+                                    eagle_habitat.AddAnimal();
+                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
+                                }
+                                else
+                                {
+                                    thisZoo.addEagleMale(48);
+                                    eagle_habitat.AddAnimal();
+                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
+                                }
+                            }
+                            break;
+
+                        case "3":
+                            myAccount.Sell(400);
+
+                            if (myAccount.hasError)
+                            {
+                                Console.Clear();
+                                Console.WriteLine($"\n{myAccount.errorString}");
+                            }
+                            else
+                            {
+                                if (randomChoice == 0)
+                                {
+                                    thisZoo.addEagleFemale(168); //168 months = 14 years
+                                    eagle_habitat.AddAnimal();
+                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
+                                }
+                                else
+                                {
+                                    thisZoo.addEagleMale(168);
+                                    eagle_habitat.AddAnimal();
+                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
+                                }
+                            }
+                            break;
+
+                        case "4":
+                            break;
+
+                        default:
+                            Console.WriteLine("invalid choice");
+                            break;
+                    }
+                    break;
+                }
+                break;
+
+            case "3":
+
+                if (thisZoo.EnoughTigers() == false)
+                {
+                    Console.Clear();
+                    Console.WriteLine("\nYou don't have any tiger to sell.\n");
+                    break;
+                }
+                if (thisZoo.EnoughTigerHabitats() == true)
+                {
+                    Console.WriteLine("\n 1. Tiger (6 months) : +1500€ \n 2. Tiger (4 years) : +60 000€ \n 3. Tiger (14 years) : +10 000€ \n 4. Back\n");
+
+                    var tiger_choice = Console.ReadLine();
+
+                    Random rand = new Random();
+                    int randomChoice = rand.Next(2);
+
+                    switch (tiger_choice)
+                    {
+
+                        case "1":
+                            myAccount.Sell(1500);
+                            if (myAccount.hasError)
+                            {
+                                Console.Clear();
+                                Console.WriteLine($"\n{myAccount.errorString}");
+
+                            }
+                            else
+                            {
+                                if (randomChoice == 0)
+                                {
+                                    thisZoo.addTigerFemale(6);
+                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
+
+                                }
+                                else
+                                {
+                                    thisZoo.addTigerMale(6);
+                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
+
+                                }
+                                tiger_habitat.AddAnimal();
+                            }
+                            break;
+
+                        case "2":
+                            myAccount.Sell(60000);
+                            if (myAccount.hasError)
+                            {
+                                Console.Clear();
+                                Console.WriteLine($"\n{myAccount.errorString}");
+                            }
+                            else
+                            {
+
+                                if (randomChoice == 0)
+                                {
+                                    thisZoo.addTigerFemale(48); //48 months = 4 years
+                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
+
+                                }
+                                else
+                                {
+                                    thisZoo.addTigerMale(48);
+                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
+
+                                }
+                                tiger_habitat.AddAnimal();
+                            }
+                            break;
+
+                        case "3":
+                            myAccount.Sell(10000);
+                            if (myAccount.hasError)
+                            {
+                                Console.Clear();
+                                Console.WriteLine($"\n{myAccount.errorString}");
+                            }
+                            else
+                            {
+
+                                if (randomChoice == 0)
+                                {
+                                    thisZoo.addTigerFemale(168); //168 months = 14 years
+                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
+
+                                }
+                                else
+                                {
+                                    thisZoo.addTigerMale(168);
+                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
+
+                                }
+                                tiger_habitat.AddAnimal();
+                            }
+                            break;
+
+                        case "4":
+                            break;
+
+                        default:
+                            Console.WriteLine("invalid choice");
+                            break;
+
+
+                    }
+                    break;
+                }
+                break;
+        }
+        Console.WriteLine("\n[Press any key to return to Main Menu]");
+        Console.ReadLine();
+    }
+
+    public void SellFoodMenu()
+    {
+        Console.Clear();
+        Console.WriteLine("\n########### Sell food to customers! ###########\n");
+        myAccount.ShowInfos();
+        food.ShowInfo();
+
+        if (food.GetMeatKg() <= 0 && food.GetSeedsKg()<= 0)
+        {
+            Console.WriteLine("You don't have any food to sell.");
+            PressKeyToContinue();            
+            return;
+        }
+
+        Console.WriteLine("\n1. Seeds\n2. Meat \n");
+        Console.Write("\nChoice: ");
+
+        var food_choice = Console.ReadLine();
+        switch (food_choice)
+        {
+
+            case "1":
+
+                int kgSeeds;
+
+                while (true)
+                {
+                    Console.WriteLine("\nHow many Kg of seeds do you want to sell?\n");
+
+                    var StrKgSeeds = Console.ReadLine();
+                    if (int.TryParse(StrKgSeeds, out kgSeeds))
+                    {
+                        break;
+                    }
+                    Console.WriteLine("Invalid input");
+                }
+                if (kgSeeds > food.GetSeedsKg())
+                {
+                    Console.WriteLine($"You don't have {kgSeeds}kg seeds to sell");
+                    PressKeyToContinue();            
+                    return;
+                }
+                myAccount.Sell(kgSeeds * food.seedsPricePerKg);
+                food.DecreaseSeeds(kgSeeds);
+                Console.Clear();
+                Console.WriteLine($"\nYou sold {kgSeeds}kg of seeds for {food.seedsPricePerKg * kgSeeds}€ to a customer!\n");
+                Console.WriteLine($"Balance : {myAccount.currentMoney}");
+                break;
+
+            case "2":
+
+                int kgMeat;
+
+                while (true)
+                {
+                    Console.WriteLine("\nHow many kg of meat do you want to sell?\n");
+
+                    var StrKgMeat = Console.ReadLine();
+                    if (int.TryParse(StrKgMeat, out kgMeat))
+                    {
+                        break;
+                    }
+                    Console.WriteLine("Invalid input");
+                }
+                if (kgMeat > food.GetMeatKg())
+                {
+                    Console.WriteLine($"You don't have {kgMeat}kg meat to sell");
+                    PressKeyToContinue();
+                    return;
+                }
+                myAccount.Sell(kgMeat * food.meatPricePerKg);
+                food.DecreaseMeat(kgMeat);
+                Console.Clear();
+                Console.WriteLine($"\nYou sold {kgMeat}kg of meat for {food.meatPricePerKg * kgMeat}€ to a customer!\n");
+                Console.WriteLine($"Balance : {myAccount.currentMoney}€");
+                break;
+        }
+        Console.WriteLine("\n[Press any key to return to Main Menu]");
         Console.ReadLine();
     }
 

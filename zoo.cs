@@ -60,13 +60,14 @@ public class Zoo
 
         Console.WriteLine($"\nTotal of chickens : {numberOfChickens}\n");
 
-        for (var i = 0; i <_animals.Count(); i++)
+        for (var i = 0; i < _animals.Count(); i++)
         {
             int nbChickens = 0;
 
-            if (_animals[i].GetSpecies().Contains("Chicken")){
+            if (_animals[i].GetSpecies().Contains("Chicken"))
+            {
 
-                nbChickens ++;
+                nbChickens++;
                 Console.WriteLine($"Chicken {nbChickens}:");
 
                 _animals[i].ShowInfo();
@@ -76,7 +77,7 @@ public class Zoo
 
     public void ShowEaglesDetailedInfo()
     {
-               Console.WriteLine($"\nTotal of eagles habitats : {_eagleHabitats.Count}\n");
+        Console.WriteLine($"\nTotal of eagles habitats : {_eagleHabitats.Count}\n");
 
         for (var i = 0; i < _eagleHabitats.Count; i++)
         {
@@ -86,13 +87,14 @@ public class Zoo
 
         Console.WriteLine($"\nTotal of eagles : {numberOfEagles}\n");
 
-        for (var i = 0; i <_animals.Count(); i++)
+        for (var i = 0; i < _animals.Count(); i++)
         {
             int nbEagles = 0;
 
-            if (_animals[i].GetSpecies().Contains("Eagle")){
+            if (_animals[i].GetSpecies().Contains("Eagle"))
+            {
 
-                nbEagles ++;
+                nbEagles++;
                 Console.WriteLine($"Eagle {nbEagles}:");
 
                 _animals[i].ShowInfo();
@@ -103,7 +105,7 @@ public class Zoo
 
     public void ShowTigersDetailedInfo()
     {
-       Console.WriteLine($"\nTotal of tigers habitats : {_tigerHabitats.Count}\n");
+        Console.WriteLine($"\nTotal of tigers habitats : {_tigerHabitats.Count}\n");
 
         for (var i = 0; i < _chickenHabitats.Count; i++)
         {
@@ -113,13 +115,14 @@ public class Zoo
 
         Console.WriteLine($"\nTotal of tigers : {numberOfTigers}\n");
 
-        for (var i = 0; i <_animals.Count(); i++)
+        for (var i = 0; i < _animals.Count(); i++)
         {
             int nbTigers = 0;
 
-            if (_animals[i].GetSpecies().Contains("Tiger")){
+            if (_animals[i].GetSpecies().Contains("Tiger"))
+            {
 
-                nbTigers ++;
+                nbTigers++;
                 Console.WriteLine($"Tiger {nbTigers}:");
 
                 _animals[i].ShowInfo();
@@ -193,6 +196,44 @@ public class Zoo
 
     }
 
+    public void removeChickenFemale()
+    {
+
+            Console.Write("Enter the name of the chicken you want to sell: ");
+            string? chosenChickenFemaleName = Console.ReadLine();
+
+            if (chosenChickenFemaleName == null || chosenChickenFemaleName == "")
+            {
+                chosenChickenFemaleName = "Unnamed chicken";
+            }
+
+
+            bool found = false;
+
+            for (var i = _animals.Count -1; i >= 0; i--)
+            {
+                if (_animals[i].GetName().Contains(chosenChickenFemaleName) && _animals[i] is Chicken_Female)
+                {
+                    _animals.RemoveAt(i);
+                    numberOfChickens -= 1;
+                    numberOfAnimals -= 1;
+                    found = true;
+                    break;
+
+                }
+            }
+                if (found == false)
+                {
+                    Console.WriteLine($"You don't have any chicken named {chosenChickenFemaleName}");
+                    return;
+                }
+            //_chickensFemales.Add(ChickenFemale);
+
+            Console.Clear();
+
+            Console.WriteLine($"\n\n\nYour chicken {chosenChickenFemaleName} of 6 months has been sold!\n");
+        }    
+
     public void addChickenMale()
     {
         Console.Write("Enter a name for your new chicken: ");
@@ -215,6 +256,42 @@ public class Zoo
         Console.WriteLine($"\n\n\nYour new chicken {chosenChickenMaleName} of 6 months has been added to your chicken habitat!\n");
     }
 
+    public void removeChickenMale()
+        {
+            Console.Write("Enter the name of the chicken you want to sell: ");
+            string? chosenChickenMaleName = Console.ReadLine();
+
+            if (chosenChickenMaleName == null || chosenChickenMaleName == "")
+            {
+                chosenChickenMaleName = "Unnamed chicken";
+            }
+
+
+            bool found = false;
+
+            for (var i = _animals.Count -1; i >= 0; i--)
+            {
+                if (_animals[i].GetName().Contains(chosenChickenMaleName) && _animals[i] is Chicken_Male)
+                {
+                    _animals.RemoveAt(i);
+                    numberOfChickens -= 1;
+                    numberOfAnimals -= 1;
+                    found = true;
+                    break;
+
+                }
+            }
+                if (found == false)
+                {
+                    Console.WriteLine($"You don't have any chicken named {chosenChickenMaleName}");
+                    return;
+                }
+            //_chickensFemales.Add(ChickenFemale);
+
+            Console.Clear();
+
+            Console.WriteLine($"\n\n\nYour chicken {chosenChickenMaleName} of 6 months has been sold!\n");
+        }
     public void addEagleFemale(int age)
     {
         Console.Write("Enter a name for your new eagle: ");
@@ -388,10 +465,10 @@ public class Zoo
 
     {
 
-        for (int i = _animals.Count -1; i >= 0; i--)
+        for (int i = _animals.Count - 1; i >= 0; i--)
         {
             Animal thisAnimal = _animals[i];
-            
+
             if (thisAnimal.GetHunger() > (thisAnimal.GetDaysBeforeStarvation() * 2))
             {
                 Console.Clear();
@@ -419,5 +496,31 @@ public class Zoo
             }
         }
     }
+    public bool EnoughChickens()
+    {
+        if (numberOfChickens <= 0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+    public bool EnoughEagles()
+    {
+        if (numberOfEagles <= 0)
+        {
+            return false;
+        }
+        return true;
+    }
+    public bool EnoughTigers()
+    {
+        if (numberOfTigers <= 0)
+        {
+            return false;
+        }
+        return true;
+    }
 }
-
