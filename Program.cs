@@ -97,7 +97,10 @@ class Program
         Console.WriteLine(" 4. View Stats");
         Console.WriteLine(" 5. Pass the month");
         Console.WriteLine(" 6. Pass the year");
-        Console.WriteLine(" 7. Sell your stuff to merchant");
+        Console.WriteLine(" 7. Sell your stuff to merchant\n");
+
+        Console.WriteLine(" i. (for test) Initialize my zoo with predefined habitats, animals, foods...\n");
+
         Console.WriteLine(" 0. Exit Game");
         Console.Write("\nChoice: ");
     }
@@ -541,7 +544,6 @@ class Program
         EarnSubvention();
         HaveVisitors();
         PressKeyToContinue2();
-
     }
 
     private void PassTheYear()
@@ -622,7 +624,6 @@ class Program
             double nbDaysWithoutFeeding = 0;
             Animal thisAnimal = thisZoo._animals[i];
 
-
             if (thisAnimal.GetSpecies().Contains("Chicken"))
             {
                 double nbRemainingKg = food.DecreaseSeeds(kgPerDay * 30);
@@ -630,11 +631,12 @@ class Program
                 if (nbRemainingKg < 0)
                 {
                     nbDaysWithoutFeeding = -1 * nbRemainingKg / kgPerDay;
-                    Console.WriteLine($"{thisAnimal.GetName()} didn't eat for {nbDaysWithoutFeeding} days");
-
+                    Console.WriteLine($"[FEED] {thisAnimal.GetName()} didn't eat for {nbDaysWithoutFeeding} days");
+                    Console.WriteLine($"[FEED] {thisAnimal.GetName()} ate only {(kgPerDay * 30)+nbRemainingKg:F2}Kg of seeds.");
+                }else
+                {
+                    Console.WriteLine($"[FEED] {thisAnimal.GetName()} ate {kgPerDay * 30:F2}Kg of seeds.");
                 }
-
-                Console.WriteLine($"[FEED] {thisAnimal.GetName()} ate {kgPerDay * 30:F2}Kg of seeds.");
             }
             else
             {
@@ -642,12 +644,14 @@ class Program
                 if (nbRemainingKg < 0)
                 {
                     nbDaysWithoutFeeding = -1 * nbRemainingKg / kgPerDay;
-                    Console.WriteLine($"{thisAnimal.GetName()} didn't eat for {nbDaysWithoutFeeding} days");
-
-                }
+                    Console.WriteLine($"[FEED] {thisAnimal.GetName()} didn't eat for {nbDaysWithoutFeeding} days");
+                       Console.WriteLine($"[FEED] {thisAnimal.GetName()} ate only {(kgPerDay * 30)+nbRemainingKg:F2}Kg of meat.");
+                }else
+                {
+                
 
                 Console.WriteLine($"[FEED] {thisAnimal.GetName()} ate {kgPerDay * 30:F2}Kg of meat.");
-
+                }
             }
 
             thisAnimal.SetHunger(nbDaysWithoutFeeding);

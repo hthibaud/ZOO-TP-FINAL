@@ -37,11 +37,9 @@ public class Zoo
 
     public List<Animal> _animals = new List<Animal>();
 
-
     public Zoo(int numberOfHabitats, int numberOfChickenHabitats, int numberOfEagleHabitats, int numberOfTigerHabitats)
     {
     }
-
 
     public void ShowInfo()
     {
@@ -62,13 +60,11 @@ public class Zoo
 
         Console.WriteLine($"\nTotal of chickens : {numberOfChickens}\n");
 
+        int nbChickens = 0;
         for (var i = 0; i < _animals.Count(); i++)
         {
-            int nbChickens = 0;
-
             if (_animals[i].GetSpecies().Contains("Chicken"))
             {
-
                 nbChickens++;
                 Console.WriteLine($"Chicken {nbChickens}:");
 
@@ -89,20 +85,17 @@ public class Zoo
 
         Console.WriteLine($"\nTotal of eagles : {numberOfEagles}\n");
 
+        int nbEagles = 0;
         for (var i = 0; i < _animals.Count(); i++)
         {
-            int nbEagles = 0;
-
             if (_animals[i].GetSpecies().Contains("Eagle"))
             {
-
                 nbEagles++;
                 Console.WriteLine($"Eagle {nbEagles}:");
 
                 _animals[i].ShowInfo();
             }
         }
-
     }
 
     public void ShowTigersDetailedInfo()
@@ -117,13 +110,12 @@ public class Zoo
 
         Console.WriteLine($"\nTotal of tigers : {numberOfTigers}\n");
 
+        int nbTigers = 0;
         for (var i = 0; i < _animals.Count(); i++)
         {
-            int nbTigers = 0;
 
             if (_animals[i].GetSpecies().Contains("Tiger"))
             {
-
                 nbTigers++;
                 Console.WriteLine($"Tiger {nbTigers}:");
 
@@ -221,7 +213,7 @@ public class Zoo
 
         for (var i = _animals.Count - 1; i >= 0; i--)
         {
-            if (_animals[i].GetName().Contains(chosenChickenFemaleName) && _animals[i] is Chicken_Female)
+            if (_animals[i].GetName() == chosenChickenFemaleName && _animals[i] is Chicken_Female)
             {
                 _animals.RemoveAt(i);
                 numberOfChickens -= 1;
@@ -287,7 +279,7 @@ public class Zoo
 
         for (var i = _animals.Count - 1; i >= 0; i--)
         {
-            if (_animals[i].GetName().Contains(chosenChickenMaleName) && _animals[i] is Chicken_Male)
+            if (_animals[i].GetName() == chosenChickenMaleName && _animals[i] is Chicken_Male)
             {
                 _animals.RemoveAt(i);
                 numberOfChickens -= 1;
@@ -383,7 +375,7 @@ public class Zoo
 
         for (var i = _animals.Count - 1; i >= 0; i--)
         {
-            if (_animals[i].GetName().Contains(chosenEagleName) && _animals[i].GetAge() >= 6 && _animals[i].GetAge() < 48)
+            if (_animals[i].GetName() == chosenEagleName && _animals[i].GetAge() >= 6 && _animals[i].GetAge() < 48)
             {
                 _animals.RemoveAt(i);
                 numberOfEagles -= 1;
@@ -419,7 +411,7 @@ public class Zoo
 
         for (var i = _animals.Count - 1; i >= 0; i--)
         {
-            if (_animals[i].GetName().Contains(chosenEagleName) && _animals[i].GetAge() >= 48 && _animals[i].GetAge() < 168)
+            if (_animals[i].GetName() == chosenEagleName && _animals[i].GetAge() >= 48 && _animals[i].GetAge() < 168)
             {
                 _animals.RemoveAt(i);
                 numberOfEagles -= 1;
@@ -455,7 +447,7 @@ public class Zoo
 
         for (var i = _animals.Count - 1; i >= 0; i--)
         {
-            if (_animals[i].GetName().Contains(chosenEagleName) && _animals[i].GetAge() >= 168)
+            if (_animals[i].GetName() == chosenEagleName && _animals[i].GetAge() >= 168)
             {
                 _animals.RemoveAt(i);
                 numberOfEagles -= 1;
@@ -553,7 +545,7 @@ public class Zoo
 
         for (var i = _animals.Count - 1; i >= 0; i--)
         {
-            if (_animals[i].GetName().Contains(chosenTigerName) && _animals[i].GetAge() >= 6 && _animals[i].GetAge() < 48)
+            if (_animals[i].GetName() == chosenTigerName && _animals[i].GetAge() >= 6 && _animals[i].GetAge() < 48)
             {
                 _animals.RemoveAt(i);
                 numberOfTigers -= 1;
@@ -589,7 +581,7 @@ public class Zoo
 
         for (var i = _animals.Count - 1; i >= 0; i--)
         {
-            if (_animals[i].GetName().Contains(chosenTigerName) && _animals[i].GetAge() >= 48 && _animals[i].GetAge() < 168)
+            if (_animals[i].GetName() == chosenTigerName && _animals[i].GetAge() >= 48 && _animals[i].GetAge() < 168)
             {
                 _animals.RemoveAt(i);
                 numberOfTigers -= 1;
@@ -626,7 +618,7 @@ public class Zoo
 
         for (var i = _animals.Count - 1; i >= 0; i--)
         {
-            if (_animals[i].GetName().Contains(chosenTigerName) && _animals[i].GetAge() >= 168)
+            if (_animals[i].GetName() == chosenTigerName && _animals[i].GetAge() >= 168)
             {
                 _animals.RemoveAt(i);
                 numberOfTigers -= 1;
@@ -760,7 +752,6 @@ public class Zoo
         }
         return true;
     }
-
     public void RemoveChickenHabitat()
     {
 
