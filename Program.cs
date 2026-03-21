@@ -90,6 +90,7 @@ class Program
         Console.WriteLine("\n\n########### WELCOME TO YOUR ZOO ###########\n");
         myAccount.ShowInfos();
         time.ShowInfos();
+        food.ShowInfos();
         Console.WriteLine(" 1. Buy Animals");
         Console.WriteLine(" 2. Buy Habitats");
         Console.WriteLine(" 3. Buy food");
@@ -513,7 +514,7 @@ class Program
 
             case "4":
                 thisZoo.ShowInfo();
-                food.ShowInfo();
+                food.ShowInfos();
                 Console.WriteLine($"Balance : {myAccount.currentMoney}");
                 break;
 
@@ -530,16 +531,17 @@ class Program
 
     private void PassTheMonth()
     {
-
         time.IncrMonths();
+        time.GetCurrentMonthName();
+        time.ShowInfos();
         thisZoo.GrowUpAnimalsMonths();
         thisZoo.DeathByAge();
         FeedAnimals();
         thisZoo.CheckStarvation();
         EarnSubvention();
         HaveVisitors();
-        PressKeyToContinue();
-        //animals update
+        PressKeyToContinue2();
+
     }
 
     private void PassTheYear()
@@ -555,7 +557,7 @@ class Program
         Console.Clear();
         Console.WriteLine("\n########### Buy food for your animals! ###########\n");
 
-        food.ShowInfo();
+        food.ShowInfos();
 
         Console.WriteLine("\n1. Seeds\n2. Meat \n");
         Console.Write("\nChoice: ");
@@ -628,10 +630,11 @@ class Program
                 if (nbRemainingKg < 0)
                 {
                     nbDaysWithoutFeeding = -1 * nbRemainingKg / kgPerDay;
+                    Console.WriteLine($"{thisAnimal.GetName()} didn't eat for {nbDaysWithoutFeeding} days");
+
                 }
 
-                Console.WriteLine($"Your animal {thisAnimal} didn't eat for {nbDaysWithoutFeeding} days");
-
+                Console.WriteLine($"[FEED] {thisAnimal.GetName()} ate {kgPerDay * 30:F2}Kg of seeds.");
             }
             else
             {
@@ -639,8 +642,12 @@ class Program
                 if (nbRemainingKg < 0)
                 {
                     nbDaysWithoutFeeding = -1 * nbRemainingKg / kgPerDay;
+                    Console.WriteLine($"{thisAnimal.GetName()} didn't eat for {nbDaysWithoutFeeding} days");
+
                 }
-                Console.WriteLine($"Your animal {thisAnimal} didn't eat for {nbDaysWithoutFeeding} days");
+
+                Console.WriteLine($"[FEED] {thisAnimal.GetName()} ate {kgPerDay * 30:F2}Kg of meat.");
+
             }
 
             thisAnimal.SetHunger(nbDaysWithoutFeeding);
@@ -655,11 +662,11 @@ class Program
             for (var i = 0; i < thisZoo._animals.Count; i++)
             {
                 subvention += thisZoo._animals[i].GetSubvention();
-
             }
 
             myAccount.IncrSubventions();
             myAccount.Sell(subvention);
+            Console.WriteLine($"\n[SUBVENTION] You've got an annual subvention of {subvention}€!");
 
         }
     }
@@ -680,7 +687,7 @@ class Program
         myAccount.IncrVisitorsMoney(priceVisitors);
         myAccount.Sell(priceVisitors);
 
-        Console.WriteLine($"The {nbVisitors} visitors payed {priceVisitors}€ in total during the low season.");
+        Console.WriteLine($"\n[VISITORS] The {nbVisitors} visitors payed {priceVisitors}€ in total during the low season.\n");
     }
     public void HaveVisitors_high()
     {
@@ -698,7 +705,7 @@ class Program
         myAccount.IncrVisitorsMoney(priceVisitors);
         myAccount.Sell(priceVisitors);
 
-        Console.WriteLine($"The {nbVisitors} visitors payed {priceVisitors}€ in total during the high season.\n");
+        Console.WriteLine($"\n[VISITORS] The {nbVisitors} visitors payed {priceVisitors}€ in total during the high season.\n");
     }
     public void HaveVisitors()
     {
@@ -710,12 +717,17 @@ class Program
         {
             HaveVisitors_high();
         }
-
-        Console.WriteLine($"Balance : {myAccount.currentMoney}€\n");
+        myAccount.ShowInfos();
     }
     public void PressKeyToContinue()
     {
         Console.WriteLine("\n[Press key to return to main menu]");
+        Console.ReadLine();
+    }
+
+    public void PressKeyToContinue2()
+    {
+        Console.WriteLine("\n[Press key to continue]");
         Console.ReadLine();
     }
 
@@ -751,7 +763,7 @@ class Program
         if (thisZoo.numberOfAnimals <= 0)
         {
             Console.WriteLine("You don't have any animal to sell.");
-            PressKeyToContinue();         
+            PressKeyToContinue();
             return;
         }
         Console.WriteLine("\n ########### Sell animals from your Zoo! ########### \n");
@@ -784,10 +796,9 @@ class Program
                         case "1":
                             myAccount.Sell(10);
 
-                                thisZoo.removeChickenFemale();
-                                chicken_habitat.RemoveAnimal();
-                                Console.WriteLine($"Balance : {myAccount.currentMoney}");
-
+                            thisZoo.RemoveChickenFemale();
+                            chicken_habitat.RemoveAnimal();
+                            myAccount.ShowInfos();
                             break;
 
                         case "2":
@@ -800,9 +811,9 @@ class Program
                             }
                             else
                             {
-                                thisZoo.removeChickenMale();
+                                thisZoo.RemoveChickenMale();
                                 chicken_habitat.RemoveAnimal();
-                                Console.WriteLine($"Balance : {myAccount.currentMoney}");
+                                myAccount.ShowInfos();
                             }
                             break;
 
@@ -830,9 +841,6 @@ class Program
 
                     var eagle_choice = Console.ReadLine();
 
-                    Random rand = new Random();
-                    int randomChoice = rand.Next(2);
-
                     switch (eagle_choice)
                     {
 
@@ -846,21 +854,9 @@ class Program
                             }
                             else
                             {
-                                if (randomChoice == 0)
-                                {
-
-                                    thisZoo.addEagleFemale(6);
-                                    eagle_habitat.AddAnimal();
-                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
-
-                                }
-                                else
-                                {
-                                    thisZoo.addEagleMale(6);
-                                    eagle_habitat.AddAnimal();
-                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
-
-                                }
+                                thisZoo.RemoveEagleOf6Months();
+                                eagle_habitat.RemoveAnimal();
+                                myAccount.ShowInfos();
                             }
                             break;
 
@@ -874,18 +870,11 @@ class Program
                             }
                             else
                             {
-                                if (randomChoice == 0)
-                                {
-                                    thisZoo.addEagleFemale(48); //48 months = 4 years
-                                    eagle_habitat.AddAnimal();
-                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
-                                }
-                                else
-                                {
-                                    thisZoo.addEagleMale(48);
-                                    eagle_habitat.AddAnimal();
-                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
-                                }
+
+                                thisZoo.RemoveEagleOf4Years();
+                                eagle_habitat.RemoveAnimal();
+                                myAccount.ShowInfos();
+
                             }
                             break;
 
@@ -899,18 +888,10 @@ class Program
                             }
                             else
                             {
-                                if (randomChoice == 0)
-                                {
-                                    thisZoo.addEagleFemale(168); //168 months = 14 years
-                                    eagle_habitat.AddAnimal();
-                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
-                                }
-                                else
-                                {
-                                    thisZoo.addEagleMale(168);
-                                    eagle_habitat.AddAnimal();
-                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
-                                }
+                                thisZoo.RemoveEagleOf14Years();
+                                eagle_habitat.RemoveAnimal();
+                                myAccount.ShowInfos();
+
                             }
                             break;
 
@@ -939,9 +920,6 @@ class Program
 
                     var tiger_choice = Console.ReadLine();
 
-                    Random rand = new Random();
-                    int randomChoice = rand.Next(2);
-
                     switch (tiger_choice)
                     {
 
@@ -951,23 +929,12 @@ class Program
                             {
                                 Console.Clear();
                                 Console.WriteLine($"\n{myAccount.errorString}");
-
                             }
                             else
                             {
-                                if (randomChoice == 0)
-                                {
-                                    thisZoo.addTigerFemale(6);
-                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
-
-                                }
-                                else
-                                {
-                                    thisZoo.addTigerMale(6);
-                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
-
-                                }
-                                tiger_habitat.AddAnimal();
+                                thisZoo.RemoveTigerOf6Months();
+                                tiger_habitat.RemoveAnimal();
+                                myAccount.ShowInfos();
                             }
                             break;
 
@@ -980,20 +947,9 @@ class Program
                             }
                             else
                             {
-
-                                if (randomChoice == 0)
-                                {
-                                    thisZoo.addTigerFemale(48); //48 months = 4 years
-                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
-
-                                }
-                                else
-                                {
-                                    thisZoo.addTigerMale(48);
-                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
-
-                                }
-                                tiger_habitat.AddAnimal();
+                                thisZoo.RemoveTigerOf4Years();
+                                tiger_habitat.RemoveAnimal();
+                                myAccount.ShowInfos();
                             }
                             break;
 
@@ -1006,20 +962,9 @@ class Program
                             }
                             else
                             {
-
-                                if (randomChoice == 0)
-                                {
-                                    thisZoo.addTigerFemale(168); //168 months = 14 years
-                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
-
-                                }
-                                else
-                                {
-                                    thisZoo.addTigerMale(168);
-                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
-
-                                }
-                                tiger_habitat.AddAnimal();
+                                thisZoo.RemoveTigerOf14Years();
+                                tiger_habitat.RemoveAnimal();
+                                myAccount.ShowInfos();
                             }
                             break;
 
@@ -1045,12 +990,12 @@ class Program
         Console.Clear();
         Console.WriteLine("\n########### Sell food to customers! ###########\n");
         myAccount.ShowInfos();
-        food.ShowInfo();
+        food.ShowInfos();
 
-        if (food.GetMeatKg() <= 0 && food.GetSeedsKg()<= 0)
+        if (food.GetMeatKg() <= 0 && food.GetSeedsKg() <= 0)
         {
             Console.WriteLine("You don't have any food to sell.");
-            PressKeyToContinue();            
+            PressKeyToContinue();
             return;
         }
 
@@ -1079,14 +1024,14 @@ class Program
                 if (kgSeeds > food.GetSeedsKg())
                 {
                     Console.WriteLine($"You don't have {kgSeeds}kg seeds to sell");
-                    PressKeyToContinue();            
+                    PressKeyToContinue();
                     return;
                 }
                 myAccount.Sell(kgSeeds * food.seedsPricePerKg);
                 food.DecreaseSeeds(kgSeeds);
                 Console.Clear();
                 Console.WriteLine($"\nYou sold {kgSeeds}kg of seeds for {food.seedsPricePerKg * kgSeeds}€ to a customer!\n");
-                Console.WriteLine($"Balance : {myAccount.currentMoney}");
+                myAccount.ShowInfos();
                 break;
 
             case "2":
@@ -1114,7 +1059,7 @@ class Program
                 food.DecreaseMeat(kgMeat);
                 Console.Clear();
                 Console.WriteLine($"\nYou sold {kgMeat}kg of meat for {food.meatPricePerKg * kgMeat}€ to a customer!\n");
-                Console.WriteLine($"Balance : {myAccount.currentMoney}€");
+                myAccount.ShowInfos();
                 break;
         }
         Console.WriteLine("\n[Press any key to return to Main Menu]");
@@ -1129,20 +1074,54 @@ class Program
         thisZoo.addTigerHabitat();
         myAccount.Buy(2000);
         thisZoo.addEagleHabitat();
+
+
         myAccount.Buy(20);
-        thisZoo.addChickenFemale();
+        thisZoo.addChickenFemale2("Poulette");
         chicken_habitat.AddAnimal();
+
+        myAccount.Buy(20);
+        thisZoo.addChickenFemale2("Poulette2");
+        chicken_habitat.AddAnimal();
+
+        myAccount.Buy(20);
+        thisZoo.addChickenFemale2("Poulette3");
+        chicken_habitat.AddAnimal();
+
         myAccount.Buy(100);
-        thisZoo.addChickenMale();
+        thisZoo.addChickenMale2("Pouletto");
         chicken_habitat.AddAnimal();
+
+        myAccount.Buy(100);
+        thisZoo.addChickenMale2("Pouletto2");
+        chicken_habitat.AddAnimal();
+
+        myAccount.Buy(100);
+        thisZoo.addChickenMale2("Pouletto3");
+        chicken_habitat.AddAnimal();
+
+
         myAccount.Buy(3000);
-        thisZoo.addTigerFemale(6);
+        thisZoo.addTigerFemale2("Tigrette", 6);
         tiger_habitat.AddAnimal();
+
+
         myAccount.Buy(1000);
-        thisZoo.addEagleMale(6);
+        thisZoo.addEagleMale2("Aiglou", 6);
         eagle_habitat.AddAnimal();
-        myAccount.Buy(5000);
-        food.IncreaseMeat(1000);
+
+        myAccount.Buy(1000);
+        thisZoo.addEagleFemale2("Aiglette", 6);
+        eagle_habitat.AddAnimal();
+
+        myAccount.Buy(1000);
+        thisZoo.addEagleFemale2("Aiglette2", 6);
+        eagle_habitat.AddAnimal();
+
+
+        myAccount.Buy(25000);
+        food.IncreaseMeat(5000);
+
         myAccount.Buy(2500);
         food.IncreaseSeeds(1000);
     }

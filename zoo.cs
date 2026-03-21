@@ -1,6 +1,7 @@
 using System.ComponentModel.Design;
 using System.Globalization;
 using System.Net;
+using System.Security.Cryptography.X509Certificates;
 
 public class Zoo
 {
@@ -40,6 +41,7 @@ public class Zoo
     public Zoo(int numberOfHabitats, int numberOfChickenHabitats, int numberOfEagleHabitats, int numberOfTigerHabitats)
     {
     }
+
 
     public void ShowInfo()
     {
@@ -182,6 +184,13 @@ public class Zoo
             chosenChickenFemaleName = "Unnamed chicken";
         }
 
+        addChickenFemale2(chosenChickenFemaleName);
+
+    }
+
+    public void addChickenFemale2(string chosenChickenFemaleName)
+    {
+
         Chicken_Female ChickenFemale = new Chicken_Female(chosenChickenFemaleName, 6, false, true);
 
         //_chickensFemales.Add(ChickenFemale);
@@ -196,43 +205,43 @@ public class Zoo
 
     }
 
-    public void removeChickenFemale()
+    public void RemoveChickenFemale()
     {
 
-            Console.Write("Enter the name of the chicken you want to sell: ");
-            string? chosenChickenFemaleName = Console.ReadLine();
+        Console.Write("Enter the name of the chicken you want to sell: ");
+        string? chosenChickenFemaleName = Console.ReadLine();
 
-            if (chosenChickenFemaleName == null || chosenChickenFemaleName == "")
+        if (chosenChickenFemaleName == null || chosenChickenFemaleName == "")
+        {
+            chosenChickenFemaleName = "Unnamed chicken";
+        }
+
+
+        bool found = false;
+
+        for (var i = _animals.Count - 1; i >= 0; i--)
+        {
+            if (_animals[i].GetName().Contains(chosenChickenFemaleName) && _animals[i] is Chicken_Female)
             {
-                chosenChickenFemaleName = "Unnamed chicken";
+                _animals.RemoveAt(i);
+                numberOfChickens -= 1;
+                numberOfAnimals -= 1;
+                found = true;
+                break;
+
             }
+        }
+        if (found == false)
+        {
+            Console.WriteLine($"You don't have any chicken named {chosenChickenFemaleName}");
+            return;
+        }
+        //_chickensFemales.Add(ChickenFemale);
 
+        Console.Clear();
 
-            bool found = false;
-
-            for (var i = _animals.Count -1; i >= 0; i--)
-            {
-                if (_animals[i].GetName().Contains(chosenChickenFemaleName) && _animals[i] is Chicken_Female)
-                {
-                    _animals.RemoveAt(i);
-                    numberOfChickens -= 1;
-                    numberOfAnimals -= 1;
-                    found = true;
-                    break;
-
-                }
-            }
-                if (found == false)
-                {
-                    Console.WriteLine($"You don't have any chicken named {chosenChickenFemaleName}");
-                    return;
-                }
-            //_chickensFemales.Add(ChickenFemale);
-
-            Console.Clear();
-
-            Console.WriteLine($"\n\n\nYour chicken {chosenChickenFemaleName} of 6 months has been sold!\n");
-        }    
+        Console.WriteLine($"\n\n\nYour chicken {chosenChickenFemaleName} of 6 months has been sold for 10€!\n");
+    }
 
     public void addChickenMale()
     {
@@ -243,6 +252,13 @@ public class Zoo
         {
             chosenChickenMaleName = "Unnamed chicken";
         }
+
+        addChickenFemale2(chosenChickenMaleName);
+
+    }
+
+    public void addChickenMale2(string chosenChickenMaleName)
+    {
 
         Chicken_Male ChickenMale = new Chicken_Male(chosenChickenMaleName, 6, false, true);
 
@@ -256,42 +272,42 @@ public class Zoo
         Console.WriteLine($"\n\n\nYour new chicken {chosenChickenMaleName} of 6 months has been added to your chicken habitat!\n");
     }
 
-    public void removeChickenMale()
+    public void RemoveChickenMale()
+    {
+        Console.Write("Enter the name of the chicken you want to sell: ");
+        string? chosenChickenMaleName = Console.ReadLine();
+
+        if (chosenChickenMaleName == null || chosenChickenMaleName == "")
         {
-            Console.Write("Enter the name of the chicken you want to sell: ");
-            string? chosenChickenMaleName = Console.ReadLine();
-
-            if (chosenChickenMaleName == null || chosenChickenMaleName == "")
-            {
-                chosenChickenMaleName = "Unnamed chicken";
-            }
-
-
-            bool found = false;
-
-            for (var i = _animals.Count -1; i >= 0; i--)
-            {
-                if (_animals[i].GetName().Contains(chosenChickenMaleName) && _animals[i] is Chicken_Male)
-                {
-                    _animals.RemoveAt(i);
-                    numberOfChickens -= 1;
-                    numberOfAnimals -= 1;
-                    found = true;
-                    break;
-
-                }
-            }
-                if (found == false)
-                {
-                    Console.WriteLine($"You don't have any chicken named {chosenChickenMaleName}");
-                    return;
-                }
-            //_chickensFemales.Add(ChickenFemale);
-
-            Console.Clear();
-
-            Console.WriteLine($"\n\n\nYour chicken {chosenChickenMaleName} of 6 months has been sold!\n");
+            chosenChickenMaleName = "Unnamed chicken";
         }
+
+
+        bool found = false;
+
+        for (var i = _animals.Count - 1; i >= 0; i--)
+        {
+            if (_animals[i].GetName().Contains(chosenChickenMaleName) && _animals[i] is Chicken_Male)
+            {
+                _animals.RemoveAt(i);
+                numberOfChickens -= 1;
+                numberOfAnimals -= 1;
+                found = true;
+                break;
+
+            }
+        }
+        if (found == false)
+        {
+            Console.WriteLine($"You don't have any chicken named {chosenChickenMaleName}");
+            return;
+        }
+        //_chickensFemales.Add(ChickenFemale);
+
+        Console.Clear();
+
+        Console.WriteLine($"\n\n\nYour chicken {chosenChickenMaleName} of 6 months has been sold for 20€!\n");
+    }
     public void addEagleFemale(int age)
     {
         Console.Write("Enter a name for your new eagle: ");
@@ -302,6 +318,12 @@ public class Zoo
             chosenEagleFemaleName = "Unnamed eagle";
         }
 
+        addEagleFemale2(chosenEagleFemaleName, age);
+
+    }
+
+    public void addEagleFemale2(string chosenEagleFemaleName, int age)
+    {
         Eagle_Female EagleFemale = new Eagle_Female(chosenEagleFemaleName, age, false, true);
 
         //_eaglesFemales.Add(EagleFemale);
@@ -326,6 +348,12 @@ public class Zoo
             chosenEagleMaleName = "Unnamed eagle";
         }
 
+        addEagleMale2(chosenEagleMaleName, age);
+
+    }
+
+    public void addEagleMale2(string chosenEagleMaleName, int age)
+    {
         Eagle_Male EagleMale = new Eagle_Male(chosenEagleMaleName, age, false, true);
 
         //_eaglesMales.Add(EagleMale);
@@ -337,11 +365,120 @@ public class Zoo
         Console.Clear();
 
         Console.WriteLine($"\n\n\nYour new eagle {chosenEagleMaleName} of {age} months has been added to your eagles habitat!\n");
+    }
 
+    public void RemoveEagleOf6Months()
+    {
+
+        Console.Write("Enter the name of the eagle you want to sell: ");
+        string? chosenEagleName = Console.ReadLine();
+
+        if (chosenEagleName == null || chosenEagleName == "")
+        {
+            chosenEagleName = "Unnamed eagle";
+        }
+
+
+        bool found = false;
+
+        for (var i = _animals.Count - 1; i >= 0; i--)
+        {
+            if (_animals[i].GetName().Contains(chosenEagleName) && _animals[i].GetAge() >= 6 && _animals[i].GetAge() < 48)
+            {
+                _animals.RemoveAt(i);
+                numberOfEagles -= 1;
+                numberOfAnimals -= 1;
+                found = true;
+                break;
+
+            }
+        }
+        if (found == false)
+        {
+            Console.WriteLine($"You don't have any eagle of 6 months named {chosenEagleName}");
+            return;
+        }
+
+        Console.Clear();
+
+        Console.WriteLine($"\n\n\nYour eagle {chosenEagleName} of 6 months has been sold for 500€!\n");
+    }
+    public void RemoveEagleOf4Years()
+    {
+
+        Console.Write("Enter the name of the eagle you want to sell: ");
+        string? chosenEagleName = Console.ReadLine();
+
+        if (chosenEagleName == null || chosenEagleName == "")
+        {
+            chosenEagleName = "Unnamed eagle";
+        }
+
+
+        bool found = false;
+
+        for (var i = _animals.Count - 1; i >= 0; i--)
+        {
+            if (_animals[i].GetName().Contains(chosenEagleName) && _animals[i].GetAge() >= 48 && _animals[i].GetAge() < 168)
+            {
+                _animals.RemoveAt(i);
+                numberOfEagles -= 1;
+                numberOfAnimals -= 1;
+                found = true;
+                break;
+
+            }
+        }
+        if (found == false)
+        {
+            Console.WriteLine($"You don't have any eagle of 4 years named {chosenEagleName}");
+            return;
+        }
+
+        Console.Clear();
+
+        Console.WriteLine($"\n\n\nYour eagle {chosenEagleName} of 4 years has been sold for 2000€!\n");
+    }
+    public void RemoveEagleOf14Years()
+    {
+
+        Console.Write("Enter the name of the eagle you want to sell: ");
+        string? chosenEagleName = Console.ReadLine();
+
+        if (chosenEagleName == null || chosenEagleName == "")
+        {
+            chosenEagleName = "Unnamed eagle";
+        }
+
+
+        bool found = false;
+
+        for (var i = _animals.Count - 1; i >= 0; i--)
+        {
+            if (_animals[i].GetName().Contains(chosenEagleName) && _animals[i].GetAge() >= 168)
+            {
+                _animals.RemoveAt(i);
+                numberOfEagles -= 1;
+                numberOfAnimals -= 1;
+                found = true;
+                break;
+
+            }
+        }
+        if (found == false)
+        {
+            Console.WriteLine($"You don't have any eagle of 14 years named {chosenEagleName}");
+            return;
+        }
+
+        Console.Clear();
+
+        Console.WriteLine($"\n\n\nYour eagle {chosenEagleName} of 14 years has been sold for 400€!\n");
     }
 
     public void addTigerFemale(int age)
     {
+
         Console.Write("Enter a name for your new tiger: ");
         string? chosenTigerFemaleName = Console.ReadLine();
 
@@ -349,6 +486,13 @@ public class Zoo
         {
             chosenTigerFemaleName = "Unnamed tiger";
         }
+
+        addTigerFemale2(chosenTigerFemaleName, age);
+
+    }
+
+    public void addTigerFemale2(string chosenTigerFemaleName, int age)
+    {
 
         Tiger_Female TigerFemale = new Tiger_Female(chosenTigerFemaleName, age, false, true);
 
@@ -374,6 +518,12 @@ public class Zoo
             chosenTigerMaleName = "Unnamed tiger";
         }
 
+        addTigerMale2(chosenTigerMaleName, age);
+
+    }
+    public void addTigerMale2(string chosenTigerMaleName, int age)
+    {
+
         Tiger_Male TigerMale = new Tiger_Male(chosenTigerMaleName, age, false, true);
 
         //_tigersMales.Add(TigerMale);
@@ -387,39 +537,127 @@ public class Zoo
         Console.WriteLine($"\n\n\nYour new tiger {chosenTigerMaleName} of {age} months has been added to your tigers habitat!\n");
 
     }
+    public void RemoveTigerOf6Months()
+    {
 
+        Console.Write("Enter the name of the tiger you want to sell: ");
+        string? chosenTigerName = Console.ReadLine();
+
+        if (chosenTigerName == null || chosenTigerName == "")
+        {
+            chosenTigerName = "Unnamed tiger";
+        }
+
+
+        bool found = false;
+
+        for (var i = _animals.Count - 1; i >= 0; i--)
+        {
+            if (_animals[i].GetName().Contains(chosenTigerName) && _animals[i].GetAge() >= 6 && _animals[i].GetAge() < 48)
+            {
+                _animals.RemoveAt(i);
+                numberOfTigers -= 1;
+                numberOfAnimals -= 1;
+                found = true;
+                break;
+
+            }
+        }
+        if (found == false)
+        {
+            Console.WriteLine($"You don't have any tiger of 6 months named {chosenTigerName}");
+            return;
+        }
+
+        Console.Clear();
+
+        Console.WriteLine($"\n\n\nYour tiger {chosenTigerName} of 6 months has been sold for 1500€!\n");
+    }
+    public void RemoveTigerOf4Years()
+    {
+
+        Console.Write("Enter the name of the tiger you want to sell: ");
+        string? chosenTigerName = Console.ReadLine();
+
+        if (chosenTigerName == null || chosenTigerName == "")
+        {
+            chosenTigerName = "Unnamed tiger";
+        }
+
+
+        bool found = false;
+
+        for (var i = _animals.Count - 1; i >= 0; i--)
+        {
+            if (_animals[i].GetName().Contains(chosenTigerName) && _animals[i].GetAge() >= 48 && _animals[i].GetAge() < 168)
+            {
+                _animals.RemoveAt(i);
+                numberOfTigers -= 1;
+                numberOfAnimals -= 1;
+                found = true;
+                break;
+
+            }
+        }
+        if (found == false)
+        {
+            Console.WriteLine($"You don't have any tiger of 4 years named {chosenTigerName}");
+            return;
+        }
+
+        Console.Clear();
+
+        Console.WriteLine($"\n\n\nYour tiger {chosenTigerName} of 4 years has been sold for 60 000€!\n");
+    }
+
+    public void RemoveTigerOf14Years()
+    {
+
+        Console.Write("Enter the name of the tiger you want to sell: ");
+        string? chosenTigerName = Console.ReadLine();
+
+        if (chosenTigerName == null || chosenTigerName == "")
+        {
+            chosenTigerName = "Unnamed tiger";
+        }
+
+
+        bool found = false;
+
+        for (var i = _animals.Count - 1; i >= 0; i--)
+        {
+            if (_animals[i].GetName().Contains(chosenTigerName) && _animals[i].GetAge() >= 168)
+            {
+                _animals.RemoveAt(i);
+                numberOfTigers -= 1;
+                numberOfAnimals -= 1;
+                found = true;
+                break;
+
+            }
+        }
+        if (found == false)
+        {
+            Console.WriteLine($"You don't have any tiger of 14 years named {chosenTigerName}");
+            return;
+        }
+
+        Console.Clear();
+
+        Console.WriteLine($"\n\n\nYour tiger {chosenTigerName} of 14 years has been sold for 10 000€!\n");
+    }
     public bool EnoughChickenHabitats()
     {
-        if (numberOfChickens < numberOfChickenHabitats * 10)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return numberOfChickens < numberOfChickenHabitats * 10;
     }
     public bool EnoughEagleHabitats()
     {
-        if (numberOfEagles < numberOfEagleHabitats * 4)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return numberOfEagles < numberOfEagleHabitats * 4;
+
     }
     public bool EnoughTigerHabitats()
     {
-        if (numberOfTigers < numberOfTigerHabitats * 2)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return numberOfTigers < numberOfTigerHabitats * 2;
     }
     public void GrowUpAnimalsMonths()
     {
@@ -471,7 +709,6 @@ public class Zoo
 
             if (thisAnimal.GetHunger() > (thisAnimal.GetDaysBeforeStarvation() * 2))
             {
-                Console.Clear();
                 Console.WriteLine($"[DEATH] : You didn't feed {thisAnimal.GetName()} for {thisAnimal.GetHunger()} days");
 
                 _animals.RemoveAt(i);
@@ -482,7 +719,7 @@ public class Zoo
                 {
                     numberOfChickens -= 1;
                 }
-                else if (thisAnimal.GetSpecies().Contains("Eagles"))
+                else if (thisAnimal.GetSpecies().Contains("Eagle"))
                 {
                     numberOfEagles -= 1;
                 }
@@ -522,5 +759,10 @@ public class Zoo
             return false;
         }
         return true;
+    }
+
+    public void RemoveChickenHabitat()
+    {
+
     }
 }

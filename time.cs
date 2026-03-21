@@ -12,12 +12,12 @@ class Time
     {
         if (_nbMonths < 12)
         {
-            Console.WriteLine($"\nTime: {_nbMonths} months\n");
+            Console.WriteLine($"Elapsed time: {_nbMonths} month(s)\n");
         }
         else
         {
             int remainingMonths = _nbMonths % 12;
-            Console.WriteLine($"\nTime: {GetNbYears()} year(s) and {remainingMonths} month(s)\n");
+            Console.WriteLine($"Elapsed time: {GetNbYears()} year(s) and {remainingMonths} month(s)\n");
         }
     }
     public int GetNbYears()
@@ -31,57 +31,66 @@ class Time
 
     public int GetCurrentMonth()
     {
-        return _nbMonths%12;
+        int currentMonth;
+
+        currentMonth = _nbMonths%12;
+
+        if (currentMonth == 0 && _nbMonths > 0)
+        {
+            currentMonth = 12;
+        }
+    
+        return currentMonth;
     }
-    public string GetCurrentMonthName()
+    public void GetCurrentMonthName()
     {
         if (GetCurrentMonth() == 1)
         {
-            return "Time of the Year : January";
+            Console.WriteLine("\nMonth of the Year : January\n");
         }
         if (GetCurrentMonth() == 2)
         {
-            return "Time of the Year : February";
+            Console.WriteLine("\nMonth of the Year : February\n");
         }
         else if (GetCurrentMonth() == 3)
         {
-            return "Time of the Year : March";
+            Console.WriteLine("\nMonth of the Year : March\n");
         }
         else if (GetCurrentMonth() == 4)
         {
-            return "Time of the Year : April";
+            Console.WriteLine("\nMonth of the Year : Avril\n");
         }
         else if (GetCurrentMonth() == 5)
         {
-            return "Time of the Year : May";
+            Console.WriteLine("\nMonth of the Year : May\n");
         }
         else if (GetCurrentMonth() == 6)
         {
-            return "Time of the Year : June";
+            Console.WriteLine("\nMonth of the Year : June\n");
         }
         else if (GetCurrentMonth() == 7)
         {
-            return "Time of the Year : July";
+            Console.WriteLine("\nTMonth of the Year : July\n");
         }
         else if (GetCurrentMonth() == 8)
         {
-            return "Time of the Year : August";
+            Console.WriteLine("\nMonth of the Year : August\n");
         }
         else if (GetCurrentMonth() == 9)
         {
-            return "Time of the Year : September";
+            Console.WriteLine("\nMonth of the Year : September\n");
         }
         else if (GetCurrentMonth() == 10)
         {
-            return "Time of the Year : October";
+            Console.WriteLine("\nMonth of the Year : October\n");
         }
         else if (GetCurrentMonth() == 11)
         {
-            return "Time of the Year : November";
+            Console.WriteLine("\nMonth of the Year : November\n");
         }
-        else
+        else if (GetCurrentMonth() == 12)
         {
-            return "Time of the Year : December";
+            Console.WriteLine("\nMonth of the Year : December\n");
         }
     }
 }
