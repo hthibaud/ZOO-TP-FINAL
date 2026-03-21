@@ -9,9 +9,15 @@ class Program
 
     Chicken_Habitat chicken_habitat = new Chicken_Habitat();
 
+    Eagle_Habitat eagle_habitat = new Eagle_Habitat();
+
+    Tiger_Habitat tiger_habitat = new Tiger_Habitat();
+
     Time time = new Time();
 
     Food food = new Food();
+
+    Visitors visitors = new Visitors();
     static void Main()
     {
         Program myProg = new Program();
@@ -65,14 +71,15 @@ class Program
                     PassTheYear();
                     break;
 
+                case "i":
+                    InitScenario1();
+                    break;
+
 
             }
             //Console.Clear();
         }
     }
-
-
-
     private void ShowMainMenu()
     {
         Console.Clear();
@@ -197,12 +204,14 @@ class Program
                                 {
 
                                     thisZoo.addEagleFemale(6);
+                                    eagle_habitat.AddAnimal();
                                     Console.WriteLine($"Balance : {myAccount.currentMoney}");
 
                                 }
                                 else
                                 {
                                     thisZoo.addEagleMale(6);
+                                    eagle_habitat.AddAnimal();
                                     Console.WriteLine($"Balance : {myAccount.currentMoney}");
 
                                 }
@@ -222,11 +231,13 @@ class Program
                                 if (randomChoice == 0)
                                 {
                                     thisZoo.addEagleFemale(48); //48 months = 4 years
+                                    eagle_habitat.AddAnimal();
                                     Console.WriteLine($"Balance : {myAccount.currentMoney}");
                                 }
                                 else
                                 {
                                     thisZoo.addEagleMale(48);
+                                    eagle_habitat.AddAnimal();
                                     Console.WriteLine($"Balance : {myAccount.currentMoney}");
                                 }
                             }
@@ -245,11 +256,13 @@ class Program
                                 if (randomChoice == 0)
                                 {
                                     thisZoo.addEagleFemale(168); //168 months = 14 years
+                                    eagle_habitat.AddAnimal();
                                     Console.WriteLine($"Balance : {myAccount.currentMoney}");
                                 }
                                 else
                                 {
                                     thisZoo.addEagleMale(168);
+                                    eagle_habitat.AddAnimal();
                                     Console.WriteLine($"Balance : {myAccount.currentMoney}");
                                 }
                             }
@@ -308,6 +321,7 @@ class Program
                                     Console.WriteLine($"Balance : {myAccount.currentMoney}");
 
                                 }
+                                tiger_habitat.AddAnimal();
                             }
                             break;
 
@@ -333,6 +347,7 @@ class Program
                                     Console.WriteLine($"Balance : {myAccount.currentMoney}");
 
                                 }
+                                tiger_habitat.AddAnimal();
                             }
                             break;
 
@@ -358,6 +373,7 @@ class Program
                                     Console.WriteLine($"Balance : {myAccount.currentMoney}");
 
                                 }
+                                tiger_habitat.AddAnimal();
                             }
                             break;
 
@@ -516,13 +532,14 @@ class Program
         FeedAnimals();
         thisZoo.CheckStarvation();
         EarnSubvention();
+        HaveVisitors();
+        PressKeyToContinue();
         //animals update
-
     }
 
     private void PassTheYear()
     {
-        for (var i = 0; i < 12; i++)
+        for (var i = 1; i <= 12; i++)
         {
             PassTheMonth();
         }
@@ -641,4 +658,85 @@ class Program
 
         }
     }
+
+    public void HaveVisitors_low()
+    {
+        float priceVisitors = 0f;
+        float nbVisitors = 0;
+          
+            for (var i = 0; i < thisZoo._animals.Count; i++)
+            {
+                priceVisitors += thisZoo._animals[i].GetPriceVisitors_low();
+                nbVisitors += thisZoo._animals[i].GetNbVisitors_low();
+            }
+            
+            visitors.IncrVisitors(nbVisitors);
+
+            myAccount.IncrVisitorsMoney(priceVisitors);
+            myAccount.Sell(priceVisitors);
+
+            Console.WriteLine($"The {nbVisitors} visitors payed {priceVisitors}€ in total during the low season.");
+    }
+    public void HaveVisitors_high()
+    {
+        float priceVisitors = 0f;
+        float nbVisitors = 0;
+          
+            for (var i = 0; i < thisZoo._animals.Count; i++)
+            {
+                priceVisitors += thisZoo._animals[i].GetPriceVisitors_high();
+                nbVisitors += thisZoo._animals[i].GetNbVisitors_high();
+            }
+            
+            visitors.IncrVisitors(nbVisitors);
+
+            myAccount.IncrVisitorsMoney(priceVisitors);
+            myAccount.Sell(priceVisitors);
+
+            Console.WriteLine($"The {nbVisitors} visitors payed {priceVisitors}€ in total during the high season.\n");
+    }
+    public void HaveVisitors()
+    {
+            if (time.GetCurrentMonth() < 7)
+        {
+            HaveVisitors_low();
+        } else
+        {
+            HaveVisitors_high();
+        }
+
+        Console.WriteLine($"Balance : {myAccount.currentMoney}€\n");
+    }
+    public void PressKeyToContinue()
+    {
+        Console.WriteLine("\n[Press key to return to main menu]");
+        Console.ReadLine();
+    }
+
+    public void InitScenario1()
+    {
+        myAccount.Buy(300);
+        thisZoo.addChickenHabitat();
+        myAccount.Buy(2000);
+        thisZoo.addTigerHabitat();
+        myAccount.Buy(2000);
+        thisZoo.addEagleHabitat();
+        myAccount.Buy(20);
+        thisZoo.addChickenFemale();
+        chicken_habitat.AddAnimal();
+        myAccount.Buy(100);
+        thisZoo.addChickenMale();
+        chicken_habitat.AddAnimal();
+        myAccount.Buy(3000);
+        thisZoo.addTigerFemale(6);
+        tiger_habitat.AddAnimal();
+        myAccount.Buy(1000);
+        thisZoo.addEagleMale(6);
+        eagle_habitat.AddAnimal();
+        myAccount.Buy(5000);
+        food.IncreaseMeat(1000);
+        myAccount.Buy(2500);
+        food.IncreaseSeeds(1000);
+    }
 }
+

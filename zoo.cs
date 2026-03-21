@@ -351,13 +351,6 @@ public class Zoo
             _animals[i].GrowUpMonths();
         }
     }
-    public void GrowUpAnimalsYears()
-    {
-        for (var i = 0; i < _animals.Count; i++)
-        {
-            _animals[i].GrowUpYears();
-        }
-    }
     public void DeathByAge()
     {
         for (int i = _animals.Count - 1; i >= 0; i--)
@@ -398,8 +391,7 @@ public class Zoo
         for (int i = _animals.Count -1; i >= 0; i--)
         {
             Animal thisAnimal = _animals[i];
-            thisAnimal.ShowInfo();
-
+            
             if (thisAnimal.GetHunger() > (thisAnimal.GetDaysBeforeStarvation() * 2))
             {
                 Console.Clear();
@@ -422,11 +414,10 @@ public class Zoo
                     numberOfTigers -= 1;
                 }
 
-                Console.WriteLine("\n[Press any key to continue]");
-                Console.ReadKey();
+                //Console.WriteLine("\n[Press any key to continue]");
+                //Console.ReadLine();
             }
         }
     }
-
 }
 

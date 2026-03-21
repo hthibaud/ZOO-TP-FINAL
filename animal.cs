@@ -18,9 +18,12 @@ public class Animal
         private bool _illOrNot = false;
         private bool _firstMonth = true;
         private double _daysHungry = 0;
-
         private int _subvention = 0;
-        public Animal(string species, string name, int age, string diet, int daysBeforeStarvation, double kgPerDay, bool sex, int sexualMaturity, int endOfReproduction, int lifeTime, bool illOrNot, bool firstMonth, double daysHungry, int subvention)
+        private float _nbPeopleVisited_low = 0;
+        private float _nbPeopleVisited_high = 0;
+
+
+        public Animal(string species, string name, int age, string diet, int daysBeforeStarvation, double kgPerDay, bool sex, int sexualMaturity, int endOfReproduction, int lifeTime, bool illOrNot, bool firstMonth, double daysHungry, int subvention, float nbPeopleVisited_low, float nbPeopleVisited_high)
         {
                 _species = species;
                 _name = name;
@@ -36,6 +39,8 @@ public class Animal
                 _firstMonth = firstMonth;
                 _daysHungry = daysHungry;
                 _subvention = subvention;
+                _nbPeopleVisited_low = nbPeopleVisited_low;
+                _nbPeopleVisited_high = nbPeopleVisited_high;
         }
 
         public void ShowInfo()
@@ -50,7 +55,7 @@ public class Animal
 
         public void GrowUpYears()
         {
-                _age+=12;
+                _age += 12;
         }
 
         public string GetSpecies()
@@ -83,18 +88,35 @@ public class Animal
                 return _daysBeforeStarvation;
         }
 
-        public void SetHunger(double days) 
+        public void SetHunger(double days)
         {
-                _daysHungry = days; 
+                _daysHungry = days;
         }
         public double GetHunger()
         {
-               return _daysHungry;
-        } 
+                return _daysHungry;
+        }
 
         public int GetSubvention()
         {
                 return _subvention;
         }
 
+        public float GetPriceVisitors_low()
+        {
+                return _nbPeopleVisited_low * 15; //15 = price of one ticket to make it easier
+        }
+        public float GetPriceVisitors_high()
+        {
+                return _nbPeopleVisited_high * 15;
+        }
+
+        public float GetNbVisitors_low()
+        {
+                return _nbPeopleVisited_low;
+        }
+        public float GetNbVisitors_high()
+        {
+                return _nbPeopleVisited_high;
+        }
 }

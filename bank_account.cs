@@ -13,6 +13,8 @@ public class BankAccount
 
     private int _nbSubventions = 0;
 
+    private float _totalVisitorsMoney = 0;
+
     public BankAccount(float startingMoney)
     {
         if (startingMoney < 0)
@@ -55,16 +57,16 @@ public class BankAccount
     }
     public void Buy(float amount)
     {
-            resetError();
-         if (amount > currentMoney)
+        resetError();
+        if (amount > currentMoney)
         {
             setError("Not enough money");
             return;
         }
-          resetError();
+        resetError();
         if (amount <= 0)
         {
-        
+
             setError("Bad amount");
             return;
         }
@@ -82,6 +84,15 @@ public class BankAccount
     public int GetNbSubvention()
     {
         return _nbSubventions;
+    }
+
+    public void IncrVisitorsMoney(float money)
+    {
+        _totalVisitorsMoney += money;
+    }
+    public float GetTotalVisitorsMoney()
+    {
+        return _totalVisitorsMoney;
     }
 }
 
