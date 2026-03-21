@@ -515,8 +515,9 @@ class Program
         thisZoo.DeathByAge();
         FeedAnimals();
         thisZoo.CheckStarvation();
+        EarnSubvention();
         //animals update
-        //test subvention
+
     }
 
     private void PassTheYear()
@@ -527,8 +528,8 @@ class Program
         thisZoo.DeathByAge();
         FeedAnimals();
         thisZoo.CheckStarvation();
+        EarnSubvention();
         //animals update
-        //test subvention
     }
 
     public void BuyFoodMenu()
@@ -582,11 +583,11 @@ class Program
                     }
                     Console.WriteLine("Invalid input");
                 }
-                myAccount.Buy(kgMeat * food.seedsPricePerKg);
-                food.IncreaseSeeds(kgMeat);
+                myAccount.Buy(kgMeat * food.meatPricePerKg);
+                food.IncreaseMeat(kgMeat);
                 Console.Clear();
                 Console.WriteLine($"\nYou bought {kgMeat}kg of meat for {food.meatPricePerKg * kgMeat}€\n");
-                Console.WriteLine($"Balance : {myAccount.currentMoney}");
+                Console.WriteLine($"Balance : {myAccount.currentMoney}€");
                 break;
         }
         Console.WriteLine("\n[Press any key to return to Main Menu]");
@@ -610,7 +611,7 @@ class Program
                 {
                     nbDaysWithoutFeeding = -1 * nbRemainingKg / kgPerDay;
                 }
-                
+
                 Console.WriteLine($"Your animal {thisAnimal} didn't eat for {nbDaysWithoutFeeding} days");
 
             }
@@ -624,8 +625,24 @@ class Program
                 Console.WriteLine($"Your animal {thisAnimal} didn't eat for {nbDaysWithoutFeeding} days");
             }
 
-                thisAnimal.SetHunger(nbDaysWithoutFeeding);
+            thisAnimal.SetHunger(nbDaysWithoutFeeding);
         }
     }
-    
+
+    public void EarnSubvention()
+    {
+        int subvention = 0;
+        if (myAccount.GetNbSubvention() != time.GetNbYears())
+        {            
+            for (var i = 0; i < thisZoo._animals.Count; i++)
+            {
+                subvention += thisZoo._animals[i].GetSubvention();
+
+            }
+
+            myAccount.IncrSubventions();
+            myAccount.Sell(subvention);
+
+        }
+    }
 }

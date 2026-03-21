@@ -392,6 +392,7 @@ public class Zoo
         }
     }
     public void CheckStarvation()
+
     {
 
         for (int i = _animals.Count -1; i >= 0; i--)
@@ -426,5 +427,6 @@ public class Zoo
             }
         }
     }
+
 }
 

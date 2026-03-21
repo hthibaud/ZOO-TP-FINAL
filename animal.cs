@@ -18,7 +18,9 @@ public class Animal
         private bool _illOrNot = false;
         private bool _firstMonth = true;
         private double _daysHungry = 0;
-        public Animal(string species, string name, int age, string diet, int daysBeforeStarvation, double kgPerDay, bool sex, int sexualMaturity, int endOfReproduction, int lifeTime, bool illOrNot, bool firstMonth, double daysHungry)
+
+        private int _subvention = 0;
+        public Animal(string species, string name, int age, string diet, int daysBeforeStarvation, double kgPerDay, bool sex, int sexualMaturity, int endOfReproduction, int lifeTime, bool illOrNot, bool firstMonth, double daysHungry, int subvention)
         {
                 _species = species;
                 _name = name;
@@ -33,6 +35,7 @@ public class Animal
                 _illOrNot = illOrNot;
                 _firstMonth = firstMonth;
                 _daysHungry = daysHungry;
+                _subvention = subvention;
         }
 
         public void ShowInfo()
@@ -88,5 +91,10 @@ public class Animal
         {
                return _daysHungry;
         } 
+
+        public int GetSubvention()
+        {
+                return _subvention;
+        }
 
 }

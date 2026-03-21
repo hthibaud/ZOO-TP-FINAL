@@ -11,6 +11,8 @@ public class BankAccount
 
     public bool hasError => _hasError;
 
+    private int _nbSubventions = 0;
+
     public BankAccount(float startingMoney)
     {
         if (startingMoney < 0)
@@ -72,4 +74,14 @@ public class BankAccount
     {
         Console.WriteLine($" Balance : {currentMoney}€\n");
     }
+    public void IncrSubventions()
+    {
+        _nbSubventions++;
+    }
+
+    public int GetNbSubvention()
+    {
+        return _nbSubventions;
+    }
 }
+
