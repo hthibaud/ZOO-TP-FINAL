@@ -522,14 +522,10 @@ class Program
 
     private void PassTheYear()
     {
-
-        time.IncrYears();
-        thisZoo.GrowUpAnimalsYears();
-        thisZoo.DeathByAge();
-        FeedAnimals();
-        thisZoo.CheckStarvation();
-        EarnSubvention();
-        //animals update
+        for (var i = 0; i < 12; i++)
+        {
+            PassTheMonth();
+        }
     }
 
     public void BuyFoodMenu()
