@@ -79,9 +79,7 @@ class Program
                     InitScenario1();
                     break;
 
-
             }
-            //Console.Clear();
         }
     }
     private void ShowMainMenu()
@@ -508,7 +506,7 @@ class Program
             case "4":
                 thisZoo.ShowInfo();
                 food.ShowInfos();
-                Console.WriteLine($"Balance : {myAccount.currentMoney}");
+                myAccount.ShowInfos();
                 break;
 
             case "5":
@@ -769,7 +767,7 @@ class Program
                 break;
 
             case "2":
-                //SellHabitatsMenu();
+                SellHabitatsMenu();
                 break;
 
             case "3":
@@ -808,7 +806,7 @@ class Program
                 if (thisZoo.EnoughChickens() == true)
                 {
 
-                    Console.WriteLine("\n 1. Female chicken (6 months) : +10€\n 2. Male chicken (6 months) : +20€\n 3. Back");
+                    Console.WriteLine("\n 1. Female chicken (6 months): +10€\n 2. Male chicken (6 months): +20€\n 3. Back");
 
                     var chicken_choice = Console.ReadLine();
                     switch (chicken_choice)
@@ -1019,7 +1017,7 @@ class Program
             return;
         }
 
-        Console.WriteLine("\n1. Seeds\n2. Meat \n");
+        Console.WriteLine("\n1. Seeds: +2.5€/Kg\n2. Meat: +5€/Kg\n");
         Console.Write("\nChoice: ");
 
         var food_choice = Console.ReadLine();
@@ -1080,6 +1078,135 @@ class Program
                 Console.Clear();
                 Console.WriteLine($"\nYou sold {kgMeat}kg of meat for {food.meatPricePerKg * kgMeat}€ to a customer!\n");
                 myAccount.ShowInfos();
+                break;
+        }
+        Console.WriteLine("\n[Press any key to return to Main Menu]");
+        Console.ReadLine();
+    }
+
+    public void SellHabitatsMenu()
+    {
+
+        Console.Clear();
+        if (thisZoo.numberOfHabitats <= 0)
+        {
+            Console.WriteLine("You don't have any habitat to sell.");
+            PressKeyToContinue();
+            return;
+        }
+        Console.WriteLine("\n ########### Sell habitats from your Zoo! ########### \n");
+        myAccount.ShowInfos();
+        Console.WriteLine("\n 1. Chickens habitat: +50€\n 2. Eagles habitat: +500€\n 3. Tigers habitat: +500€\n\n 4. Back");
+        Console.Write("\nChoice: ");
+
+        var sellHabitatsChoice = Console.ReadLine();
+        switch (sellHabitatsChoice)
+        {
+            case "1":
+                if (thisZoo.RemoveChickenHabitatOk() == false)
+                {
+                    Console.Clear();
+                    Console.WriteLine("\nYou don't have any empty chickens habitat to sell.\n");
+                    break;
+                }
+
+                if (thisZoo.RemoveChickenHabitatOk() == true)
+                {
+
+                    Console.WriteLine("\nSell chickens habitat for 50€? (type yes or no)\n");
+
+                    var chicken_choice = Console.ReadLine();
+                    switch (chicken_choice)
+                    {
+                        case "yes":
+                            myAccount.Sell(50);
+                            thisZoo.SellChickenHabitat();
+                            Console.Clear();
+                            Console.WriteLine("\nYour chickens habitat has been sold for 50€!\n");
+                            myAccount.ShowInfos();
+
+                            break;
+
+                        case "no":
+                            break;
+
+                        default:
+                            Console.WriteLine("invalid choice");
+                            break;
+                    }
+                }
+                break;
+
+            case "2":
+                if (thisZoo.RemoveEagleHabitatOk() == false)
+                {
+                    Console.Clear();
+                    Console.WriteLine("You don't have any empty eagles habitat to sell.");
+                    break;
+                }
+                if (thisZoo.RemoveEagleHabitatOk() == true)
+                {
+                    Console.WriteLine("\nSell eagles habitat for 500€? (type yes or no)\n");
+
+                    var eagle_choice = Console.ReadLine();
+
+                    switch (eagle_choice)
+                    {
+
+                        case "yes":
+                            myAccount.Sell(500);
+                            thisZoo.SellEagleHabitat();
+                            Console.Clear();
+                            Console.WriteLine("\nYour eagles habitat has been sold for 500€!\n");
+                            myAccount.ShowInfos();
+                            break;
+
+                        case "no":
+                            break;
+
+                        default:
+                            Console.WriteLine("invalid choice");
+                            break;
+                    }
+                    break;
+                }
+                break;
+
+            case "3":
+
+                if (thisZoo.RemoveTigerHabitatOk() == false)
+                {
+                    Console.Clear();
+                    Console.WriteLine("\nYou don't have any empty tigers habitat to sell.\n");
+                    break;
+                }
+                if (thisZoo.RemoveTigerHabitatOk() == true)
+                {
+                    Console.WriteLine("\n Sell tigers habitat for 500€? (type yes or no)\n");
+
+                    var tiger_choice = Console.ReadLine();
+
+                    switch (tiger_choice)
+                    {
+
+                        case "yes":
+                            myAccount.Sell(500);
+                            thisZoo.SellTigerHabitat();
+                            Console.Clear();
+                            Console.WriteLine("\nYour tigers habitat has been sold for 500€!\n");
+                            myAccount.ShowInfos();
+                            break;
+
+                        case "no":
+                            break;
+
+                        default:
+                            Console.WriteLine("invalid choice");
+                            break;
+
+                    }
+                    break;
+                }
                 break;
         }
         Console.WriteLine("\n[Press any key to return to Main Menu]");

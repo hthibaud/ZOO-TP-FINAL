@@ -187,6 +187,7 @@ public class Zoo
                 Console.Clear();
 
                 Console.WriteLine($"\n\n\nYour new chicken {chosenChickenFemaleName} of 6 months has been added to your chicken habitat!\n");
+                return;
             }
             else
             {
@@ -266,6 +267,7 @@ public class Zoo
                 Console.Clear();
 
                 Console.WriteLine($"\n\n\nYour new chicken {chosenChickenMaleName} of 6 months has been added to your chicken habitat!\n");
+                return;
             }
             else
             {
@@ -343,6 +345,7 @@ public class Zoo
                 Console.Clear();
 
                 Console.WriteLine($"\n\n\nYour new eagle {chosenEagleFemaleName} of {age} months has been added to your eagles habitat!\n");
+                return;
             }
             else
             {
@@ -385,6 +388,7 @@ public class Zoo
                 Console.Clear();
 
                 Console.WriteLine($"\n\n\nYour new eagle {chosenEagleMaleName} of {age} months has been added to your eagles habitat!\n");
+                return;
             }
             else
             {
@@ -393,7 +397,6 @@ public class Zoo
             }
         }
     }
-
 
     public void RemoveEagleOf6Months()
     {
@@ -538,12 +541,11 @@ public class Zoo
                 Console.Clear();
 
                 Console.WriteLine($"\n\n\nYour new tiger {chosenTigerFemaleName} of {age} months has been added to your tigers habitat!\n");
-
+                return;
             }
             else
             {
                 Console.WriteLine("You don't have enough habitat, buy a new one.");
-
             }
         }
     }
@@ -809,8 +811,78 @@ public class Zoo
         }
         return true;
     }
-    public void RemoveChickenHabitat()
+    public bool RemoveChickenHabitatOk()
     {
+        foreach (var habitat in _chickenHabitats)
+        {
+            if (habitat.NumberOfAnimals == 0)
+            {
+                return true;
+            }
+        }
+        return false;
 
+    }
+    public bool RemoveEagleHabitatOk()
+    {
+        foreach (var habitat in _eagleHabitats)
+        {
+            if (habitat.NumberOfAnimals == 0)
+            {
+                return true;
+            }
+        }
+        return false;
+
+    }
+    public bool RemoveTigerHabitatOk()
+    {
+        foreach (var habitat in _tigerHabitats)
+        {
+            if (habitat.NumberOfAnimals == 0)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    public void SellChickenHabitat()
+    {
+        foreach (var habitat in _chickenHabitats)
+        {
+            if (RemoveChickenHabitatOk() == true)
+            {
+                _chickenHabitats.Remove(habitat);
+                numberOfChickenHabitats--;
+                numberOfHabitats--;
+                return;
+            }
+        }
+    }
+    public void SellEagleHabitat()
+    {
+        foreach (var habitat in _eagleHabitats)
+        {
+            if (RemoveEagleHabitatOk() == true)
+            {
+                numberOfEagleHabitats--;
+                numberOfHabitats--;
+                _eagleHabitats.Remove(habitat);
+                return;
+            }
+        }
+    }
+    public void SellTigerHabitat()
+    {
+        foreach (var habitat in _tigerHabitats)
+        {
+            if (RemoveTigerHabitatOk() == true)
+            {
+                numberOfTigerHabitats--;
+                numberOfHabitats--;
+                _tigerHabitats.Remove(habitat);
+                return;
+            }
+        }
     }
 }
