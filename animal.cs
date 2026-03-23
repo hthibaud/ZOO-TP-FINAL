@@ -45,7 +45,7 @@ public class Animal
 
         public void ShowInfo()
         {
-                Console.WriteLine($"\nSpecies : {_species}\nName : {_name}\nAge (month): {_age}\nSex : {_sex}\nDiet : {_diet}\nHow much I eat per day (Kg): {_kgPerDay}\nDays before starvation : {_daysBeforeStarvation}\nDays hungry : {_daysHungry}\nSexual maturity (years) : {_sexualMaturity}\nAge of the end of reproduction (years): {_endOfReproduction / 12}\nLife time (years): {_lifeTime / 12}\nIllness : {_illOrNot}\n");
+                Console.WriteLine($"\nSpecies : {_species}\nName : {_name}\nAge (months): {_age}\n\nDiet : {_diet}\nHow much I eat per day (Kg): {_kgPerDay}\nDays before starvation : {_daysBeforeStarvation}\nDays hungry : {_daysHungry}\nSexual maturity (years) : {_sexualMaturity}\nAge of the end of reproduction (years): {_endOfReproduction / 12}\nLife time (years): {_lifeTime / 12}\nIllness : {_illOrNot}\n");
         }
 
         public void GrowUpMonths()

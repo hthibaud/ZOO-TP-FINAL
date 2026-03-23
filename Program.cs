@@ -146,7 +146,6 @@ class Program
                             {
 
                                 thisZoo.addChickenFemale();
-                                chicken_habitat.AddAnimal();
                                 Console.WriteLine($"Balance : {myAccount.currentMoney}");
 
                             }
@@ -164,7 +163,6 @@ class Program
                             else
                             {
                                 thisZoo.addChickenMale();
-                                chicken_habitat.AddAnimal();
                                 Console.WriteLine($"Balance : {myAccount.currentMoney}");
                             }
                             break;
@@ -213,14 +211,12 @@ class Program
                                 {
 
                                     thisZoo.addEagleFemale(6);
-                                    eagle_habitat.AddAnimal();
                                     Console.WriteLine($"Balance : {myAccount.currentMoney}");
 
                                 }
                                 else
                                 {
                                     thisZoo.addEagleMale(6);
-                                    eagle_habitat.AddAnimal();
                                     Console.WriteLine($"Balance : {myAccount.currentMoney}");
 
                                 }
@@ -240,13 +236,11 @@ class Program
                                 if (randomChoice == 0)
                                 {
                                     thisZoo.addEagleFemale(48); //48 months = 4 years
-                                    eagle_habitat.AddAnimal();
                                     Console.WriteLine($"Balance : {myAccount.currentMoney}");
                                 }
                                 else
                                 {
                                     thisZoo.addEagleMale(48);
-                                    eagle_habitat.AddAnimal();
                                     Console.WriteLine($"Balance : {myAccount.currentMoney}");
                                 }
                             }
@@ -265,13 +259,11 @@ class Program
                                 if (randomChoice == 0)
                                 {
                                     thisZoo.addEagleFemale(168); //168 months = 14 years
-                                    eagle_habitat.AddAnimal();
                                     Console.WriteLine($"Balance : {myAccount.currentMoney}");
                                 }
                                 else
                                 {
                                     thisZoo.addEagleMale(168);
-                                    eagle_habitat.AddAnimal();
                                     Console.WriteLine($"Balance : {myAccount.currentMoney}");
                                 }
                             }
@@ -356,7 +348,6 @@ class Program
                                     Console.WriteLine($"Balance : {myAccount.currentMoney}");
 
                                 }
-                                tiger_habitat.AddAnimal();
                             }
                             break;
 
@@ -382,7 +373,6 @@ class Program
                                     Console.WriteLine($"Balance : {myAccount.currentMoney}");
 
                                 }
-                                tiger_habitat.AddAnimal();
                             }
                             break;
 
@@ -583,11 +573,24 @@ class Program
                     }
                     Console.WriteLine("Invalid input");
                 }
+
                 myAccount.Buy(kgSeeds * food.seedsPricePerKg);
-                food.IncreaseSeeds(kgSeeds);
-                Console.Clear();
-                Console.WriteLine($"\nYou bought {kgSeeds}kg of seeds for {food.seedsPricePerKg * kgSeeds}€\n");
-                Console.WriteLine($"Balance : {myAccount.currentMoney}");
+
+                if (myAccount.hasError)
+                {
+                    Console.Clear();
+                    Console.WriteLine($"\n{myAccount.errorString}");
+                    break;
+                }
+                else
+                {
+                    food.IncreaseSeeds(kgSeeds);
+                    Console.Clear();
+                    Console.WriteLine($"\nYou bought {kgSeeds}kg of seeds for {food.seedsPricePerKg * kgSeeds}€\n");
+                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
+
+                }
+
                 break;
 
             case "2":
@@ -606,10 +609,21 @@ class Program
                     Console.WriteLine("Invalid input");
                 }
                 myAccount.Buy(kgMeat * food.meatPricePerKg);
-                food.IncreaseMeat(kgMeat);
-                Console.Clear();
-                Console.WriteLine($"\nYou bought {kgMeat}kg of meat for {food.meatPricePerKg * kgMeat}€\n");
-                Console.WriteLine($"Balance : {myAccount.currentMoney}€");
+
+                if (myAccount.hasError)
+                {
+                    Console.Clear();
+                    Console.WriteLine($"\n{myAccount.errorString}");
+                    break;
+                }
+                else
+                {
+                    food.IncreaseMeat(kgMeat);
+                    Console.Clear();
+                    Console.WriteLine($"\nYou bought {kgMeat}kg of meat for {food.meatPricePerKg * kgMeat}€\n");
+                    Console.WriteLine($"Balance : {myAccount.currentMoney}€");
+
+                }
                 break;
         }
         Console.WriteLine("\n[Press any key to return to Main Menu]");
@@ -632,8 +646,9 @@ class Program
                 {
                     nbDaysWithoutFeeding = -1 * nbRemainingKg / kgPerDay;
                     Console.WriteLine($"[FEED] {thisAnimal.GetName()} didn't eat for {nbDaysWithoutFeeding} days");
-                    Console.WriteLine($"[FEED] {thisAnimal.GetName()} ate only {(kgPerDay * 30)+nbRemainingKg:F2}Kg of seeds.");
-                }else
+                    Console.WriteLine($"[FEED] {thisAnimal.GetName()} ate only {(kgPerDay * 30) + nbRemainingKg:F2}Kg of seeds.");
+                }
+                else
                 {
                     Console.WriteLine($"[FEED] {thisAnimal.GetName()} ate {kgPerDay * 30:F2}Kg of seeds.");
                 }
@@ -645,12 +660,13 @@ class Program
                 {
                     nbDaysWithoutFeeding = -1 * nbRemainingKg / kgPerDay;
                     Console.WriteLine($"[FEED] {thisAnimal.GetName()} didn't eat for {nbDaysWithoutFeeding} days");
-                       Console.WriteLine($"[FEED] {thisAnimal.GetName()} ate only {(kgPerDay * 30)+nbRemainingKg:F2}Kg of meat.");
-                }else
+                    Console.WriteLine($"[FEED] {thisAnimal.GetName()} ate only {(kgPerDay * 30) + nbRemainingKg:F2}Kg of meat.");
+                }
+                else
                 {
-                
 
-                Console.WriteLine($"[FEED] {thisAnimal.GetName()} ate {kgPerDay * 30:F2}Kg of meat.");
+
+                    Console.WriteLine($"[FEED] {thisAnimal.GetName()} ate {kgPerDay * 30:F2}Kg of meat.");
                 }
             }
 

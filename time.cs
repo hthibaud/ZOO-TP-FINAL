@@ -28,7 +28,6 @@ class Time
     {
         return _nbMonths;
     }
-
     public int GetCurrentMonth()
     {
         int currentMonth;
@@ -46,51 +45,51 @@ class Time
     {
         if (GetCurrentMonth() == 1)
         {
-            Console.WriteLine("\nMonth of the Year : January\n");
+            Console.WriteLine("\n########## JANUARY ##########\n");
         }
         if (GetCurrentMonth() == 2)
         {
-            Console.WriteLine("\nMonth of the Year : February\n");
+            Console.WriteLine("\n########## FEBRUARY ##########\n");
         }
         else if (GetCurrentMonth() == 3)
         {
-            Console.WriteLine("\nMonth of the Year : March\n");
+            Console.WriteLine("\n########## MARCH ##########\n");
         }
         else if (GetCurrentMonth() == 4)
         {
-            Console.WriteLine("\nMonth of the Year : Avril\n");
+            Console.WriteLine("\n########## APRIL ##########\n");
         }
         else if (GetCurrentMonth() == 5)
         {
-            Console.WriteLine("\nMonth of the Year : May\n");
+            Console.WriteLine("\n########## MAY ##########\n");
         }
         else if (GetCurrentMonth() == 6)
         {
-            Console.WriteLine("\nMonth of the Year : June\n");
+            Console.WriteLine("\n########## JUNE ##########\n");
         }
         else if (GetCurrentMonth() == 7)
         {
-            Console.WriteLine("\nTMonth of the Year : July\n");
+            Console.WriteLine("\n########## JULY ##########\n");
         }
         else if (GetCurrentMonth() == 8)
         {
-            Console.WriteLine("\nMonth of the Year : August\n");
+            Console.WriteLine("\n########## AUGUST ##########\n");
         }
         else if (GetCurrentMonth() == 9)
         {
-            Console.WriteLine("\nMonth of the Year : September\n");
+            Console.WriteLine("\n########## SEPTEMBER ##########\n");
         }
         else if (GetCurrentMonth() == 10)
         {
-            Console.WriteLine("\nMonth of the Year : October\n");
+            Console.WriteLine("\n########## OCTOBER ##########\n");
         }
         else if (GetCurrentMonth() == 11)
         {
-            Console.WriteLine("\nMonth of the Year : November\n");
+            Console.WriteLine("\n########## NOVEMBER ##########\n");
         }
         else if (GetCurrentMonth() == 12)
         {
-            Console.WriteLine("\nMonth of the Year : December\n");
+            Console.WriteLine("\n########## DECEMBER ##########\n");
         }
     }
 }

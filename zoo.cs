@@ -17,23 +17,12 @@ public class Zoo
     public int numberOfEagles;
 
     public int numberOfTigers;
+
     private List<Chicken_Habitat> _chickenHabitats = new List<Chicken_Habitat>();
 
     private List<Eagle_Habitat> _eagleHabitats = new List<Eagle_Habitat>();
 
     private List<Tiger_Habitat> _tigerHabitats = new List<Tiger_Habitat>();
-
-    //private List<Chicken_Female> _chickensFemales = new List<Chicken_Female>();
-
-    //private List<Chicken_Male> _chickensMales = new List<Chicken_Male>();
-
-    //private List<Eagle_Female> _eaglesFemales = new List<Eagle_Female>();
-
-    //private List<Eagle_Male> _eaglesMales = new List<Eagle_Male>();
-
-    //private List<Tiger_Female> _tigersFemales = new List<Tiger_Female>();
-
-    //private List<Tiger_Male> _tigersMales = new List<Tiger_Male>();
 
     public List<Animal> _animals = new List<Animal>();
 
@@ -182,19 +171,28 @@ public class Zoo
 
     public void addChickenFemale2(string chosenChickenFemaleName)
     {
+        foreach (var habitat in _chickenHabitats)
+        {
+            if (habitat.NumberOfAnimals < 10)
+            {
+                Chicken_Female ChickenFemale = new Chicken_Female(chosenChickenFemaleName, 6, false, true);
 
-        Chicken_Female ChickenFemale = new Chicken_Female(chosenChickenFemaleName, 6, false, true);
+                habitat.AddAnimal();
 
-        //_chickensFemales.Add(ChickenFemale);
-        numberOfChickens += 1;
+                numberOfChickens += 1;
 
-        _animals.Add(ChickenFemale);
-        numberOfAnimals += 1;
+                _animals.Add(ChickenFemale);
+                numberOfAnimals += 1;
 
-        Console.Clear();
+                Console.Clear();
 
-        Console.WriteLine($"\n\n\nYour new chicken {chosenChickenFemaleName} of 6 months has been added to your chicken habitat!\n");
-
+                Console.WriteLine($"\n\n\nYour new chicken {chosenChickenFemaleName} of 6 months has been added to your chicken habitat!\n");
+            }
+            else
+            {
+                Console.WriteLine("You don't have enough habitat, buy a new one.");
+            }
+        }
     }
 
     public void RemoveChickenFemale()
@@ -245,23 +243,35 @@ public class Zoo
             chosenChickenMaleName = "Unnamed chicken";
         }
 
-        addChickenFemale2(chosenChickenMaleName);
+        addChickenMale2(chosenChickenMaleName);
 
     }
 
     public void addChickenMale2(string chosenChickenMaleName)
     {
 
-        Chicken_Male ChickenMale = new Chicken_Male(chosenChickenMaleName, 6, false, true);
+        foreach (var habitat in _chickenHabitats)
+        {
+            if (habitat.NumberOfAnimals < 10)
+            {
+                Chicken_Male ChickenMale = new Chicken_Male(chosenChickenMaleName, 6, false, true);
 
-        //_chickensMales.Add(ChickenMale);
-        numberOfChickens += 1;
-        _animals.Add(ChickenMale);
-        numberOfAnimals += 1;
+                habitat.AddAnimal();
 
-        Console.Clear();
+                numberOfChickens += 1;
 
-        Console.WriteLine($"\n\n\nYour new chicken {chosenChickenMaleName} of 6 months has been added to your chicken habitat!\n");
+                _animals.Add(ChickenMale);
+                numberOfAnimals += 1;
+
+                Console.Clear();
+
+                Console.WriteLine($"\n\n\nYour new chicken {chosenChickenMaleName} of 6 months has been added to your chicken habitat!\n");
+            }
+            else
+            {
+                Console.WriteLine("You don't have enough habitat, buy a new one.");
+            }
+        }
     }
 
     public void RemoveChickenMale()
@@ -316,17 +326,29 @@ public class Zoo
 
     public void addEagleFemale2(string chosenEagleFemaleName, int age)
     {
-        Eagle_Female EagleFemale = new Eagle_Female(chosenEagleFemaleName, age, false, true);
+        foreach (var habitat in _eagleHabitats)
+        {
+            if (numberOfAnimals < 4)
+            {
 
-        //_eaglesFemales.Add(EagleFemale);
-        numberOfEagles += 1;
+                Eagle_Female EagleFemale = new Eagle_Female(chosenEagleFemaleName, age, false, true);
 
-        _animals.Add(EagleFemale);
-        numberOfAnimals += 1;
+                numberOfEagles += 1;
 
-        Console.Clear();
+                _animals.Add(EagleFemale);
+                habitat.AddAnimal();
 
-        Console.WriteLine($"\n\n\nYour new eagle {chosenEagleFemaleName} of {age} months has been added to your eagles habitat!\n");
+                numberOfAnimals += 1;
+
+                Console.Clear();
+
+                Console.WriteLine($"\n\n\nYour new eagle {chosenEagleFemaleName} of {age} months has been added to your eagles habitat!\n");
+            }
+            else
+            {
+                Console.WriteLine("You don't have enough habitat, buy a new one.");
+            }
+        }
 
     }
 
@@ -346,18 +368,32 @@ public class Zoo
 
     public void addEagleMale2(string chosenEagleMaleName, int age)
     {
-        Eagle_Male EagleMale = new Eagle_Male(chosenEagleMaleName, age, false, true);
 
-        //_eaglesMales.Add(EagleMale);
-        numberOfEagles += 1;
+        foreach (var habitat in _eagleHabitats)
+        {
 
-        _animals.Add(EagleMale);
-        numberOfAnimals += 1;
+            if (habitat.NumberOfAnimals < 4)
+            {
+                Eagle_Male EagleMale = new Eagle_Male(chosenEagleMaleName, age, false, true);
 
-        Console.Clear();
+                numberOfEagles += 1;
 
-        Console.WriteLine($"\n\n\nYour new eagle {chosenEagleMaleName} of {age} months has been added to your eagles habitat!\n");
+                _animals.Add(EagleMale);
+                habitat.AddAnimal();
+                numberOfAnimals += 1;
+
+                Console.Clear();
+
+                Console.WriteLine($"\n\n\nYour new eagle {chosenEagleMaleName} of {age} months has been added to your eagles habitat!\n");
+            }
+            else
+            {
+                Console.WriteLine("You don't have enough habitat, buy a new one.");
+
+            }
+        }
     }
+
 
     public void RemoveEagleOf6Months()
     {
@@ -486,18 +522,30 @@ public class Zoo
     public void addTigerFemale2(string chosenTigerFemaleName, int age)
     {
 
-        Tiger_Female TigerFemale = new Tiger_Female(chosenTigerFemaleName, age, false, true);
 
-        //_tigersFemales.Add(TigerFemale);
-        numberOfTigers += 1;
-        _animals.Add(TigerFemale);
-        numberOfAnimals += 1;
+        foreach (var habitat in _tigerHabitats)
+        {
 
+            if (habitat.NumberOfAnimals < 2)
+            {
+                Tiger_Female TigerFemale = new Tiger_Female(chosenTigerFemaleName, age, false, true);
 
-        Console.Clear();
+                numberOfTigers += 1;
+                habitat.AddAnimal();
+                _animals.Add(TigerFemale);
+                numberOfAnimals += 1;
 
-        Console.WriteLine($"\n\n\nYour new tiger {chosenTigerFemaleName} of {age} months has been added to your tigers habitat!\n");
+                Console.Clear();
 
+                Console.WriteLine($"\n\n\nYour new tiger {chosenTigerFemaleName} of {age} months has been added to your tigers habitat!\n");
+
+            }
+            else
+            {
+                Console.WriteLine("You don't have enough habitat, buy a new one.");
+
+            }
+        }
     }
 
     public void addTigerMale(int age)
@@ -516,18 +564,27 @@ public class Zoo
     public void addTigerMale2(string chosenTigerMaleName, int age)
     {
 
-        Tiger_Male TigerMale = new Tiger_Male(chosenTigerMaleName, age, false, true);
+        foreach (var habitat in _tigerHabitats)
+        {
+            if (habitat.NumberOfAnimals < 2)
+            {
+                Tiger_Male TigerMale = new Tiger_Male(chosenTigerMaleName, age, false, true);
 
-        //_tigersMales.Add(TigerMale);
-        numberOfTigers += 1;
+                numberOfTigers += 1;
 
-        _animals.Add(TigerMale);
-        numberOfAnimals += 1;
+                _animals.Add(TigerMale);
+                numberOfAnimals += 1;
 
-        Console.Clear();
+                Console.Clear();
 
-        Console.WriteLine($"\n\n\nYour new tiger {chosenTigerMaleName} of {age} months has been added to your tigers habitat!\n");
+                Console.WriteLine($"\n\n\nYour new tiger {chosenTigerMaleName} of {age} months has been added to your tigers habitat!\n");
+            }
+            else
+            {
+                Console.WriteLine("You don't have enough habitat, buy a new one.");
 
+            }
+        }
     }
     public void RemoveTigerOf6Months()
     {
