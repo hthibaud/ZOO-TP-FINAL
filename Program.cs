@@ -4,6 +4,7 @@ using System.Xml.Serialization;
 
 class Program
 {
+    //initializing all I need in my program to work correctly
     Zoo thisZoo = new Zoo(0, 0, 0, 0);
     BankAccount myAccount = new BankAccount(80000);
 
@@ -18,21 +19,27 @@ class Program
     Food food = new Food();
 
     Visitors visitors = new Visitors();
+
+    //main will launch the program (myProg.Run)
     static void Main()
     {
         Program myProg = new Program();
 
         Console.Clear();
 
-        myProg.run();
+        myProg.Run();
 
     }
-    public void run()
+
+    //Run starts the game/simulation
+    public void Run()
     {
         bool isPlaying = true;
 
         while (isPlaying)
         {
+
+            //all the choices we can make in the main menu
 
             ShowMainMenu();
 
@@ -82,6 +89,8 @@ class Program
             }
         }
     }
+
+    //display of the main menu
     private void ShowMainMenu()
     {
         Console.Clear();
@@ -103,6 +112,8 @@ class Program
         Console.Write("\nChoice: ");
     }
 
+
+    //menu + code where you can buy your animals
     private void BuyAnimalsMenu()
     {
         Console.Clear();
@@ -391,6 +402,8 @@ class Program
         Console.ReadLine();
     }
 
+
+    //menu + code where you can buy your habitats
     private void BuyHabitatsMenu()
     {
         Console.Clear();
@@ -479,6 +492,8 @@ class Program
         Console.ReadLine();
     }
 
+
+    //menu where you can choose to see which one of your stats
     private void StatsMenu()
     {
         Console.Clear();
@@ -520,6 +535,9 @@ class Program
         Console.ReadLine();
     }
 
+
+    // one of the most important one -> it will be the turn by turn function: 
+    //to pass a month every time you want to in the main menu
     private void PassTheMonth()
     {
         time.IncrMonths();
@@ -536,6 +554,8 @@ class Program
         PressKeyToContinue2();
     }
 
+
+    //just the PassTheMonth function but 12 times to make a year
     private void PassTheYear()
     {
         for (var i = 1; i <= 12; i++)
@@ -544,6 +564,8 @@ class Program
         }
     }
 
+
+    //menu where you can buy food
     public void BuyFoodMenu()
     {
         Console.Clear();
@@ -630,6 +652,8 @@ class Program
         Console.ReadLine();
     }
 
+
+    //function that will let you know what is going on during the month (what animal ate food, what animal didn't)
     public void FeedAnimals()
     {
         for (var i = 0; i < thisZoo._animals.Count; i++)
@@ -674,6 +698,8 @@ class Program
         }
     }
 
+
+    //to calculate when you deserve a subvention on the 12th month of the year
     public void EarnSubvention()
     {
         int subvention = 0;
@@ -691,6 +717,8 @@ class Program
         }
     }
 
+
+    //calculates how many visitors you'll have during the low season (from to October to April)
     public void HaveVisitors_low()
     {
         float priceVisitors = 0f;
@@ -709,6 +737,9 @@ class Program
 
         Console.WriteLine($"\n[VISITORS] The {nbVisitors} visitors payed {priceVisitors}€ in total during the low season.\n");
     }
+
+
+    //calculates how many visitors you'll have during the high season (from to May to September)
     public void HaveVisitors_high()
     {
         float priceVisitors = 0f;
@@ -727,9 +758,12 @@ class Program
 
         Console.WriteLine($"\n[VISITORS] The {nbVisitors} visitors payed {priceVisitors}€ in total during the high season.\n");
     }
+
+
+//verifies if you are in a low or high season 
     public void HaveVisitors()
     {
-        if (time.GetCurrentMonth() > 9 && time.GetCurrentMonth() < 6 )
+        if (time.GetCurrentMonth() > 9 && time.GetCurrentMonth() < 6)
         {
             HaveVisitors_low();
         }
@@ -739,18 +773,25 @@ class Program
         }
         myAccount.ShowInfos();
     }
+
+
+//just a menu function that says Press key to return to main menu and waits for that key to continue
     public void PressKeyToContinue()
     {
         Console.WriteLine("\n[Press key to return to main menu]");
         Console.ReadLine();
     }
 
+
+//just a menu function that says Press key to continue and waits for that key to continue
     public void PressKeyToContinue2()
     {
         Console.WriteLine("\n[Press key to continue]");
         Console.ReadLine();
     }
 
+
+//display menu where you can choose what to sell from your zoo
     public void SellStuffMenu()
     {
 
@@ -777,6 +818,9 @@ class Program
                 break;
         }
     }
+
+
+//display menu + code to sell animals from the zoo
     public void SellAnimalsMenu()
     {
         Console.Clear();
@@ -1005,6 +1049,8 @@ class Program
         Console.ReadLine();
     }
 
+
+//display menu + code to sell food from the zoo to "customers"
     public void SellFoodMenu()
     {
         Console.Clear();
@@ -1086,6 +1132,8 @@ class Program
         Console.ReadLine();
     }
 
+
+//display menu + code to sell habitats from the zoo to "customers"
     public void SellHabitatsMenu()
     {
 
@@ -1215,6 +1263,12 @@ class Program
         Console.ReadLine();
     }
 
+
+
+//Initializes the scenario 1 (for testing) that gives you directly :
+//1 habitat for each animal 
+//6 chickens, 3 eagles and 1 tiger
+//5000Kg of meat and 1000Kg of seeds
     public void InitScenario1()
     {
         myAccount.Buy(300);
