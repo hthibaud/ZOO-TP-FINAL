@@ -5,6 +5,8 @@ using System.Security.Cryptography.X509Certificates;
 
 public class Zoo
 {
+
+    //Initializes all I need for the Zoo Class
     public int numberOfHabitats { get; private set; }
     public int numberOfChickenHabitats { get; private set; }
     public int numberOfEagleHabitats { get; private set; }
@@ -30,6 +32,9 @@ public class Zoo
     {
     }
 
+
+
+    //Shows the basic info of the Zoo
     public void ShowInfo()
     {
         Console.Clear();
@@ -37,6 +42,8 @@ public class Zoo
         Console.WriteLine($"\nTotal of habitats : {numberOfHabitats}\nTotal of chicken habitats : {numberOfChickenHabitats}\nTotal of eagle habitats : {numberOfEagleHabitats}\nTotal of tiger habitats : {numberOfTigerHabitats}\nTotal of animals : {numberOfAnimals}\nTotal of chickens : {numberOfChickens}\nTotal of eagles : {numberOfEagles}\nTotal of tigers : {numberOfTigers}\n");
     }
 
+
+    //Shows the detailed info of each chicken in habitats info + how to take care of each sex
     public void ShowChickensDetailedInfo()
     {
         Chicken_Female chickenFemale = new Chicken_Female("reference", 6, false, false);
@@ -68,6 +75,8 @@ public class Zoo
 
     }
 
+
+    //Shows the detailed info of each eagle in habitats info + how to take care of each sex
     public void ShowEaglesDetailedInfo()
     {
         Eagle_Female eagleFemale = new Eagle_Female("reference", 6, false, false);
@@ -98,6 +107,8 @@ public class Zoo
         eagleMale.ShowDetailedInfos();
     }
 
+
+    //Shows the detailed info of each tiger in habitats info + how to take care of each sex
     public void ShowTigersDetailedInfo()
     {
         Tiger_Female tigerFemale = new Tiger_Female("reference", 6, false, false);
@@ -130,6 +141,8 @@ public class Zoo
         tigerMale.ShowDetailedInfos();
     }
 
+
+    //adds a chicken habitat in the list
     public void addChickenHabitat()
     {
 
@@ -144,6 +157,8 @@ public class Zoo
         numberOfHabitats += 1;
     }
 
+
+    //adds a eagle habitat in the list
     public void addEagleHabitat()
     {
         Eagle_Habitat newEagleHabitat = new Eagle_Habitat();
@@ -158,6 +173,8 @@ public class Zoo
         numberOfHabitats += 1;
     }
 
+
+    //adds a tiger habitat in the list
     public void addTigerHabitat()
     {
         Tiger_Habitat newTigerHabitat = new Tiger_Habitat();
@@ -172,6 +189,8 @@ public class Zoo
         numberOfHabitats += 1;
     }
 
+
+    //adds a chicken female in the list of the animals (with name input)
     public void addChickenFemale()
     {
         Console.Write("Enter a name for your new chicken: ");
@@ -186,6 +205,8 @@ public class Zoo
 
     }
 
+
+    //adds a chicken female in the list of the animals (name is chosen in parameter here)
     public void addChickenFemale2(string chosenChickenFemaleName)
     {
         foreach (var habitat in _chickenHabitats)
@@ -210,6 +231,8 @@ public class Zoo
         Console.WriteLine("You don't have enough habitats, buy a new one.");
     }
 
+
+    //adds a baby chicken female in the list of the animals (name is chosen in parameter here)
     public void addBabyChickenFemale2(string chosenChickenFemaleName)
     {
         foreach (var habitat in _chickenHabitats)
@@ -234,6 +257,8 @@ public class Zoo
         Console.WriteLine("You don't have enough habitats, buy a new one.");
     }
 
+
+    //removes a chicken female in the list of the animals (when it dies)
     public void RemoveChickenFemale()
     {
 
@@ -270,6 +295,8 @@ public class Zoo
         Console.WriteLine($"\n\n\nYour chicken {chosenChickenFemaleName} of 6 months has been sold for 10€!\n");
     }
 
+
+    //adds a chicken female in the list of the animals (with name input)
     public void addChickenMale()
     {
         Console.Write("Enter a name for your new chicken: ");
@@ -284,6 +311,8 @@ public class Zoo
 
     }
 
+
+    //adds a chicken male in the list of the animals (name is chosen in parameter here)
     public void addChickenMale2(string chosenChickenMaleName)
     {
 
@@ -309,6 +338,8 @@ public class Zoo
         Console.WriteLine("You don't have enough habitats, buy a new one.");
     }
 
+
+    //adds a baby chicken male in the list of the animals (name is chosen in parameter here)
     public void addBabyChickenMale2(string chosenChickenMaleName)
     {
 
@@ -334,6 +365,8 @@ public class Zoo
         Console.WriteLine("You don't have enough habitats, buy a new one.");
     }
 
+
+    //removes a chicken male in the list of the animals (when it dies or it's sold)
     public void RemoveChickenMale()
     {
         Console.Write("Enter the name of the chicken you want to sell: ");
@@ -370,6 +403,9 @@ public class Zoo
 
         Console.WriteLine($"\n\n\nYour chicken {chosenChickenMaleName} of 6 months has been sold for 20€!\n");
     }
+
+
+    //adds an eagle female in the list of the animals (with age in parameter and name input)
     public void addEagleFemale(int age)
     {
         Console.Write("Enter a name for your new eagle: ");
@@ -384,6 +420,8 @@ public class Zoo
 
     }
 
+
+    //adds an eagle female in the list of the animals (name and age are chosen in parameter here)
     public void addEagleFemale2(string chosenEagleFemaleName, int age)
     {
         foreach (var habitat in _eagleHabitats)
@@ -409,6 +447,8 @@ public class Zoo
         Console.WriteLine("You don't have enough habitats, buy a new one.");
     }
 
+
+    //adds an eagle male in the list of the animals (with age in parameter and name input)
     public void addEagleMale(int age)
     {
         Console.Write("Enter a name for your new eagle: ");
@@ -423,6 +463,8 @@ public class Zoo
 
     }
 
+
+    //adds an eagle male in the list of the animals (name and age are chosen in parameter here)
     public void addEagleMale2(string chosenEagleMaleName, int age)
     {
 
@@ -450,6 +492,8 @@ public class Zoo
         }
     }
 
+
+    //removes an eagle of 6 months in the list of the animals (with name search, for when it's sold)
     public void RemoveEagleOf6Months()
     {
 
@@ -486,6 +530,9 @@ public class Zoo
 
         Console.WriteLine($"\n\n\nYour eagle {chosenEagleName} of 6 months has been sold for 500€!\n");
     }
+
+
+    //removes an eagle of 4 years in the list of the animals (with name search, for when it's sold)
     public void RemoveEagleOf4Years()
     {
 
@@ -522,6 +569,9 @@ public class Zoo
 
         Console.WriteLine($"\n\n\nYour eagle {chosenEagleName} of 4 years has been sold for 2000€!\n");
     }
+
+
+    //function that removes an eagle of 14 years in the list of the animals (with name search, for when it's sold)
     public void RemoveEagleOf14Years()
     {
 
@@ -559,6 +609,8 @@ public class Zoo
         Console.WriteLine($"\n\n\nYour eagle {chosenEagleName} of 14 years has been sold for 400€!\n");
     }
 
+
+    //adds an eagle female in the list of the animals (with age in parameter and name input)
     public void addTigerFemale(int age)
     {
 
@@ -574,6 +626,8 @@ public class Zoo
 
     }
 
+
+    //adds an eagle female in the list of the animals (name and age are chosen in parameter here)
     public void addTigerFemale2(string chosenTigerFemaleName, int age)
     {
 
@@ -599,6 +653,8 @@ public class Zoo
         Console.WriteLine("You don't have enough habitats, buy a new one.");
     }
 
+
+    //adds an eagle male in the list of the animals (with age in parameter and name input)
     public void addTigerMale(int age)
     {
         Console.Write("Enter a name for your new tiger: ");
@@ -612,6 +668,9 @@ public class Zoo
         addTigerMale2(chosenTigerMaleName, age);
 
     }
+
+
+    //adds an eagle male in the list of the animals (name and age are chosen in parameter here)
     public void addTigerMale2(string chosenTigerMaleName, int age)
     {
 
@@ -634,6 +693,9 @@ public class Zoo
         }
         Console.WriteLine("You don't have enough habitats, buy a new one.");
     }
+
+
+    //removes an tiger of 6 months in the list of the animals (with name search, for when it's sold)
     public void RemoveTigerOf6Months()
     {
 
@@ -670,6 +732,9 @@ public class Zoo
 
         Console.WriteLine($"\n\n\nYour tiger {chosenTigerName} of 6 months has been sold for 1500€!\n");
     }
+
+
+    //removes an tiger of 4 years in the list of the animals (with name search, for when it's sold)
     public void RemoveTigerOf4Years()
     {
 
@@ -707,6 +772,8 @@ public class Zoo
         Console.WriteLine($"\n\n\nYour tiger {chosenTigerName} of 4 years has been sold for 60 000€!\n");
     }
 
+
+    //removes an tiger of 14 years in the list of the animals (with name search, for when it's sold)
     public void RemoveTigerOf14Years()
     {
 
@@ -743,19 +810,31 @@ public class Zoo
 
         Console.WriteLine($"\n\n\nYour tiger {chosenTigerName} of 14 years has been sold for 10 000€!\n");
     }
+
+
+    //checks if there's enough habitat when you buy an animal or if the animals of this species reproduct
     public bool EnoughChickenHabitats()
     {
         return numberOfChickens < numberOfChickenHabitats * 10;
     }
+
+
+    //checks if there's enough habitat when you buy an animal or if the animals of this species reproduct
     public bool EnoughEagleHabitats()
     {
         return numberOfEagles < numberOfEagleHabitats * 4;
 
     }
+
+
+    //checks if there's enough habitat when you buy an animal or if the animals of this species reproduct
     public bool EnoughTigerHabitats()
     {
         return numberOfTigers < numberOfTigerHabitats * 2;
     }
+
+
+    //increases the age of the animals to +1 and sets the "firstMonth" attribute to false
     public void GrowUpAnimalsMonths()
     {
         for (var i = 0; i < _animals.Count; i++)
@@ -765,6 +844,8 @@ public class Zoo
         }
     }
 
+
+    //checks if the females are pregnant and for how long for the births info etc + adds the new babies in the habitats
     public void CheckGestationTime()
     {
         Random rand = new Random();
@@ -869,6 +950,8 @@ public class Zoo
         }
     }
 
+
+    //verifies if the animals are to aged to still be alive and then make them die if it is the case
     public void DeathByAge()
     {
         for (int i = _animals.Count - 1; i >= 0; i--)
@@ -902,6 +985,9 @@ public class Zoo
             }
         }
     }
+
+
+    //checks if the animals are fed and make them die from starvation if it's not the case
     public void CheckStarvation()
 
     {
@@ -936,6 +1022,8 @@ public class Zoo
             }
         }
     }
+
+    //checks if there are enough chickens for one to be sold
     public bool EnoughChickens()
     {
         if (numberOfChickens <= 0)
@@ -947,6 +1035,9 @@ public class Zoo
             return true;
         }
     }
+
+
+    //checks if there are enough eagles for one to be sold
     public bool EnoughEagles()
     {
         if (numberOfEagles <= 0)
@@ -955,6 +1046,9 @@ public class Zoo
         }
         return true;
     }
+
+
+    //checks if there are enough tigers for one to be sold
     public bool EnoughTigers()
     {
         if (numberOfTigers <= 0)
@@ -963,6 +1057,9 @@ public class Zoo
         }
         return true;
     }
+
+
+    //checks if there are empty habitats so we can sell them
     public bool RemoveChickenHabitatOk()
     {
         foreach (var habitat in _chickenHabitats)
@@ -975,6 +1072,9 @@ public class Zoo
         return false;
 
     }
+
+
+    //checks if there are empty habitats so we can sell them
     public bool RemoveEagleHabitatOk()
     {
         foreach (var habitat in _eagleHabitats)
@@ -987,6 +1087,9 @@ public class Zoo
         return false;
 
     }
+
+
+    //checks if there are empty habitats so we can sell them
     public bool RemoveTigerHabitatOk()
     {
         foreach (var habitat in _tigerHabitats)
@@ -998,6 +1101,9 @@ public class Zoo
         }
         return false;
     }
+
+
+    //makes it possible to sell the habitat and sets all the habitats counts to -1
     public void SellChickenHabitat()
     {
         foreach (var habitat in _chickenHabitats)
@@ -1011,6 +1117,9 @@ public class Zoo
             }
         }
     }
+
+
+    //makes it possible to sell the habitat and sets all the habitats counts to -1
     public void SellEagleHabitat()
     {
         foreach (var habitat in _eagleHabitats)
@@ -1024,6 +1133,9 @@ public class Zoo
             }
         }
     }
+
+
+    //makes it possible to sell the habitat and sets all the habitats counts to -1
     public void SellTigerHabitat()
     {
         foreach (var habitat in _tigerHabitats)
@@ -1051,6 +1163,10 @@ public class Zoo
         }
         return false;
     }
+
+
+    //checks if there's at least one adult eagle to have baby eagles with a female eagle
+    //(because of architecture problem, I can't verify in each habitat)
     public bool HasAdultEagleMale()
     {
         foreach (var animal in _animals)
@@ -1063,6 +1179,9 @@ public class Zoo
         return false;
     }
 
+
+    //checks if there's at least one adult tiger to have baby tigers with a female tigers
+    //(because of architecture problem, I can't verify in each habitat)
     public bool HasAdultTigerMale()
     {
         foreach (var animal in _animals)
@@ -1075,6 +1194,8 @@ public class Zoo
         return false;
     }
 
+
+    //checks if the reproduction is possible for this species
     public void CheckChickensReproduction()
     {
         bool malePresent = HasAdultChickenMale();
@@ -1093,6 +1214,10 @@ public class Zoo
             }
         }
     }
+
+
+    //checks if the reproduction is possible for this species
+
     public void CheckEaglesReproduction(Time time)
     {
         bool malePresent = HasAdultEagleMale();
@@ -1111,6 +1236,9 @@ public class Zoo
             }
         }
     }
+
+
+    //checks if the reproduction is possible for this species
     public void CheckTigersReproduction()
     {
 
@@ -1132,6 +1260,8 @@ public class Zoo
 
     }
 
+
+    //checks all the reproduction possibility to make it easier to use in the "PassTheMonth" method
     public void CheckAllReproductions(Time time)
     {
         CheckChickensReproduction();
