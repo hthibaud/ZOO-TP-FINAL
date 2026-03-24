@@ -54,7 +54,6 @@ public class Zoo
         for (var i = 0; i < _chickenHabitats.Count; i++)
         {
             Console.WriteLine($"\nChickens habitat {i + 1}:");
-            _chickenHabitats[i].ShowInfo();
         }
 
         Console.WriteLine($"\nTotal of chickens : {numberOfChickens}\n");
@@ -87,7 +86,6 @@ public class Zoo
         for (var i = 0; i < _eagleHabitats.Count; i++)
         {
             Console.WriteLine($"\nEagles habitat {i + 1}:");
-            _eagleHabitats[i].ShowInfo();
         }
 
         Console.WriteLine($"\nTotal of eagles : {numberOfEagles}\n");
@@ -120,7 +118,6 @@ public class Zoo
         for (var i = 0; i < _chickenHabitats.Count; i++)
         {
             Console.WriteLine($"\nTigers habitat {i + 1}:");
-            _tigerHabitats[i].ShowInfo();
         }
 
         Console.WriteLine($"\nTotal of tigers : {numberOfTigers}\n");

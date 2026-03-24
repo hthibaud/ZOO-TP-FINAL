@@ -13,16 +13,22 @@ public class Food
 
     }
 
+
+//increases the amount of meat
     public void IncreaseMeat(double nbKg)
     {
         _meatKg += nbKg;
     }
 
+
+//increases the amount of seeds
         public void IncreaseSeeds(double nbKg)
     {
         _seedsKg += nbKg;
     }
 
+
+//decreases the amount of meat
         public double DecreaseMeat(double nbKg)
     {
         _meatKg -= nbKg;
@@ -36,6 +42,8 @@ public class Food
         return surplus;
     }
 
+
+//decreases the amount of seeds
         public double DecreaseSeeds(double nbKg)
     {
         _seedsKg -= nbKg;
@@ -49,15 +57,21 @@ public class Food
         return surplus;
     }
 
+//returns the meat value
     public double GetMeatKg()
     {
         return _meatKg;
     }
+
+
+    //returns the seeds value
         public double GetSeedsKg()
     {
         return _seedsKg;
     }
 
+
+//showq the info of the stocks
     public void ShowInfos()
     {
         Console.WriteLine($"Seeds in your stock: {_seedsKg:F2}Kg");
