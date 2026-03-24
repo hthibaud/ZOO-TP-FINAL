@@ -14,22 +14,22 @@ public class Food
     }
 
 
-//increases the amount of meat
+    //increases the amount of meat
     public void IncreaseMeat(double nbKg)
     {
         _meatKg += nbKg;
     }
 
 
-//increases the amount of seeds
-        public void IncreaseSeeds(double nbKg)
+    //increases the amount of seeds
+    public void IncreaseSeeds(double nbKg)
     {
         _seedsKg += nbKg;
     }
 
 
-//decreases the amount of meat
-        public double DecreaseMeat(double nbKg)
+    //decreases the amount of meat
+    public double DecreaseMeat(double nbKg)
     {
         _meatKg -= nbKg;
         double surplus = _meatKg;
@@ -43,8 +43,8 @@ public class Food
     }
 
 
-//decreases the amount of seeds
-        public double DecreaseSeeds(double nbKg)
+    //decreases the amount of seeds
+    public double DecreaseSeeds(double nbKg)
     {
         _seedsKg -= nbKg;
         double surplus = _seedsKg;
@@ -57,7 +57,7 @@ public class Food
         return surplus;
     }
 
-//returns the meat value
+    //returns the meat value
     public double GetMeatKg()
     {
         return _meatKg;
@@ -65,16 +65,42 @@ public class Food
 
 
     //returns the seeds value
-        public double GetSeedsKg()
+    public double GetSeedsKg()
     {
         return _seedsKg;
     }
 
 
-//showq the info of the stocks
+    //Decreases the amount of meat of 20%
+    public void BeRotten()
+    {
+        if (_meatKg < 0)
+        {
+            return;
+        } else
+        {
+            DecreaseMeat(_meatKg/100 * 20);
+        }
+    }
+
+
+    //Decreases the amount of seeds of 10%
+    public void BadSeeds()
+    {
+        if (_seedsKg < 0)
+        {
+            return;
+        } else
+        {
+            DecreaseSeeds(_seedsKg/100 * 10);
+        }
+    }
+
+
+    //shows the info of the stocks
     public void ShowInfos()
     {
-        Console.WriteLine($"Seeds in your stock: {_seedsKg:F2}Kg");
-        Console.WriteLine($"Meat in your stock: {_meatKg:F2}Kg\n");
+        Console.WriteLine($"Seeds in your silo: {_seedsKg:F2}Kg");
+        Console.WriteLine($"Meat in your cold chamber: {_meatKg:F2}Kg\n");
     }
 }

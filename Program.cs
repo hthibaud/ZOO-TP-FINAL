@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using System.Configuration.Assemblies;
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 
@@ -71,10 +72,12 @@ class Program
 
 
                 case "5":
+                    Console.Clear();
                     PassTheMonth();
                     break;
 
                 case "6":
+                    Console.Clear();
                     PassTheYear();
                     break;
 
@@ -551,6 +554,7 @@ class Program
         thisZoo.CheckAllReproductions(time);
         thisZoo.CheckGestationTime();
         thisZoo.GrowUpAnimalsMonths();
+        CheckEvents();
         PressKeyToContinue2();
     }
 
@@ -609,8 +613,7 @@ class Program
                     food.IncreaseSeeds(kgSeeds);
                     Console.Clear();
                     Console.WriteLine($"\nYou bought {kgSeeds}kg of seeds for {food.seedsPricePerKg * kgSeeds}€\n");
-                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
-
+                    myAccount.ShowInfos();
                 }
 
                 break;
@@ -643,8 +646,7 @@ class Program
                     food.IncreaseMeat(kgMeat);
                     Console.Clear();
                     Console.WriteLine($"\nYou bought {kgMeat}kg of meat for {food.meatPricePerKg * kgMeat}€\n");
-                    Console.WriteLine($"Balance : {myAccount.currentMoney}€");
-
+                    myAccount.ShowInfos();
                 }
                 break;
         }
@@ -760,7 +762,7 @@ class Program
     }
 
 
-//verifies if you are in a low or high season 
+    //verifies if you are in a low or high season 
     public void HaveVisitors()
     {
         if (time.GetCurrentMonth() > 9 && time.GetCurrentMonth() < 6)
@@ -775,7 +777,7 @@ class Program
     }
 
 
-//just a menu function that says Press key to return to main menu and waits for that key to continue
+    //just a menu function that says Press key to return to main menu and waits for that key to continue
     public void PressKeyToContinue()
     {
         Console.WriteLine("\n[Press key to return to main menu]");
@@ -783,7 +785,7 @@ class Program
     }
 
 
-//just a menu function that says Press key to continue and waits for that key to continue
+    //just a menu function that says Press key to continue and waits for that key to continue
     public void PressKeyToContinue2()
     {
         Console.WriteLine("\n[Press key to continue]");
@@ -791,7 +793,7 @@ class Program
     }
 
 
-//display menu where you can choose what to sell from your zoo
+    //display menu where you can choose what to sell from your zoo
     public void SellStuffMenu()
     {
 
@@ -820,7 +822,7 @@ class Program
     }
 
 
-//display menu + code to sell animals from the zoo
+    //display menu + code to sell animals from the zoo
     public void SellAnimalsMenu()
     {
         Console.Clear();
@@ -1050,7 +1052,7 @@ class Program
     }
 
 
-//display menu + code to sell food from the zoo to "customers"
+    //display menu + code to sell food from the zoo to "customers"
     public void SellFoodMenu()
     {
         Console.Clear();
@@ -1133,7 +1135,7 @@ class Program
     }
 
 
-//display menu + code to sell habitats from the zoo to "customers"
+    //display menu + code to sell habitats from the zoo to "customers"
     public void SellHabitatsMenu()
     {
 
@@ -1264,11 +1266,69 @@ class Program
     }
 
 
+    //Checks for rotten meat or bad seeds
+    public void CheckFood()
+    {
+        Random rand = new Random();
+        var random20 = rand.Next(5); //number between 0 & 4 so 1/5chance so 20%
+        var random10 = rand.Next(10); //number bewteen 0 & 10 so 1/10chance so 10%
 
-//Initializes the scenario 1 (for testing) that gives you directly :
-//1 habitat for each animal 
-//6 chickens, 3 eagles and 1 tiger
-//5000Kg of meat and 1000Kg of seeds
+        if (random20 == 0)
+        {
+            food.BadSeeds();
+            Console.WriteLine("\n[SILO] You lost 10% of your seeds this month because of insects.");
+        }
+
+        if (random10 == 0)
+        {
+            food.BeRotten();
+            Console.WriteLine("\n[COLD-CHAMBER] 20% of your meat has rotten this month.");
+        }
+        else
+        {
+            return;
+        }
+    }
+
+
+    //Checks for thiefs (1% chance to steal a random animal)
+    public void CheckThiefs()
+    {
+        Random rand = new Random();
+        var random1 = rand.Next(100); //number between 0 & 99 so 1/100chance so 1% chance
+
+        if (random1 == 0)
+        {
+            thisZoo.StolenAnimal();
+        }
+    }
+
+
+    //Checks for fires (1% chance to burn a random habitat)
+    public void CheckFire()
+    {
+        Random rand = new Random();
+        var random1 = rand.Next(100); //number between 0 & 99 so 1/100chance so 1% chance
+
+        if (random1 == 0)
+        {
+            thisZoo.BurnRandomHabitat();
+        }
+    }
+
+
+    //Checks all events 
+    public void CheckEvents()
+    {
+        CheckFood();
+        CheckThiefs();
+        CheckFire();
+    }
+
+    //Initializes the scenario 1 (for testing) that gives you directly :
+    //1 habitat for each animal 
+    //6 chickens, 3 eagles and 1 tiger
+    //5000Kg of meat and 1000Kg of seeds
     public void InitScenario1()
     {
         myAccount.Buy(300);
@@ -1322,11 +1382,10 @@ class Program
         eagle_habitat.AddAnimal();
 
 
-        myAccount.Buy(25000);
-        food.IncreaseMeat(5000);
+        myAccount.Buy(35000);
+        food.IncreaseMeat(7000);
 
         myAccount.Buy(2500);
         food.IncreaseSeeds(1000);
     }
 }
-

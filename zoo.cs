@@ -995,7 +995,7 @@ public class Zoo
 
             if (thisAnimal.GetHunger() > (thisAnimal.GetDaysBeforeStarvation() * 2))
             {
-                Console.WriteLine($"[DEATH] : You didn't feed {thisAnimal.GetName()} for {thisAnimal.GetHunger()} days");
+                Console.WriteLine($"[DEATH] : You didn't feed {thisAnimal.GetName()} for {thisAnimal.GetHunger():F2} days");
 
                 _animals.RemoveAt(i);
 
@@ -1258,6 +1258,85 @@ public class Zoo
     }
 
 
+    //makes a thief steal an random animal
+    public void StolenAnimal()
+    {
+        if (_animals.Count == 0)
+        {
+            return;
+        }
+        Random rand = new Random();
+
+        int randomAnimal = rand.Next(_animals.Count);
+
+        Animal stolenAnimal = _animals[randomAnimal];
+
+        _animals.RemoveAt(randomAnimal);
+
+        numberOfAnimals--;
+
+        Console.WriteLine($"\n[THEFT] Oh no! A thief stole {stolenAnimal.GetName()}...");
+
+        if (stolenAnimal.GetSpecies().Contains("Chicken"))
+        {
+            numberOfChickens--;
+        }
+        else if (stolenAnimal.GetSpecies().Contains("Eagle"))
+        {
+            numberOfEagles--;
+        }
+        else
+        {
+            numberOfTigers--;
+        }
+    }
+
+
+//Burns a random habitat
+    public void BurnRandomHabitat()
+{
+
+    if (numberOfHabitats == 0)
+        {
+            return;
+        }
+
+    List<object> allHabitats = new List<object>();
+    
+    foreach (var h in _chickenHabitats) allHabitats.Add(h);
+    foreach (var h in _eagleHabitats) allHabitats.Add(h);
+    foreach (var h in _tigerHabitats) allHabitats.Add(h);
+
+
+    Random rand = new Random();
+
+    int index = rand.Next(allHabitats.Count);
+    object habitatToBurn = allHabitats[index];
+
+    if (habitatToBurn is Chicken_Habitat ch)
+    {
+        _chickenHabitats.Remove(ch);
+        numberOfChickenHabitats--;
+
+        Console.WriteLine("[EVENT] A fire destroyed a Chicken Habitat! Hurry up, buy anew one.");
+    }
+    else if (habitatToBurn is Eagle_Habitat eh)
+    {
+        _eagleHabitats.Remove(eh);
+        numberOfEagleHabitats--;
+        Console.WriteLine("[EVENT] A fire destroyed an Eagle Habitat! Hurry up, buy anew one.");
+    }
+    else if (habitatToBurn is Tiger_Habitat th)
+    {
+        _tigerHabitats.Remove(th);
+        numberOfTigerHabitats--;
+        Console.WriteLine("[EVENT] A fire destroyed a Tiger Habitat! Hurry up, buy anew one.");
+    }
+
+    numberOfHabitats--;
+}
+
+
     //checks all the reproduction possibility to make it easier to use in the "PassTheMonth" method
     public void CheckAllReproductions(Time time)
     {
@@ -1265,4 +1344,5 @@ public class Zoo
         CheckEaglesReproduction(time);
         CheckTigersReproduction();
     }
+
 }

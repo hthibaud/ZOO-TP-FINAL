@@ -3,13 +3,13 @@ public class Time
     private int _nbMonths = 0;
 
 
-//Increments the number of months for whe you pass the turn
+    //Increments the number of months for whe you pass the turn
     public void IncrMonths()
     {
         _nbMonths++;
     }
-    
-    
+
+
     //Shows the time info (elapsed time)
     public void ShowInfos()
     {
@@ -23,15 +23,15 @@ public class Time
             Console.WriteLine($"Elapsed time: {GetNbYears()} year(s) and {remainingMonths} month(s)\n");
         }
     }
-    
-    
+
+
     //returns the nb of years
     public int GetNbYears()
     {
         return _nbMonths / 12;
     }
-    
-    
+
+
     //returns the nb total of months
     public int GetNbMonths()
     {
@@ -43,17 +43,17 @@ public class Time
     {
         int currentMonth;
 
-        currentMonth = _nbMonths%12;
+        currentMonth = _nbMonths % 12;
 
         if (currentMonth == 0 && _nbMonths > 0)
         {
             currentMonth = 12;
         }
-    
+
         return currentMonth;
     }
-    
-    
+
+
     //returns the name of the month of the year we are in a this time
     public void GetCurrentMonthName()
     {
