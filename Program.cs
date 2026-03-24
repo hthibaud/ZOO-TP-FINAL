@@ -525,12 +525,13 @@ class Program
         time.IncrMonths();
         time.GetCurrentMonthName();
         time.ShowInfos();
-        thisZoo.GrowUpAnimalsMonths();
         thisZoo.DeathByAge();
         FeedAnimals();
         thisZoo.CheckStarvation();
         EarnSubvention();
         HaveVisitors();
+        thisZoo.GrowUpAnimalsMonths();
+        thisZoo.CheckGestationTime();
         PressKeyToContinue2();
     }
 
@@ -727,7 +728,7 @@ class Program
     }
     public void HaveVisitors()
     {
-        if (time.GetCurrentMonth() < 7)
+        if (time.GetCurrentMonth() > 9 && time.GetCurrentMonth() < 6 )
         {
             HaveVisitors_low();
         }
@@ -1106,7 +1107,7 @@ class Program
                 if (thisZoo.RemoveChickenHabitatOk() == false)
                 {
                     Console.Clear();
-                    Console.WriteLine("\nYou don't have any empty chickens habitat to sell.\n");
+                    Console.WriteLine("\nAll your chickens habitats are occupied to sell.\n");
                     break;
                 }
 
@@ -1141,7 +1142,7 @@ class Program
                 if (thisZoo.RemoveEagleHabitatOk() == false)
                 {
                     Console.Clear();
-                    Console.WriteLine("You don't have any empty eagles habitat to sell.");
+                    Console.WriteLine("All your eagles habitats are occupied.");
                     break;
                 }
                 if (thisZoo.RemoveEagleHabitatOk() == true)
@@ -1177,7 +1178,7 @@ class Program
                 if (thisZoo.RemoveTigerHabitatOk() == false)
                 {
                     Console.Clear();
-                    Console.WriteLine("\nYou don't have any empty tigers habitat to sell.\n");
+                    Console.WriteLine("\nAll your tigers habitats are occupied.\n");
                     break;
                 }
                 if (thisZoo.RemoveTigerHabitatOk() == true)

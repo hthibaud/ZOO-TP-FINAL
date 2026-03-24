@@ -21,9 +21,14 @@ public class Animal
         private int _subvention = 0;
         private float _nbPeopleVisited_low = 0;
         private float _nbPeopleVisited_high = 0;
+        private bool _pregnant = false;
+
+        private int _gestationTime = 0;
+
+        private int _numberOfKids = 0;
 
 
-        public Animal(string species, string name, int age, string diet, int daysBeforeStarvation, double kgPerDay, bool sex, int sexualMaturity, int endOfReproduction, int lifeTime, bool illOrNot, bool firstMonth, double daysHungry, int subvention, float nbPeopleVisited_low, float nbPeopleVisited_high)
+        public Animal(string species, string name, int age, string diet, int daysBeforeStarvation, double kgPerDay, bool sex, int sexualMaturity, int endOfReproduction, int lifeTime, bool illOrNot, bool firstMonth, double daysHungry, int subvention, float nbPeopleVisited_low, float nbPeopleVisited_high, bool pregnant, int gestationTime, int numberOfKids)
         {
                 _species = species;
                 _name = name;
@@ -41,6 +46,9 @@ public class Animal
                 _subvention = subvention;
                 _nbPeopleVisited_low = nbPeopleVisited_low;
                 _nbPeopleVisited_high = nbPeopleVisited_high;
+                _pregnant = pregnant;
+                _gestationTime = gestationTime;
+                _numberOfKids = numberOfKids;
         }
 
         public void ShowInfo()
@@ -53,6 +61,20 @@ public class Animal
                 _age++;
         }
 
+        public void AddTimeToGestation()
+        {
+                _gestationTime++;
+        }
+
+        public void SetFirstMonthToFalse()
+        {
+                _firstMonth = false;
+        }
+
+        public bool FirstMonth()
+        {
+                return _firstMonth;
+        }
         public void GrowUpYears()
         {
                 _age += 12;
@@ -118,5 +140,35 @@ public class Animal
         public float GetNbVisitors_high()
         {
                 return _nbPeopleVisited_high;
+        }
+
+        public bool IsPregnant()
+        {
+                return _pregnant;
+        }
+
+        public void Gestation()
+        {
+                return;
+        }
+
+        public int GetGestationTime()
+        {
+                return _gestationTime;
+        }
+
+        public void ResetGestation()
+        {
+                _gestationTime = 0;
+                _pregnant = false;
+        }
+        public int GetNumberOfKids()
+        {
+                return _numberOfKids;
+        }
+
+        public void IncrNumberOfKids()
+        {
+                _numberOfKids++;
         }
 }

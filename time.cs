@@ -1,9 +1,7 @@
 class Time
 {
     private int _nbMonths = 0;
-
-    //private int _nbYears = 0;
-
+    
     public void IncrMonths()
     {
         _nbMonths++;

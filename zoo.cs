@@ -189,11 +189,8 @@ public class Zoo
                 Console.WriteLine($"\n\n\nYour new chicken {chosenChickenFemaleName} of 6 months has been added to your chicken habitat!\n");
                 return;
             }
-            else
-            {
-                Console.WriteLine("You don't have enough habitat, buy a new one.");
-            }
         }
+        Console.WriteLine("You don't have enough habitats, buy a new one.");
     }
 
     public void RemoveChickenFemale()
@@ -227,8 +224,6 @@ public class Zoo
             Console.WriteLine($"You don't have any chicken named {chosenChickenFemaleName}");
             return;
         }
-        //_chickensFemales.Add(ChickenFemale);
-
         Console.Clear();
 
         Console.WriteLine($"\n\n\nYour chicken {chosenChickenFemaleName} of 6 months has been sold for 10€!\n");
@@ -269,11 +264,8 @@ public class Zoo
                 Console.WriteLine($"\n\n\nYour new chicken {chosenChickenMaleName} of 6 months has been added to your chicken habitat!\n");
                 return;
             }
-            else
-            {
-                Console.WriteLine("You don't have enough habitat, buy a new one.");
-            }
         }
+        Console.WriteLine("You don't have enough habitats, buy a new one.");
     }
 
     public void RemoveChickenMale()
@@ -330,7 +322,7 @@ public class Zoo
     {
         foreach (var habitat in _eagleHabitats)
         {
-            if (numberOfAnimals < 4)
+            if (habitat.NumberOfAnimals < 4)
             {
 
                 Eagle_Female EagleFemale = new Eagle_Female(chosenEagleFemaleName, age, false, true);
@@ -347,12 +339,8 @@ public class Zoo
                 Console.WriteLine($"\n\n\nYour new eagle {chosenEagleFemaleName} of {age} months has been added to your eagles habitat!\n");
                 return;
             }
-            else
-            {
-                Console.WriteLine("You don't have enough habitat, buy a new one.");
-            }
         }
-
+        Console.WriteLine("You don't have enough habitats, buy a new one.");
     }
 
     public void addEagleMale(int age)
@@ -390,11 +378,9 @@ public class Zoo
                 Console.WriteLine($"\n\n\nYour new eagle {chosenEagleMaleName} of {age} months has been added to your eagles habitat!\n");
                 return;
             }
-            else
-            {
-                Console.WriteLine("You don't have enough habitat, buy a new one.");
 
-            }
+            Console.WriteLine("You don't have enough habitat, buy a new one.");
+
         }
     }
 
@@ -543,11 +529,8 @@ public class Zoo
                 Console.WriteLine($"\n\n\nYour new tiger {chosenTigerFemaleName} of {age} months has been added to your tigers habitat!\n");
                 return;
             }
-            else
-            {
-                Console.WriteLine("You don't have enough habitat, buy a new one.");
-            }
         }
+        Console.WriteLine("You don't have enough habitats, buy a new one.");
     }
 
     public void addTigerMale(int age)
@@ -580,13 +563,10 @@ public class Zoo
                 Console.Clear();
 
                 Console.WriteLine($"\n\n\nYour new tiger {chosenTigerMaleName} of {age} months has been added to your tigers habitat!\n");
-            }
-            else
-            {
-                Console.WriteLine("You don't have enough habitat, buy a new one.");
-
+                return;
             }
         }
+        Console.WriteLine("You don't have enough habitats, buy a new one.");
     }
     public void RemoveTigerOf6Months()
     {
@@ -715,8 +695,115 @@ public class Zoo
         for (var i = 0; i < _animals.Count; i++)
         {
             _animals[i].GrowUpMonths();
+            _animals[i].SetFirstMonthToFalse();
         }
     }
+
+    public void CheckGestationTime()
+    {
+        Random rand = new Random();
+
+        for (var i = _animals.Count - 1; i >= 0; i--)
+        {
+            if (_animals[i].IsPregnant() == true)
+            {
+                _animals[i].AddTimeToGestation();
+
+                if (_animals[i].GetGestationTime() == 2 && _animals[i] is Chicken_Female)
+                {
+                    int randomChoice = rand.Next(2);
+
+                    if (randomChoice == 0)
+                    {
+                        Console.WriteLine($"[DEATH] A baby chicken of {_animals[i].GetName()} has saddly passed away during birth.");
+                    }
+                    else
+                    {
+
+                        int otherrandomChoice = rand.Next(2);
+
+                        if (otherrandomChoice == 0)
+                        {
+                            _animals[i].IncrNumberOfKids();
+                                
+                            addChickenFemale2($"Baby{_animals[i].GetNumberOfKids()} {_animals[i].GetName()}");
+                            Console.WriteLine($"[BIRTH] A baby (female) chicken of {_animals[i].GetName()} is born!");
+                        }
+                        else
+                        {
+                            _animals[i].IncrNumberOfKids();
+
+                            addChickenMale2($"Baby{_animals[i].GetNumberOfKids()} {_animals[i].GetName()}");
+                            Console.WriteLine($"[BIRTH] A baby (male) chicken of {_animals[i].GetName()} is born!");
+                        }
+                    }
+                    _animals[i].ResetGestation();
+                }
+                else if (_animals[i].GetGestationTime() == 2 && _animals[i] is Eagle_Female)
+                {
+                    int randomChoice = rand.Next(2);
+
+                    if (randomChoice == 0)
+                    {
+                        Console.WriteLine($"[DEATH] A baby eagle of {_animals[i].GetName()} has saddly passed away during birth.");
+                    }
+                    else
+                    {
+
+                        int otherrandomChoice = rand.Next(2);
+
+                        if (otherrandomChoice == 0)
+                        {
+                            _animals[i].IncrNumberOfKids();
+
+                            addEagleFemale2($"Baby{_animals[i].GetNumberOfKids()} {_animals[i].GetName()}", 0);
+                            Console.WriteLine($"[BIRTH] A baby (female) eagle of {_animals[i].GetName()} is born!");
+                        }
+                        else
+                        {
+                            _animals[i].IncrNumberOfKids();
+
+                            addEagleMale2($"Baby{_animals[i].GetNumberOfKids()}  {_animals[i].GetName()}", 0);
+                            Console.WriteLine($"[BIRTH] A baby (male) eagle of {_animals[i].GetName()} is born!");
+                        }
+                    }
+                    _animals[i].ResetGestation();
+                }
+                else if (_animals[i].GetGestationTime() == 3 && _animals[i] is Tiger_Female)
+                {
+
+                    int randomChoice = rand.Next(3);
+
+                    if (randomChoice == 0 || randomChoice == 1)
+                    {
+                        Console.WriteLine($"[DEATH] A baby tiger of {_animals[i].GetName()} has saddly passed away during birth.");
+                    }
+                    else
+                    {
+
+                        int otherrandomChoice = rand.Next(2);
+
+                        if (otherrandomChoice == 0)
+                        {
+                            _animals[i].IncrNumberOfKids();
+
+                            addTigerFemale2($"Baby{_animals[i].GetNumberOfKids()} {_animals[i].GetName()}", 0);
+                            Console.WriteLine($"[BIRTH] A baby (female) tiger of {_animals[i].GetName()} is born!");
+                        }
+                        else
+                        {
+                            _animals[i].IncrNumberOfKids();
+
+                            addTigerMale2($"Baby{_animals[i].GetNumberOfKids()}  {_animals[i].GetName()}", 0);
+                            Console.WriteLine($"[BIRTH] A baby (male) tiger of {_animals[i].GetName()} is born!");
+                        }
+                    }
+                    _animals[i].ResetGestation();
+                }
+            }      
+        }
+    }
+
     public void DeathByAge()
     {
         for (int i = _animals.Count - 1; i >= 0; i--)
@@ -882,6 +969,107 @@ public class Zoo
                 numberOfHabitats--;
                 _tigerHabitats.Remove(habitat);
                 return;
+            }
+        }
+    }
+
+    //Checks if there's a chicken male in the Zoo 
+    //(because of architecture problem, I can't verify in each habitat) to do little chickens with the females
+    public bool HasAdultChickenMale()
+    {
+        foreach (var animal in _animals)
+        {
+            if (animal is Chicken_Male && animal.GetAge() >= 6 && animal.GetAge() < 96) // 96 months = 8 years
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    public bool HasAdultEagleMale()
+    {
+        foreach (var animal in _animals)
+        {
+            if (animal is Eagle_Male && animal.GetAge() >= 48 && animal.GetAge() < 168) // 168 months = 14 years
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public bool HasAdultTigerMale()
+    {
+        foreach (var animal in _animals)
+        {
+            if (animal is Tiger_Male && animal.GetAge() >= 72 && animal.GetAge() < 168) // 96 months = 8 years
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void CheckChickensReproduction()
+    {
+        foreach (var habitat in _chickenHabitats)
+        {
+            bool malePresent = HasAdultChickenMale();
+
+            if (malePresent == true)
+            {
+                foreach (var thisfemale in _animals)
+                {
+                    if (thisfemale is Chicken_Female && !thisfemale.IsPregnant() && !thisfemale.FirstMonth() && EnoughChickenHabitats() == true)
+                    {
+                        if (thisfemale.GetAge() >= 6 && thisfemale.GetAge() <= 96) // 96 months = 8 years
+                        {
+                            thisfemale.Gestation();
+                        }
+                    }
+                }
+            }
+        }
+    }
+    public void CheckEaglesReproduction()
+    {
+        foreach (var habitat in _eagleHabitats)
+        {
+            bool malePresent = HasAdultEagleMale();
+
+            if (malePresent == true)
+            {
+                foreach (var thisfemale in _animals)
+                {
+                    if (thisfemale is Eagle_Female && !thisfemale.IsPregnant() && !thisfemale.FirstMonth() && EnoughEagleHabitats() == true)
+                    {
+                        if (thisfemale.GetAge() >= 48 && thisfemale.GetAge() <= 148) // 148 months = 14 years
+                        {
+                            thisfemale.Gestation();
+                        }
+                    }
+                }
+            }
+        }
+    }
+public void CheckTigersReproduction()
+    {
+        foreach (var habitat in _tigerHabitats)
+        {
+            bool malePresent = HasAdultTigerMale();
+
+            if (malePresent == true)
+            {
+                foreach (var thisfemale in _animals)
+                {
+                    if (thisfemale is Tiger_Female && !thisfemale.IsPregnant() && !thisfemale.FirstMonth() && EnoughTigerHabitats() == true)
+                    {
+                        if (thisfemale.GetAge() >= 48 && thisfemale.GetAge() <= 148) // 148 months = 14 years
+                        {
+                            thisfemale.Gestation();
+                        }
+                    }
+                }
             }
         }
     }
