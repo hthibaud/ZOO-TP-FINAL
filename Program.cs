@@ -97,7 +97,7 @@ class Program
         Console.WriteLine(" 6. Pass the year");
         Console.WriteLine(" 7. Sell your stuff to merchant\n");
 
-        Console.WriteLine(" i. (for test) Initialize my zoo with predefined habitats, animals, foods...\n");
+        Console.WriteLine(" i. (for testing) Initializes the zoo with predefined habitats, animals, food...\n");
 
         Console.WriteLine(" 0. Exit Game");
         Console.Write("\nChoice: ");
