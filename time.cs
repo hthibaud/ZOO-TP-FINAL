@@ -1,7 +1,7 @@
-class Time
+public class Time
 {
     private int _nbMonths = 0;
-    
+
     public void IncrMonths()
     {
         _nbMonths++;

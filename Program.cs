@@ -528,10 +528,11 @@ class Program
         thisZoo.DeathByAge();
         FeedAnimals();
         thisZoo.CheckStarvation();
-        EarnSubvention();
         HaveVisitors();
-        thisZoo.GrowUpAnimalsMonths();
+        EarnSubvention();
+        thisZoo.CheckAllReproductions(time);
         thisZoo.CheckGestationTime();
+        thisZoo.GrowUpAnimalsMonths();
         PressKeyToContinue2();
     }
 

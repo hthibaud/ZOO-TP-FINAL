@@ -53,8 +53,13 @@ public class Animal
 
         public void ShowInfo()
         {
-                Console.WriteLine($"\nSpecies : {_species}\nName : {_name}\nAge (months): {_age}\n\nDiet : {_diet}\nHow much I eat per day (Kg): {_kgPerDay}\nDays before starvation : {_daysBeforeStarvation}\nDays hungry : {_daysHungry}\nSexual maturity (years) : {_sexualMaturity}\nAge of the end of reproduction (years): {_endOfReproduction / 12}\nLife time (years): {_lifeTime / 12}\nIllness : {_illOrNot}\n");
+                Console.WriteLine($"\nName : {_name}\nAge (months): {_age}\nSpecies : {_species}\nIllness : {_illOrNot}\n");
         }
+
+        // public void ShowDetailedInfos()
+        // {
+        //         Console.WriteLine($"####### Taking care of your animal: #######\n\nDiet : {_diet}\nHow much I eat per day (Kg): {_kgPerDay}\nDays before starvation : {_daysBeforeStarvation}\nDays hungry : {_daysHungry}\nSexual maturity (years) : {_sexualMaturity}\nAge of the end of reproduction (years): {_endOfReproduction / 12}\nLife time (years): {_lifeTime / 12}\n");
+        // }
 
         public void GrowUpMonths()
         {
@@ -147,9 +152,9 @@ public class Animal
                 return _pregnant;
         }
 
-        public void Gestation()
+        public void SetPregnantTrue()
         {
-                return;
+                _pregnant = true;
         }
 
         public int GetGestationTime()
