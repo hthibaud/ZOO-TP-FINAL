@@ -1201,7 +1201,7 @@ public class Zoo
         {
             foreach (var thisfemale in _animals)
             {
-                if (thisfemale is Chicken_Female && !thisfemale.IsPregnant() && !thisfemale.FirstMonth() && EnoughChickenHabitats() == true)
+                if (thisfemale is Chicken_Female && !thisfemale.IsPregnant() && !thisfemale.FirstMonth() && EnoughChickenHabitats() == true && !thisfemale.GetIllness())
                 {
                     if (thisfemale.GetAge() >= 6 && thisfemale.GetAge() <= 96) // 96 months = 8 years
                     {
@@ -1214,7 +1214,6 @@ public class Zoo
 
 
     //checks if the reproduction is possible for this species
-
     public void CheckEaglesReproduction(Time time)
     {
         bool malePresent = HasAdultEagleMale();
@@ -1223,7 +1222,7 @@ public class Zoo
         {
             foreach (var thisfemale in _animals)
             {
-                if (thisfemale is Eagle_Female && !thisfemale.IsPregnant() && !thisfemale.FirstMonth() && EnoughEagleHabitats() == true && time.GetCurrentMonth() == 3)
+                if (thisfemale is Eagle_Female && !thisfemale.IsPregnant() && !thisfemale.FirstMonth() && EnoughEagleHabitats() == true && time.GetCurrentMonth() == 3 && !thisfemale.GetIllness())
                 {
                     if (thisfemale.GetAge() >= 48 && thisfemale.GetAge() <= 148) // 148 months = 14 years
                     {
@@ -1245,7 +1244,7 @@ public class Zoo
         {
             foreach (var thisfemale in _animals)
             {
-                if (thisfemale is Tiger_Female && !thisfemale.IsPregnant() && !thisfemale.FirstMonth() && EnoughTigerHabitats() == true)
+                if (thisfemale is Tiger_Female && !thisfemale.IsPregnant() && !thisfemale.FirstMonth() && EnoughTigerHabitats() == true && !thisfemale.GetIllness())
                 {
                     if (thisfemale.GetAge() >= 48 && thisfemale.GetAge() <= 148) // 148 months = 14 years
                     {
@@ -1280,61 +1279,146 @@ public class Zoo
         if (stolenAnimal.GetSpecies().Contains("Chicken"))
         {
             numberOfChickens--;
+            numberOfAnimals--;
         }
         else if (stolenAnimal.GetSpecies().Contains("Eagle"))
         {
             numberOfEagles--;
+            numberOfAnimals--;
         }
         else
         {
             numberOfTigers--;
+            numberOfAnimals--;
         }
     }
 
 
-//Burns a random habitat
-    public void BurnRandomHabitat()
-{
 
-    if (numberOfHabitats == 0)
+    //Checks if some animals are going to be sick (so they can't reproduce for example)
+    public void CheckIllnesses()
+    {
+        if (_animals.Count == 0)
         {
             return;
         }
 
-    List<object> allHabitats = new List<object>();
-    
-    foreach (var h in _chickenHabitats) allHabitats.Add(h);
-    foreach (var h in _eagleHabitats) allHabitats.Add(h);
-    foreach (var h in _tigerHabitats) allHabitats.Add(h);
+        Random rand = new Random();
+
+        for (int i = _animals.Count - 1; i >= 0; i--)
+        {
+
+            var thisAnimal = _animals[i];
+
+            thisAnimal.SetIllnessToFalse();
+
+            if (thisAnimal.GetSpecies().Contains("Chicken"))
+            {
+
+                if (rand.NextDouble() < 0.0043) //0.0043%chance per month = 5% chance per year
+                {
+                    thisAnimal.SetIllnessToTrue();
+                    Console.WriteLine($"[ILLNESS] Oh no! Your chicken {thisAnimal.GetName()} is ill during this month... ");
 
 
-    Random rand = new Random();
+                    if (rand.Next(10) == 0)
+                    {
 
-    int index = rand.Next(allHabitats.Count);
-    object habitatToBurn = allHabitats[index];
+                        Console.WriteLine($"[DEATH] Oh no! Your chicken {thisAnimal.GetName()} passed away from illness... ");
 
-    if (habitatToBurn is Chicken_Habitat ch)
-    {
-        _chickenHabitats.Remove(ch);
-        numberOfChickenHabitats--;
+                        _animals.RemoveAt(i);
+                        numberOfChickens--;
+                        numberOfAnimals--;
+                    }
+                }
+            }
+            else if (thisAnimal.GetSpecies().Contains("Eagle"))
+            {
 
-        Console.WriteLine("[EVENT] A fire destroyed a Chicken Habitat! Hurry up, buy anew one.");
+
+                if (rand.NextDouble() < 0.0087) //0.0087%chance per month = 10% chance per year
+                {
+                    thisAnimal.SetIllnessToTrue();
+                    Console.WriteLine($"[ILLNESS] Oh no! Your eagle {thisAnimal.GetName()} is ill during this month... ");
+
+
+                    if (rand.Next(10) == 0)
+                    {
+
+                        Console.WriteLine($"[DEATH] Oh no! Your eagle {thisAnimal.GetName()} passed away from illness... ");
+
+                        _animals.RemoveAt(i);
+                        numberOfEagles--;
+                        numberOfAnimals--;
+                    }
+                }
+            }
+            else if (thisAnimal.GetSpecies().Contains("Tiger"))
+            {
+
+                if (rand.NextDouble() < 0.0293) //0.0293%chance per month = 30% chance per year
+                {
+                    thisAnimal.SetIllnessToTrue();
+                    Console.WriteLine($"[ILLNESS] Oh no! Your tiger {thisAnimal.GetName()} is ill during this month... ");
+
+                    if (rand.Next(10) == 0)
+                    {
+
+                        Console.WriteLine($"[DEATH] Oh no! Your tiger {thisAnimal.GetName()} passed away from illness... ");
+
+                        _animals.RemoveAt(i);
+                        numberOfTigers--;
+                        numberOfAnimals--;
+                    }
+                }
+            }
+        }
     }
-    else if (habitatToBurn is Eagle_Habitat eh)
-    {
-        _eagleHabitats.Remove(eh);
-        numberOfEagleHabitats--;
-        Console.WriteLine("[EVENT] A fire destroyed an Eagle Habitat! Hurry up, buy anew one.");
-    }
-    else if (habitatToBurn is Tiger_Habitat th)
-    {
-        _tigerHabitats.Remove(th);
-        numberOfTigerHabitats--;
-        Console.WriteLine("[EVENT] A fire destroyed a Tiger Habitat! Hurry up, buy anew one.");
-    }
 
-    numberOfHabitats--;
-}
+
+    //Burns a random habitat
+    public void BurnRandomHabitat()
+    {
+
+        if (numberOfHabitats == 0)
+        {
+            return;
+        }
+
+        List<object> allHabitats = new List<object>();
+
+        foreach (var h in _chickenHabitats) allHabitats.Add(h);
+        foreach (var h in _eagleHabitats) allHabitats.Add(h);
+        foreach (var h in _tigerHabitats) allHabitats.Add(h);
+
+
+        Random rand = new Random();
+
+        int index = rand.Next(allHabitats.Count);
+        object habitatToBurn = allHabitats[index];
+
+        if (habitatToBurn is Chicken_Habitat ch)
+        {
+            _chickenHabitats.Remove(ch);
+            numberOfChickenHabitats--;
+
+            Console.WriteLine("[EVENT] A fire destroyed a Chicken Habitat! Hurry up, buy anew one.");
+        }
+        else if (habitatToBurn is Eagle_Habitat eh)
+        {
+            _eagleHabitats.Remove(eh);
+            numberOfEagleHabitats--;
+            Console.WriteLine("[EVENT] A fire destroyed an Eagle Habitat! Hurry up, buy anew one.");
+        }
+        else if (habitatToBurn is Tiger_Habitat th)
+        {
+            _tigerHabitats.Remove(th);
+            numberOfTigerHabitats--;
+            Console.WriteLine("[EVENT] A fire destroyed a Tiger Habitat! Hurry up, buy anew one.");
+        }
+
+        numberOfHabitats--;
+    }
 
 
     //checks all the reproduction possibility to make it easier to use in the "PassTheMonth" method
@@ -1345,6 +1429,8 @@ public class Zoo
         CheckTigersReproduction();
     }
 
+
+    //Prints an ASCII Zoo art
     public void AsciiZoo()
     {
         Console.WriteLine("\n");

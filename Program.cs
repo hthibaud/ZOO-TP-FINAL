@@ -582,6 +582,7 @@ class Program
         time.GetCurrentMonthName();
         time.ShowInfos();
         thisZoo.DeathByAge();
+        thisZoo.CheckIllnesses();
         FeedAnimals();
         thisZoo.CheckStarvation();
         HaveVisitors();
@@ -821,7 +822,7 @@ class Program
     {
         Console.WriteLine("\n[Press key to return to main menu]");
         Console.ReadLine();
-        sfx.PlaySound("clickSFX");
+        sfx.PlaySound("clickSFX.wav");
     }
 
 
@@ -830,7 +831,7 @@ class Program
     {
         Console.WriteLine("\n[Press key to continue]");
         Console.ReadLine();
-        sfx.PlaySound("clickSFX");
+        sfx.PlaySound("clickSFX.wav");
     }
 
 
@@ -1138,6 +1139,7 @@ class Program
                 }
                 myAccount.Sell(kgSeeds * food.seedsPricePerKg);
                 food.DecreaseSeeds(kgSeeds);
+                sfx.PlaySound("moneySFX.wav");
                 Console.Clear();
                 Console.WriteLine($"\nYou sold {kgSeeds}kg of seeds for {food.seedsPricePerKg * kgSeeds}€ to a customer!\n");
                 myAccount.ShowInfos();
@@ -1166,13 +1168,13 @@ class Program
                 }
                 myAccount.Sell(kgMeat * food.meatPricePerKg);
                 food.DecreaseMeat(kgMeat);
+                sfx.PlaySound("moneySFX.wav");
                 Console.Clear();
                 Console.WriteLine($"\nYou sold {kgMeat}kg of meat for {food.meatPricePerKg * kgMeat}€ to a customer!\n");
                 myAccount.ShowInfos();
                 break;
         }
-        Console.WriteLine("\n[Press any key to return to Main Menu]");
-        Console.ReadLine();
+        PressKeyToContinue();
     }
 
 
@@ -1199,7 +1201,7 @@ class Program
                 if (thisZoo.RemoveChickenHabitatOk() == false)
                 {
                     Console.Clear();
-                    Console.WriteLine("\nAll your chickens habitats are occupied to sell.\n");
+                    Console.WriteLine("\nAll your chickens habitats are occupied, can't sell.\n");
                     break;
                 }
 
@@ -1214,6 +1216,7 @@ class Program
                         case "yes":
                             myAccount.Sell(50);
                             thisZoo.SellChickenHabitat();
+                            sfx.PlaySound("moneySFX.wav");
                             Console.Clear();
                             Console.WriteLine("\nYour chickens habitat has been sold for 50€!\n");
                             myAccount.ShowInfos();
@@ -1249,6 +1252,7 @@ class Program
                         case "yes":
                             myAccount.Sell(500);
                             thisZoo.SellEagleHabitat();
+                            sfx.PlaySound("moneySFX.wav");
                             Console.Clear();
                             Console.WriteLine("\nYour eagles habitat has been sold for 500€!\n");
                             myAccount.ShowInfos();
@@ -1285,6 +1289,7 @@ class Program
                         case "yes":
                             myAccount.Sell(500);
                             thisZoo.SellTigerHabitat();
+                            sfx.PlaySound("moneySFX.wav");
                             Console.Clear();
                             Console.WriteLine("\nYour tigers habitat has been sold for 500€!\n");
                             myAccount.ShowInfos();
@@ -1302,8 +1307,7 @@ class Program
                 }
                 break;
         }
-        Console.WriteLine("\n[Press any key to return to Main Menu]");
-        Console.ReadLine();
+        PressKeyToContinue();
     }
 
 
@@ -1341,6 +1345,7 @@ class Program
         if (random1 == 0)
         {
             thisZoo.StolenAnimal();
+            sfx.PlaySound("thief.wav");
         }
     }
 
@@ -1354,6 +1359,7 @@ class Program
         if (random1 == 0)
         {
             thisZoo.BurnRandomHabitat();
+            sfx.PlaySound("fire.wav");
         }
     }
 
