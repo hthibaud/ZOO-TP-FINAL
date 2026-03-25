@@ -218,4 +218,25 @@ public class Animal
         {
                 _numberOfKids++;
         }
+
+
+        //Sets illOrNot to true
+        public void SetIllnessToTrue()
+        {
+                _illOrNot = true;
+        }
+
+
+        //Sets illOrNotto false
+        public void SetIllnessToFalse()
+        {
+                _illOrNot = false;
+        }
+
+
+        //returns the illOrNot value
+        public bool GetIllness()
+        {
+                return _illOrNot;
+        }
 }
