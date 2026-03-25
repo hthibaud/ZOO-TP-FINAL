@@ -19,29 +19,44 @@ class Program
 
     Food food = new Food();
 
+    SFX sfx = new SFX();
+
     Visitors visitors = new Visitors();
 
     //main will launch the program (myProg.Run)
     static void Main()
     {
+
         Program myProg = new Program();
+
+        SFX sfx = new SFX();
 
         Console.Clear();
 
-        myProg.Run();
+
+            //Start menu
+            sfx.StartMusic("startZooSFX.wav");
+            myProg.StartMenu();
+            Console.WriteLine("\n\n\n        START? (press enter)");
+            Console.ReadLine();
+            sfx.PlaySound("clickSFX.wav");
+            myProg.Run();
 
     }
 
     //Run starts the game/simulation
     public void Run()
     {
+        //Starts loop music of the game
+        sfx.StartMusic("zoomusic.wav");
+        
         bool isPlaying = true;
 
         while (isPlaying)
         {
 
-            //all the choices we can make in the main menu
 
+            //all the choices we can make in the main menu
             ShowMainMenu();
 
             var choice = Console.ReadLine();
@@ -72,11 +87,13 @@ class Program
 
 
                 case "5":
+                    sfx.PlaySound("timeSFX.wav");
                     Console.Clear();
                     PassTheMonth();
                     break;
 
                 case "6":
+                    sfx.PlaySound("timeSFX.wav");
                     Console.Clear();
                     PassTheYear();
                     break;
@@ -92,6 +109,7 @@ class Program
             }
         }
     }
+
 
     //display of the main menu
     private void ShowMainMenu()
@@ -119,6 +137,7 @@ class Program
     //menu + code where you can buy your animals
     private void BuyAnimalsMenu()
     {
+        sfx.PlaySound("clickSFX.wav");
         Console.Clear();
         Console.WriteLine("\n ########### Buy an animal for your Zoo! ########### \n");
         Console.WriteLine("\n 1. Chickens \n 2. Eagles \n 3. Tigers \n\n 4. Back");
@@ -156,10 +175,9 @@ class Program
                             }
                             else
                             {
-
                                 thisZoo.addChickenFemale();
-                                Console.WriteLine($"Balance : {myAccount.currentMoney}");
-
+                                sfx.PlaySound("chickenSFX.wav");
+                                myAccount.ShowInfos();
                             }
 
                             break;
@@ -175,6 +193,7 @@ class Program
                             else
                             {
                                 thisZoo.addChickenMale();
+                                sfx.PlaySound("chickenSFX.wav");
                                 Console.WriteLine($"Balance : {myAccount.currentMoney}");
                             }
                             break;
@@ -221,14 +240,15 @@ class Program
                             {
                                 if (randomChoice == 0)
                                 {
-
                                     thisZoo.addEagleFemale(6);
+                                    sfx.PlaySound("eagleSFX.wav");
                                     Console.WriteLine($"Balance : {myAccount.currentMoney}");
 
                                 }
                                 else
                                 {
                                     thisZoo.addEagleMale(6);
+                                    sfx.PlaySound("eagleSFX.wav");
                                     Console.WriteLine($"Balance : {myAccount.currentMoney}");
 
                                 }
@@ -248,11 +268,13 @@ class Program
                                 if (randomChoice == 0)
                                 {
                                     thisZoo.addEagleFemale(48); //48 months = 4 years
+                                    sfx.PlaySound("eagleSFX.wav");
                                     Console.WriteLine($"Balance : {myAccount.currentMoney}");
                                 }
                                 else
                                 {
                                     thisZoo.addEagleMale(48);
+                                    sfx.PlaySound("eagleSFX.wav");
                                     Console.WriteLine($"Balance : {myAccount.currentMoney}");
                                 }
                             }
@@ -271,11 +293,13 @@ class Program
                                 if (randomChoice == 0)
                                 {
                                     thisZoo.addEagleFemale(168); //168 months = 14 years
+                                    sfx.PlaySound("eagleSFX.wav");
                                     Console.WriteLine($"Balance : {myAccount.currentMoney}");
                                 }
                                 else
                                 {
                                     thisZoo.addEagleMale(168);
+                                    sfx.PlaySound("eagleSFX.wav");
                                     Console.WriteLine($"Balance : {myAccount.currentMoney}");
                                 }
                             }
@@ -325,12 +349,14 @@ class Program
                                 if (randomChoice == 0)
                                 {
                                     thisZoo.addTigerFemale(6);
+                                    sfx.PlaySound("tigerSFX.wav");
                                     Console.WriteLine($"Balance : {myAccount.currentMoney}");
 
                                 }
                                 else
                                 {
                                     thisZoo.addTigerMale(6);
+                                    sfx.PlaySound("tigerSFX.wav");
                                     Console.WriteLine($"Balance : {myAccount.currentMoney}");
 
                                 }
@@ -351,12 +377,14 @@ class Program
                                 if (randomChoice == 0)
                                 {
                                     thisZoo.addTigerFemale(48); //48 months = 4 years
+                                    sfx.PlaySound("tigerSFX.wav");
                                     Console.WriteLine($"Balance : {myAccount.currentMoney}");
 
                                 }
                                 else
                                 {
                                     thisZoo.addTigerMale(48);
+                                    sfx.PlaySound("tigerSFX.wav");
                                     Console.WriteLine($"Balance : {myAccount.currentMoney}");
 
                                 }
@@ -376,12 +404,14 @@ class Program
                                 if (randomChoice == 0)
                                 {
                                     thisZoo.addTigerFemale(168); //168 months = 14 years
+                                    sfx.PlaySound("tigerSFX.wav");
                                     Console.WriteLine($"Balance : {myAccount.currentMoney}");
 
                                 }
                                 else
                                 {
                                     thisZoo.addTigerMale(168);
+                                    sfx.PlaySound("tigerSFX.wav");
                                     Console.WriteLine($"Balance : {myAccount.currentMoney}");
 
                                 }
@@ -409,6 +439,7 @@ class Program
     //menu + code where you can buy your habitats
     private void BuyHabitatsMenu()
     {
+        sfx.PlaySound("clickSFX.wav");
         Console.Clear();
         Console.WriteLine("\n ########### Buy an habitat for your Zoo! ########### \n");
         Console.WriteLine("\n 1.Chicken habitat (10 chickens)\n 2.Eagle habitat (4 eagles) \n 3.Tiger habitat (2 tigers)\n");
@@ -430,6 +461,7 @@ class Program
                     case "yes":
                         myAccount.Buy(300);
                         Console.WriteLine($"Balance : {myAccount.currentMoney}");
+                        sfx.PlaySound("moneySFX.wav");
                         thisZoo.addChickenHabitat();
                         break;
 
@@ -450,6 +482,7 @@ class Program
                 {
                     case "yes":
                         myAccount.Buy(2000);
+                        sfx.PlaySound("moneySFX.wav");
                         Console.WriteLine($"Balance : {myAccount.currentMoney}");
                         thisZoo.addEagleHabitat();
                         break;
@@ -472,6 +505,7 @@ class Program
                 {
                     case "yes":
                         myAccount.Buy(2000);
+                        sfx.PlaySound("moneySFX.wav");
                         thisZoo.addTigerHabitat();
                         Console.WriteLine($"Balance : {myAccount.currentMoney}");
                         break;
@@ -499,6 +533,7 @@ class Program
     //menu where you can choose to see which one of your stats
     private void StatsMenu()
     {
+        sfx.PlaySound("clickSFX.wav");
         Console.Clear();
         Console.WriteLine("\n ########### ALL STATS! ########### \n");
         Console.WriteLine("\n 1. See details of chickens\n 2. See details of eagles\n 3. See details of tigers\n 4. See Zoo stats \n 5. Back");
@@ -572,6 +607,7 @@ class Program
     //menu where you can buy food
     public void BuyFoodMenu()
     {
+        sfx.PlaySound("clickSFX.wav");
         Console.Clear();
         Console.WriteLine("\n########### Buy food for your animals! ###########\n");
 
@@ -612,6 +648,7 @@ class Program
                 {
                     food.IncreaseSeeds(kgSeeds);
                     Console.Clear();
+                    sfx.PlaySound("moneySFX");
                     Console.WriteLine($"\nYou bought {kgSeeds}kg of seeds for {food.seedsPricePerKg * kgSeeds}€\n");
                     myAccount.ShowInfos();
                 }
@@ -645,6 +682,7 @@ class Program
                 {
                     food.IncreaseMeat(kgMeat);
                     Console.Clear();
+                    sfx.PlaySound("moneySFX");
                     Console.WriteLine($"\nYou bought {kgMeat}kg of meat for {food.meatPricePerKg * kgMeat}€\n");
                     myAccount.ShowInfos();
                 }
@@ -714,6 +752,7 @@ class Program
 
             myAccount.IncrSubventions();
             myAccount.Sell(subvention);
+
             Console.WriteLine($"\n[SUBVENTION] You've got an annual subvention of {subvention}€!");
 
         }
@@ -782,6 +821,7 @@ class Program
     {
         Console.WriteLine("\n[Press key to return to main menu]");
         Console.ReadLine();
+        sfx.PlaySound("clickSFX");
     }
 
 
@@ -790,6 +830,7 @@ class Program
     {
         Console.WriteLine("\n[Press key to continue]");
         Console.ReadLine();
+        sfx.PlaySound("clickSFX");
     }
 
 
@@ -1323,6 +1364,12 @@ class Program
         CheckFood();
         CheckThiefs();
         CheckFire();
+    }
+
+    public void StartMenu()
+    {
+        Console.Clear();
+        thisZoo.AsciiZoo();
     }
 
     //Initializes the scenario 1 (for testing) that gives you directly :
