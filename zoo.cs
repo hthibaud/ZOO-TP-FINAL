@@ -51,11 +51,6 @@ public class Zoo
 
         Console.WriteLine($"\nTotal of chickens habitats : {_chickenHabitats.Count}\n");
 
-        for (var i = 0; i < _chickenHabitats.Count; i++)
-        {
-            Console.WriteLine($"\nChickens habitat {i + 1}:");
-        }
-
         Console.WriteLine($"\nTotal of chickens : {numberOfChickens}\n");
 
         int nbChickens = 0;
@@ -83,11 +78,6 @@ public class Zoo
 
         Console.WriteLine($"\nTotal of eagles habitats : {_eagleHabitats.Count}\n");
 
-        for (var i = 0; i < _eagleHabitats.Count; i++)
-        {
-            Console.WriteLine($"\nEagles habitat {i + 1}:");
-        }
-
         Console.WriteLine($"\nTotal of eagles : {numberOfEagles}\n");
 
         int nbEagles = 0;
@@ -114,11 +104,6 @@ public class Zoo
 
 
         Console.WriteLine($"\nTotal of tigers habitats : {_tigerHabitats.Count}\n");
-
-        for (var i = 0; i < _chickenHabitats.Count; i++)
-        {
-            Console.WriteLine($"\nTigers habitat {i + 1}:");
-        }
 
         Console.WriteLine($"\nTotal of tigers : {numberOfTigers}\n");
 
@@ -251,7 +236,7 @@ public class Zoo
                 return;
             }
         }
-        Console.WriteLine("You don't have enough habitats, buy a new one.");
+        Console.WriteLine("You don't have enough habitats to have babies, buy a new one!");
     }
 
 
@@ -359,7 +344,7 @@ public class Zoo
                 return;
             }
         }
-        Console.WriteLine("You don't have enough habitats, buy a new one.");
+        Console.WriteLine("You don't have enough habitats to have babies, buy a new one!");
     }
 
 
@@ -869,14 +854,14 @@ public class Zoo
                         {
                             _animals[i].IncrNumberOfKids();
 
-                            addBabyChickenFemale2($"Baby{_animals[i].GetNumberOfKids()} {_animals[i].GetName()}");
+                            addBabyChickenFemale2($"Baby{_animals[i].GetNumberOfKids()} of {_animals[i].GetName()}");
                             Console.WriteLine($"[BIRTH] A baby (female) chicken of {_animals[i].GetName()} is born!");
                         }
                         else
                         {
                             _animals[i].IncrNumberOfKids();
 
-                            addBabyChickenMale2($"Baby{_animals[i].GetNumberOfKids()} {_animals[i].GetName()}");
+                            addBabyChickenMale2($"Baby{_animals[i].GetNumberOfKids()} of {_animals[i].GetName()}");
                             Console.WriteLine($"[BIRTH] A baby (male) chicken of {_animals[i].GetName()} is born!");
                         }
                     }
@@ -899,14 +884,14 @@ public class Zoo
                         {
                             _animals[i].IncrNumberOfKids();
 
-                            addEagleFemale2($"Baby{_animals[i].GetNumberOfKids()} {_animals[i].GetName()}", 0);
+                            addEagleFemale2($"Baby{_animals[i].GetNumberOfKids()} of {_animals[i].GetName()}", 0);
                             Console.WriteLine($"[BIRTH] A baby (female) eagle of {_animals[i].GetName()} is born!");
                         }
                         else
                         {
                             _animals[i].IncrNumberOfKids();
 
-                            addEagleMale2($"Baby{_animals[i].GetNumberOfKids()}  {_animals[i].GetName()}", 0);
+                            addEagleMale2($"Baby{_animals[i].GetNumberOfKids()} of {_animals[i].GetName()}", 0);
                             Console.WriteLine($"[BIRTH] A baby (male) eagle of {_animals[i].GetName()} is born!");
                         }
                     }
@@ -930,14 +915,14 @@ public class Zoo
                         {
                             _animals[i].IncrNumberOfKids();
 
-                            addTigerFemale2($"Baby{_animals[i].GetNumberOfKids()} {_animals[i].GetName()}", 0);
+                            addTigerFemale2($"Baby{_animals[i].GetNumberOfKids()} of {_animals[i].GetName()}", 0);
                             Console.WriteLine($"[BIRTH] A baby (female) tiger of {_animals[i].GetName()} is born!");
                         }
                         else
                         {
                             _animals[i].IncrNumberOfKids();
 
-                            addTigerMale2($"Baby{_animals[i].GetNumberOfKids()}  {_animals[i].GetName()}", 0);
+                            addTigerMale2($"Baby{_animals[i].GetNumberOfKids()} of {_animals[i].GetName()}", 0);
                             Console.WriteLine($"[BIRTH] A baby (male) tiger of {_animals[i].GetName()} is born!");
                         }
                     }
@@ -1294,7 +1279,6 @@ public class Zoo
     }
 
 
-
     //Checks if some animals are going to be sick (so they can't reproduce for example)
     public void CheckIllnesses()
     {
@@ -1315,13 +1299,13 @@ public class Zoo
             if (thisAnimal.GetSpecies().Contains("Chicken"))
             {
 
-                if (rand.NextDouble() < 0.0043) //0.0043%chance per month = 5% chance per year
+                if (rand.Next(100) <= 4) //4% chance per month
                 {
                     thisAnimal.SetIllnessToTrue();
                     Console.WriteLine($"[ILLNESS] Oh no! Your chicken {thisAnimal.GetName()} is ill during this month... ");
 
 
-                    if (rand.Next(10) == 0)
+                    if (rand.Next(10) == 0) //then 10% chance of death caused by illness
                     {
 
                         Console.WriteLine($"[DEATH] Oh no! Your chicken {thisAnimal.GetName()} passed away from illness... ");
@@ -1336,13 +1320,13 @@ public class Zoo
             {
 
 
-                if (rand.NextDouble() < 0.0087) //0.0087%chance per month = 10% chance per year
+                if (rand.Next(100) <= 5) //5%chance per month
                 {
                     thisAnimal.SetIllnessToTrue();
                     Console.WriteLine($"[ILLNESS] Oh no! Your eagle {thisAnimal.GetName()} is ill during this month... ");
 
 
-                    if (rand.Next(10) == 0)
+                    if (rand.Next(10) == 0) //then 10% chance of death caused by illness
                     {
 
                         Console.WriteLine($"[DEATH] Oh no! Your eagle {thisAnimal.GetName()} passed away from illness... ");
@@ -1356,12 +1340,12 @@ public class Zoo
             else if (thisAnimal.GetSpecies().Contains("Tiger"))
             {
 
-                if (rand.NextDouble() < 0.0293) //0.0293%chance per month = 30% chance per year
+                if (rand.Next(100) <= 3) //3% chance per month
                 {
                     thisAnimal.SetIllnessToTrue();
                     Console.WriteLine($"[ILLNESS] Oh no! Your tiger {thisAnimal.GetName()} is ill during this month... ");
 
-                    if (rand.Next(10) == 0)
+                    if (rand.Next(10) == 0) //then 10% chance of death caused by illness
                     {
 
                         Console.WriteLine($"[DEATH] Oh no! Your tiger {thisAnimal.GetName()} passed away from illness... ");

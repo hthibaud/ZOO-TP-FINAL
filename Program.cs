@@ -144,6 +144,7 @@ class Program
         Console.Clear();
         Console.WriteLine("\n ########### Buy an animal for your Zoo! ########### \n");
         Console.WriteLine("\n 1. Chickens \n 2. Eagles \n 3. Tigers \n\n 4. Back");
+        myAccount.ShowInfos();
         Console.Write("\nChoice: ");
 
 
@@ -617,6 +618,8 @@ class Program
         sfx.PlaySound("clickSFX.wav");
         Console.Clear();
         Console.WriteLine("\n########### Buy food for your animals! ###########\n");
+
+        myAccount.ShowInfos();
 
         food.ShowInfos();
 
@@ -1455,6 +1458,8 @@ class Program
 
         myAccount.Buy(2500);
         food.IncreaseSeeds(1000);
+
+        sfx.PlaySound("clickSFX.wav");
 
     }
 }
