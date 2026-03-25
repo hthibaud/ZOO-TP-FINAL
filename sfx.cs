@@ -1,5 +1,6 @@
 using System.Runtime.InteropServices;
 using System.Diagnostics;
+using System.Media;
 
 public class SFX
 {
@@ -27,18 +28,25 @@ public class SFX
     }
 
     public void StartMusic(string fileName)
-{
-    string path = Path.Combine("Sounds", fileName);
+    {
+        string path = Path.Combine("Sounds", fileName);
 
-    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-    {
-        //Windows command to launch a media (loop) without blocking C#
-        Process.Start("wmplayer", $"/Play /Close {path}"); 
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            //Windows: use SoundPlayer with looping in a background task
+            Task.Run(() =>
+            {
+                using (var player = new System.Media.SoundPlayer(path))
+                {
+                    player.PlayLooping();
+                    System.Threading.Thread.Sleep(Timeout.Infinite);
+                }
+            });
+        }
+        else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            //Linux command (with ffplay)
+            Process.Start("ffplay", $"-nodisp -loop 0 -loglevel quiet {path}");
+        }
     }
-    else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-    {
-        //Linux command (with ffplay)
-        Process.Start("ffplay", $"-nodisp -loop 0 -loglevel quiet {path}");
-    }
-}
 }
