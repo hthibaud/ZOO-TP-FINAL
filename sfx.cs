@@ -28,25 +28,24 @@ public class SFX
     }
 
     public void StartMusic(string fileName)
-    {
-        string path = Path.Combine("Sounds", fileName);
+{
+    string path = Path.Combine("Sounds", fileName);
 
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+    {
+        string script = $"(New-Object Media.SoundPlayer '{path}').PlayLooping()";
+        Process.Start(new ProcessStartInfo
         {
-            //Windows: use SoundPlayer with looping in a background task
-            Task.Run(() =>
-            {
-                using (var player = new System.Media.SoundPlayer(path))
-                {
-                    player.PlayLooping();
-                    System.Threading.Thread.Sleep(Timeout.Infinite);
-                }
-            });
-        }
-        else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-        {
-            //Linux command (with ffplay)
-            Process.Start("ffplay", $"-nodisp -loop 0 -loglevel quiet {path}");
-        }
+            FileName = "powershell",
+            Arguments = $"-c {script}",
+            CreateNoWindow = true,
+            UseShellExecute = false
+        });
     }
+    else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+    {
+        // For linux, using ffplay
+        Process.Start("ffplay", $"-nodisp -loop 0 -loglevel quiet {path}");
+    }
+}
 }
