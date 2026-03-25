@@ -34,13 +34,13 @@ class Program
         Console.Clear();
 
 
-            //Start menu
-            sfx.StartMusic("startZooSFX.wav");
-            myProg.StartMenu();
-            Console.WriteLine("\n\n\n        START? (press enter)");
-            Console.ReadLine();
-            sfx.PlaySound("clickSFX.wav");
-            myProg.Run();
+        //Start menu
+        sfx.StartMusic("startZooSFX.wav");
+        myProg.StartMenu();
+        Console.WriteLine("\n\n\n        START? (press enter)");
+        Console.ReadLine();
+        sfx.PlaySound("clickSFX.wav");
+        myProg.Run();
 
     }
 
@@ -49,7 +49,7 @@ class Program
     {
         //Starts loop music of the game
         sfx.StartMusic("zoomusic.wav");
-        
+
         bool isPlaying = true;
 
         while (isPlaying)
@@ -431,8 +431,7 @@ class Program
                 }
                 break;
         }
-        Console.WriteLine("\n[Press any key to return to Main Menu]");
-        Console.ReadLine();
+        PressKeyToContinue();
     }
 
 
@@ -452,7 +451,7 @@ class Program
         {
             case "1":
 
-                Console.WriteLine("\n Buy a chicken habitat (10 chickens) for 300€? (type yes or no)\n");
+                Console.WriteLine("\nBuy a chicken habitat (10 chickens) for 300€? (type yes or no)\n");
 
                 var confirm_chicken_habitat_choice = Console.ReadLine();
 
@@ -462,6 +461,7 @@ class Program
                         myAccount.Buy(300);
                         Console.WriteLine($"Balance : {myAccount.currentMoney}");
                         sfx.PlaySound("moneySFX.wav");
+                        sfx.PlaySound("building.wav");
                         thisZoo.addChickenHabitat();
                         break;
 
@@ -475,7 +475,7 @@ class Program
 
             case "2":
 
-                Console.WriteLine("\n Buy an eagle habitat (4 eagles) for 2000€? (type yes or no)\n");
+                Console.WriteLine("\nBuy an eagle habitat (4 eagles) for 2000€? (type yes or no)\n");
 
                 var confirm_eagle_habitat_choice = Console.ReadLine();
                 switch (confirm_eagle_habitat_choice)
@@ -483,6 +483,7 @@ class Program
                     case "yes":
                         myAccount.Buy(2000);
                         sfx.PlaySound("moneySFX.wav");
+                        sfx.PlaySound("building.wav");
                         Console.WriteLine($"Balance : {myAccount.currentMoney}");
                         thisZoo.addEagleHabitat();
                         break;
@@ -498,7 +499,7 @@ class Program
 
             case "3":
 
-                Console.WriteLine("\n Buy a tiger habitat (2 tigers) for 2000€? (type yes or no)\n");
+                Console.WriteLine("\nBuy a tiger habitat (2 tigers) for 2000€? (type yes or no)\n");
 
                 var confirm_tiger_habitat_choice = Console.ReadLine();
                 switch (confirm_tiger_habitat_choice)
@@ -506,6 +507,7 @@ class Program
                     case "yes":
                         myAccount.Buy(2000);
                         sfx.PlaySound("moneySFX.wav");
+                        sfx.PlaySound("building.wav");
                         thisZoo.addTigerHabitat();
                         Console.WriteLine($"Balance : {myAccount.currentMoney}");
                         break;
@@ -525,8 +527,7 @@ class Program
                 break;
 
         }
-        Console.WriteLine("\n[Press any key to return to Main Menu]");
-        Console.ReadLine();
+        PressKeyToContinue();
     }
 
 
@@ -546,14 +547,17 @@ class Program
         {
             case "1":
                 thisZoo.ShowChickensDetailedInfo();
+                sfx.PlaySound("chickenSFX.wav");
                 break;
 
             case "2":
                 thisZoo.ShowEaglesDetailedInfo();
+                sfx.PlaySound("eagleSFX.wav");
                 break;
 
             case "3":
                 thisZoo.ShowTigersDetailedInfo();
+                sfx.PlaySound("tigerSFX.wav");
                 break;
 
             case "4":
@@ -569,8 +573,7 @@ class Program
                 Console.WriteLine("invalid choice");
                 break;
         }
-        Console.WriteLine("\n[Press any key to return to Main Menu]");
-        Console.ReadLine();
+        PressKeyToContinue();
     }
 
 
@@ -649,7 +652,8 @@ class Program
                 {
                     food.IncreaseSeeds(kgSeeds);
                     Console.Clear();
-                    sfx.PlaySound("moneySFX");
+                    sfx.PlaySound("moneySFX.wav");
+                    sfx.PlaySound("seeds.wav");
                     Console.WriteLine($"\nYou bought {kgSeeds}kg of seeds for {food.seedsPricePerKg * kgSeeds}€\n");
                     myAccount.ShowInfos();
                 }
@@ -683,14 +687,14 @@ class Program
                 {
                     food.IncreaseMeat(kgMeat);
                     Console.Clear();
-                    sfx.PlaySound("moneySFX");
+                    sfx.PlaySound("moneySFX.wav");
+                    sfx.PlaySound("meat.wav");
                     Console.WriteLine($"\nYou bought {kgMeat}kg of meat for {food.meatPricePerKg * kgMeat}€\n");
                     myAccount.ShowInfos();
                 }
                 break;
         }
-        Console.WriteLine("\n[Press any key to return to Main Menu]");
-        Console.ReadLine();
+        PressKeyToContinue();
     }
 
 
@@ -820,7 +824,7 @@ class Program
     //just a menu function that says Press key to return to main menu and waits for that key to continue
     public void PressKeyToContinue()
     {
-        Console.WriteLine("\n[Press key to return to main menu]");
+        Console.WriteLine("\n[Press any key to return to main menu]");
         Console.ReadLine();
         sfx.PlaySound("clickSFX.wav");
     }
@@ -829,7 +833,7 @@ class Program
     //just a menu function that says Press key to continue and waits for that key to continue
     public void PressKeyToContinue2()
     {
-        Console.WriteLine("\n[Press key to continue]");
+        Console.WriteLine("\n[Press any key to continue]");
         Console.ReadLine();
         sfx.PlaySound("clickSFX.wav");
     }
@@ -904,6 +908,7 @@ class Program
                         case "1":
                             myAccount.Sell(10);
 
+                            sfx.PlaySound("moneySFX.wav");
                             thisZoo.RemoveChickenFemale();
                             chicken_habitat.RemoveAnimal();
                             myAccount.ShowInfos();
@@ -919,6 +924,7 @@ class Program
                             }
                             else
                             {
+                                sfx.PlaySound("moneySFX.wav");
                                 thisZoo.RemoveChickenMale();
                                 chicken_habitat.RemoveAnimal();
                                 myAccount.ShowInfos();
@@ -962,6 +968,7 @@ class Program
                             }
                             else
                             {
+                                sfx.PlaySound("moneySFX.wav");
                                 thisZoo.RemoveEagleOf6Months();
                                 eagle_habitat.RemoveAnimal();
                                 myAccount.ShowInfos();
@@ -978,7 +985,7 @@ class Program
                             }
                             else
                             {
-
+                                sfx.PlaySound("moneySFX.wav");
                                 thisZoo.RemoveEagleOf4Years();
                                 eagle_habitat.RemoveAnimal();
                                 myAccount.ShowInfos();
@@ -996,6 +1003,7 @@ class Program
                             }
                             else
                             {
+                                sfx.PlaySound("moneySFX.wav");
                                 thisZoo.RemoveEagleOf14Years();
                                 eagle_habitat.RemoveAnimal();
                                 myAccount.ShowInfos();
@@ -1040,6 +1048,7 @@ class Program
                             }
                             else
                             {
+                                sfx.PlaySound("moneySFX.wav");
                                 thisZoo.RemoveTigerOf6Months();
                                 tiger_habitat.RemoveAnimal();
                                 myAccount.ShowInfos();
@@ -1055,6 +1064,7 @@ class Program
                             }
                             else
                             {
+                                sfx.PlaySound("moneySFX.wav");
                                 thisZoo.RemoveTigerOf4Years();
                                 tiger_habitat.RemoveAnimal();
                                 myAccount.ShowInfos();
@@ -1070,6 +1080,7 @@ class Program
                             }
                             else
                             {
+                                sfx.PlaySound("moneySFX.wav");
                                 thisZoo.RemoveTigerOf14Years();
                                 tiger_habitat.RemoveAnimal();
                                 myAccount.ShowInfos();
@@ -1089,8 +1100,7 @@ class Program
                 }
                 break;
         }
-        Console.WriteLine("\n[Press any key to return to Main Menu]");
-        Console.ReadLine();
+            PressKeyToContinue();
     }
 
 
@@ -1140,6 +1150,7 @@ class Program
                 myAccount.Sell(kgSeeds * food.seedsPricePerKg);
                 food.DecreaseSeeds(kgSeeds);
                 sfx.PlaySound("moneySFX.wav");
+                sfx.PlaySound("seeds.wav");
                 Console.Clear();
                 Console.WriteLine($"\nYou sold {kgSeeds}kg of seeds for {food.seedsPricePerKg * kgSeeds}€ to a customer!\n");
                 myAccount.ShowInfos();
@@ -1168,6 +1179,7 @@ class Program
                 }
                 myAccount.Sell(kgMeat * food.meatPricePerKg);
                 food.DecreaseMeat(kgMeat);
+                sfx.PlaySound("meat.wav");
                 sfx.PlaySound("moneySFX.wav");
                 Console.Clear();
                 Console.WriteLine($"\nYou sold {kgMeat}kg of meat for {food.meatPricePerKg * kgMeat}€ to a customer!\n");
@@ -1440,5 +1452,6 @@ class Program
 
         myAccount.Buy(2500);
         food.IncreaseSeeds(1000);
+
     }
 }
