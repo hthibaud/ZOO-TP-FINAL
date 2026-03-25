@@ -97,7 +97,7 @@ class Program
     private void ShowMainMenu()
     {
         Console.Clear();
-        Console.WriteLine("\n\n########### WELCOME TO YOUR ZOO ###########\n");
+        thisZoo.AsciiZoo();
         myAccount.ShowInfos();
         time.ShowInfos();
         food.ShowInfos();
