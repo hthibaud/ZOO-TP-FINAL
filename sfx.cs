@@ -4,6 +4,8 @@ using System.Media;
 
 public class SFX
 {
+
+    //Launches the sounds as one shots
     public void PlaySound(string fileName)
     {
         string path = Path.Combine("Sounds", fileName);
@@ -27,11 +29,40 @@ public class SFX
         }
     }
 
+
+    //Starts the loops musics
     public void StartMusic(string fileName)
-{
-    string path = Path.Combine("Sounds", fileName);
-    
+    {
+        string path = Path.Combine("Sounds", fileName);
+
         // For linux, using ffplay
         Process.Start("ffplay", $"-nodisp -loop 0 -loglevel quiet {path}");
+
+    }
+
+    //Starts the SFX loop
+    public void StartSFXMusic(string fileName)
+    {
+        string path = Path.Combine("Sounds", fileName);
+
+        // For linux, using ffplay
+        Process.Start("ffplay", $"-nodisp -loop 0 -loglevel quiet {path}");
+
+    }
+
+
+    //Stops the loops musics
+    public void StopMusic()
+    {
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            // Linux (PowerShell)
+            Process.Start("pkill", "ffplay");
+        }
+        else if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            // Windows (PowerShell)
+            Process.Start("powershell", "-c \"Get-Process ffplay, powershell | Stop-Process -ErrorAction SilentlyContinue\"");
+        }
     }
 }

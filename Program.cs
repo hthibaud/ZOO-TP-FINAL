@@ -35,7 +35,7 @@ class Program
 
 
         //Start menu
-        sfx.StartMusic("startZooSFX.wav");
+        sfx.StartSFXMusic("startZooSFX.wav");
         myProg.StartMenu();
         Console.WriteLine("\n\n\n        START? (press enter)");
         Console.ReadLine();
@@ -64,7 +64,10 @@ class Program
             switch (choice)
             {
                 case "0":
+
+
                     Console.WriteLine("Goodbye!");
+                    sfx.StopMusic();
                     isPlaying = false;
                     break;
 
