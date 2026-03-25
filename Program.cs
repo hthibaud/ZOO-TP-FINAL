@@ -1,5 +1,7 @@
 ﻿using System.Configuration.Assemblies;
 using System.Linq.Expressions;
+using System.Reflection;
+using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 
@@ -8,12 +10,6 @@ class Program
     //initializing all I need in my program to work correctly
     Zoo thisZoo = new Zoo(0, 0, 0, 0);
     BankAccount myAccount = new BankAccount(80000);
-
-    Chicken_Habitat chicken_habitat = new Chicken_Habitat();
-
-    Eagle_Habitat eagle_habitat = new Eagle_Habitat();
-
-    Tiger_Habitat tiger_habitat = new Tiger_Habitat();
 
     Time time = new Time();
 
@@ -34,10 +30,14 @@ class Program
         Console.Clear();
 
 
+        string title = "\u001b[1m";
+        string green = "\u001b[32m";
+        string reset = "\u001b[0m";
+
         //Start menu
         sfx.StartSFXMusic("startZooSFX.wav");
         myProg.StartMenu();
-        Console.WriteLine("\n\n\n        START? (press enter)");
+        Console.WriteLine($"\n\n\n{title}{green}         START? {reset}(press enter)");
         Console.ReadLine();
         sfx.PlaySound("clickSFX.wav");
         myProg.Run();
@@ -119,6 +119,7 @@ class Program
     {
         Console.Clear();
         thisZoo.AsciiZoo();
+        thisZoo.ShowInfoStart();
         myAccount.ShowInfos();
         time.ShowInfos();
         food.ShowInfos();
@@ -140,9 +141,14 @@ class Program
     //menu + code where you can buy your animals
     private void BuyAnimalsMenu()
     {
+
+        string yellow = "\u001b[33m";
+        string reset = "\u001b[0m";
+        string title = "\u001b[1m";
+
         sfx.PlaySound("clickSFX.wav");
         Console.Clear();
-        Console.WriteLine("\n ########### Buy an animal for your Zoo! ########### \n");
+        Console.WriteLine($"\n{title}########### Buy an animal for your Zoo! ###########{reset}\n");
         Console.WriteLine("\n 1. Chickens \n 2. Eagles \n 3. Tigers \n\n 4. Back");
         myAccount.ShowInfos();
         Console.Write("\nChoice: ");
@@ -164,7 +170,7 @@ class Program
                 if (thisZoo.EnoughChickenHabitats() == true)
                 {
 
-                    Console.WriteLine("\n 1. Female chicken (6 months) : 20€\n 2. Male chicken (6 months) : 100€\n 3. Back");
+                    Console.WriteLine($"\n 1. Female chicken (6 months) : {title}{yellow}20€{reset}\n 2. Male chicken (6 months) : {title}{yellow}100€{reset}\n 3. Back");
 
                     var chicken_choice = Console.ReadLine();
                     switch (chicken_choice)
@@ -198,7 +204,7 @@ class Program
                             {
                                 thisZoo.addChickenMale();
                                 sfx.PlaySound("chickenSFX.wav");
-                                Console.WriteLine($"Balance : {myAccount.currentMoney}");
+                                myAccount.ShowInfos();
                             }
                             break;
 
@@ -222,7 +228,7 @@ class Program
                 }
                 if (thisZoo.EnoughEagleHabitats() == true)
                 {
-                    Console.WriteLine("\n 1. Eagle (6 months) : 1000€ \n 2. Eagle (4 years) : 4 000€ \n 3. Eagle (14 years) : 2 000€ \n 4. Back\n");
+                    Console.WriteLine($"\n 1. Eagle (6 months) : {title}{yellow}1000€{reset} \n 2. Eagle (4 years) : {title}{yellow}4 000€{reset} \n 3. Eagle (14 years) : {title}{yellow}2 000€{reset} \n 4. Back\n");
 
                     var eagle_choice = Console.ReadLine();
 
@@ -246,14 +252,14 @@ class Program
                                 {
                                     thisZoo.addEagleFemale(6);
                                     sfx.PlaySound("eagleSFX.wav");
-                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
+                                    myAccount.ShowInfos();
 
                                 }
                                 else
                                 {
                                     thisZoo.addEagleMale(6);
                                     sfx.PlaySound("eagleSFX.wav");
-                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
+                                    myAccount.ShowInfos();
 
                                 }
                             }
@@ -273,13 +279,13 @@ class Program
                                 {
                                     thisZoo.addEagleFemale(48); //48 months = 4 years
                                     sfx.PlaySound("eagleSFX.wav");
-                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
+                                    myAccount.ShowInfos();
                                 }
                                 else
                                 {
                                     thisZoo.addEagleMale(48);
                                     sfx.PlaySound("eagleSFX.wav");
-                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
+                                    myAccount.ShowInfos();
                                 }
                             }
                             break;
@@ -298,13 +304,13 @@ class Program
                                 {
                                     thisZoo.addEagleFemale(168); //168 months = 14 years
                                     sfx.PlaySound("eagleSFX.wav");
-                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
+                                    myAccount.ShowInfos();
                                 }
                                 else
                                 {
                                     thisZoo.addEagleMale(168);
                                     sfx.PlaySound("eagleSFX.wav");
-                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
+                                    myAccount.ShowInfos();
                                 }
                             }
                             break;
@@ -330,7 +336,7 @@ class Program
                 }
                 if (thisZoo.EnoughTigerHabitats() == true)
                 {
-                    Console.WriteLine("\n 1. Tiger (6 months) : 3000€ \n 2. Tiger (4 years) : 120 000€ \n 3. Tiger (14 years) : 60 000€ \n 4. Back\n");
+                    Console.WriteLine($"\n 1. Tiger (6 months) : {title}{yellow}3 000€{reset} \n 2. Tiger (4 years) : {title}{yellow}120 000€{reset} \n 3. Tiger (14 years) : {title}{yellow}60 000€{reset} \n 4. Back\n");
 
                     var tiger_choice = Console.ReadLine();
 
@@ -354,17 +360,15 @@ class Program
                                 {
                                     thisZoo.addTigerFemale(6);
                                     sfx.PlaySound("tigerSFX.wav");
-                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
-
+                                    myAccount.ShowInfos();
                                 }
                                 else
                                 {
                                     thisZoo.addTigerMale(6);
                                     sfx.PlaySound("tigerSFX.wav");
-                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
+                                    myAccount.ShowInfos();
 
                                 }
-                                tiger_habitat.AddAnimal();
                             }
                             break;
 
@@ -382,14 +386,14 @@ class Program
                                 {
                                     thisZoo.addTigerFemale(48); //48 months = 4 years
                                     sfx.PlaySound("tigerSFX.wav");
-                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
+                                    myAccount.ShowInfos();
 
                                 }
                                 else
                                 {
                                     thisZoo.addTigerMale(48);
                                     sfx.PlaySound("tigerSFX.wav");
-                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
+                                    myAccount.ShowInfos();
 
                                 }
                             }
@@ -409,15 +413,14 @@ class Program
                                 {
                                     thisZoo.addTigerFemale(168); //168 months = 14 years
                                     sfx.PlaySound("tigerSFX.wav");
-                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
+                                    myAccount.ShowInfos();
 
                                 }
                                 else
                                 {
                                     thisZoo.addTigerMale(168);
                                     sfx.PlaySound("tigerSFX.wav");
-                                    Console.WriteLine($"Balance : {myAccount.currentMoney}");
-
+                                    myAccount.ShowInfos();
                                 }
                             }
                             break;
@@ -442,9 +445,14 @@ class Program
     //menu + code where you can buy your habitats
     private void BuyHabitatsMenu()
     {
+
+        string yellow = "\u001b[33m";
+        string reset = "\u001b[0m";
+        string title = "\u001b[1m";
+
         sfx.PlaySound("clickSFX.wav");
         Console.Clear();
-        Console.WriteLine("\n ########### Buy an habitat for your Zoo! ########### \n");
+        Console.WriteLine($"\n{title}########### Buy an habitat for your Zoo! ###########{reset}\n");
         Console.WriteLine("\n 1.Chicken habitat (10 chickens)\n 2.Eagle habitat (4 eagles) \n 3.Tiger habitat (2 tigers)\n");
         Console.Write("\nChoice: ");
 
@@ -455,7 +463,7 @@ class Program
         {
             case "1":
 
-                Console.WriteLine("\nBuy a chicken habitat (10 chickens) for 300€? (type yes or no)\n");
+                Console.WriteLine($"\nBuy a chicken habitat (max.10 chickens) for {title}{yellow}300€{reset}? (type yes or no)\n");
 
                 var confirm_chicken_habitat_choice = Console.ReadLine();
 
@@ -463,7 +471,7 @@ class Program
                 {
                     case "yes":
                         myAccount.Buy(300);
-                        Console.WriteLine($"Balance : {myAccount.currentMoney}");
+                        myAccount.ShowInfos();
                         sfx.PlaySound("moneySFX.wav");
                         sfx.PlaySound("building.wav");
                         thisZoo.addChickenHabitat();
@@ -479,7 +487,7 @@ class Program
 
             case "2":
 
-                Console.WriteLine("\nBuy an eagle habitat (4 eagles) for 2000€? (type yes or no)\n");
+                Console.WriteLine($"\nBuy an eagle habitat (max.4 eagles) for {title}{yellow}2 000€{reset}? (type yes or no)\n");
 
                 var confirm_eagle_habitat_choice = Console.ReadLine();
                 switch (confirm_eagle_habitat_choice)
@@ -488,7 +496,7 @@ class Program
                         myAccount.Buy(2000);
                         sfx.PlaySound("moneySFX.wav");
                         sfx.PlaySound("building.wav");
-                        Console.WriteLine($"Balance : {myAccount.currentMoney}");
+                        myAccount.ShowInfos();
                         thisZoo.addEagleHabitat();
                         break;
 
@@ -503,7 +511,7 @@ class Program
 
             case "3":
 
-                Console.WriteLine("\nBuy a tiger habitat (2 tigers) for 2000€? (type yes or no)\n");
+                Console.WriteLine($"\nBuy a tiger habitat (max.2 tigers) for {title}{yellow}2 000€{reset}? (type yes or no)\n");
 
                 var confirm_tiger_habitat_choice = Console.ReadLine();
                 switch (confirm_tiger_habitat_choice)
@@ -513,7 +521,7 @@ class Program
                         sfx.PlaySound("moneySFX.wav");
                         sfx.PlaySound("building.wav");
                         thisZoo.addTigerHabitat();
-                        Console.WriteLine($"Balance : {myAccount.currentMoney}");
+                        myAccount.ShowInfos();
                         break;
 
                     case "no":
@@ -538,9 +546,12 @@ class Program
     //menu where you can choose to see which one of your stats
     private void StatsMenu()
     {
+        string title = "\u001b[1m";
+        string reset = "\u001b[0m";
+
         sfx.PlaySound("clickSFX.wav");
         Console.Clear();
-        Console.WriteLine("\n ########### ALL STATS! ########### \n");
+        Console.WriteLine($"{title}\n########### ALL STATS! ###########{reset}\n");
         Console.WriteLine("\n 1. See details of chickens\n 2. See details of eagles\n 3. See details of tigers\n 4. See Zoo stats \n 5. Back");
         Console.Write("\nChoice: ");
 
@@ -615,9 +626,14 @@ class Program
     //menu where you can buy food
     public void BuyFoodMenu()
     {
+        string yellow = "\u001b[33m";
+        string reset = "\u001b[0m";
+        string title = "\u001b[1m";
+
         sfx.PlaySound("clickSFX.wav");
+
         Console.Clear();
-        Console.WriteLine("\n########### Buy food for your animals! ###########\n");
+        Console.WriteLine($"\n{title}########### Buy food for your animals! ###########{reset}\n");
 
         myAccount.ShowInfos();
 
@@ -660,7 +676,7 @@ class Program
                     Console.Clear();
                     sfx.PlaySound("moneySFX.wav");
                     sfx.PlaySound("seeds.wav");
-                    Console.WriteLine($"\nYou bought {kgSeeds}kg of seeds for {food.seedsPricePerKg * kgSeeds}€\n");
+                    Console.WriteLine($"\nYou bought {kgSeeds}kg of seeds for {title}{yellow}{food.seedsPricePerKg * kgSeeds}€{reset}\n");
                     myAccount.ShowInfos();
                 }
 
@@ -695,7 +711,7 @@ class Program
                     Console.Clear();
                     sfx.PlaySound("moneySFX.wav");
                     sfx.PlaySound("meat.wav");
-                    Console.WriteLine($"\nYou bought {kgMeat}kg of meat for {food.meatPricePerKg * kgMeat}€\n");
+                    Console.WriteLine($"\nYou bought {kgMeat}kg of meat for {title}{yellow}{food.meatPricePerKg * kgMeat}€{reset}\n");
                     myAccount.ShowInfos();
                 }
                 break;
@@ -720,7 +736,7 @@ class Program
                 if (nbRemainingKg < 0)
                 {
                     nbDaysWithoutFeeding = -1 * nbRemainingKg / kgPerDay;
-                    Console.WriteLine($"[FEED] {thisAnimal.GetName()} didn't eat for {nbDaysWithoutFeeding} days");
+                    Console.WriteLine($"[FEED] {thisAnimal.GetName()} didn't eat for {nbDaysWithoutFeeding:F2} days");
                     Console.WriteLine($"[FEED] {thisAnimal.GetName()} ate only {(kgPerDay * 30) + nbRemainingKg:F2}Kg of seeds.");
                 }
                 else
@@ -734,7 +750,7 @@ class Program
                 if (nbRemainingKg < 0)
                 {
                     nbDaysWithoutFeeding = -1 * nbRemainingKg / kgPerDay;
-                    Console.WriteLine($"[FEED] {thisAnimal.GetName()} didn't eat for {nbDaysWithoutFeeding} days");
+                    Console.WriteLine($"[FEED] {thisAnimal.GetName()} didn't eat for {nbDaysWithoutFeeding:F2} days");
                     Console.WriteLine($"[FEED] {thisAnimal.GetName()} ate only {(kgPerDay * 30) + nbRemainingKg:F2}Kg of meat.");
                 }
                 else
@@ -753,6 +769,11 @@ class Program
     //to calculate when you deserve a subvention on the 12th month of the year
     public void EarnSubvention()
     {
+        string green = "\u001b[32m";
+        string yellow = "\u001b[33m";
+        string title = "\u001b[1m";
+        string reset = "\u001b[0m";
+
         int subvention = 0;
         if (myAccount.GetNbSubvention() != time.GetNbYears())
         {
@@ -764,8 +785,8 @@ class Program
             myAccount.IncrSubventions();
             myAccount.Sell(subvention);
 
-            Console.WriteLine($"\n[SUBVENTION] You've got an annual subvention of {subvention}€!");
-
+            Console.WriteLine($"\n{title}{green}[SUBVENTION] You've got an annual subvention of {yellow}{subvention}€{reset}{green}!{reset}");
+            sfx.PlaySound("moneySFX.wav");
         }
     }
 
@@ -773,6 +794,12 @@ class Program
     //calculates how many visitors you'll have during the low season (from to October to April)
     public void HaveVisitors_low()
     {
+
+        string title = "\u001b[1m";
+        string yellow = "\u001b[33m";
+        string reset = "\u001b[0m";
+        string cyan = "\u001b[36m";
+
         float priceVisitors = 0f;
         float nbVisitors = 0;
 
@@ -787,13 +814,19 @@ class Program
         myAccount.IncrVisitorsMoney(priceVisitors);
         myAccount.Sell(priceVisitors);
 
-        Console.WriteLine($"\n[VISITORS] The {nbVisitors} visitors payed {priceVisitors}€ in total during the low season.\n");
+        Console.WriteLine($"\n{cyan}[VISITORS]{reset} The {nbVisitors} visitors payed {yellow}{title}{priceVisitors}€{reset} in total during the low season.\n");
     }
 
 
     //calculates how many visitors you'll have during the high season (from to May to September)
     public void HaveVisitors_high()
     {
+
+        string title = "\u001b[1m";
+        string yellow = "\u001b[33m";
+        string reset = "\u001b[0m";
+        string cyan = "\u001b[36m";
+
         float priceVisitors = 0f;
         float nbVisitors = 0;
 
@@ -808,7 +841,7 @@ class Program
         myAccount.IncrVisitorsMoney(priceVisitors);
         myAccount.Sell(priceVisitors);
 
-        Console.WriteLine($"\n[VISITORS] The {nbVisitors} visitors payed {priceVisitors}€ in total during the high season.\n");
+        Console.WriteLine($"\n{cyan}[VISITORS]{reset} The {nbVisitors} visitors payed {yellow}{title}{priceVisitors}€{reset} in total during the high season.\n");
     }
 
 
@@ -848,9 +881,11 @@ class Program
     //display menu where you can choose what to sell from your zoo
     public void SellStuffMenu()
     {
+        string title = "\u001b[1m";
+        string reset = "\u001b[0m";
 
         Console.Clear();
-        Console.WriteLine("\n########### Sell stuff to customers! ###########\n");
+        Console.WriteLine($"\n{title}########### Sell stuff to customers! ###########{reset}\n");
         Console.WriteLine("\nWhat do you want to sell?\n");
         Console.WriteLine("1. Sell animals\n2. Sell Habitats\n3. Sell Food");
         Console.Write("\nChoice: ");
@@ -877,14 +912,20 @@ class Program
     //display menu + code to sell animals from the zoo
     public void SellAnimalsMenu()
     {
+
+        string title = "\u001b[1m";
+        string reset = "\u001b[0m";
+        string yellow = "\u001b[33m";
+
         Console.Clear();
-        if (thisZoo.numberOfAnimals <= 0)
+        if (thisZoo.TotalAnimals <= 0)
         {
             Console.WriteLine("You don't have any animal to sell.");
             PressKeyToContinue();
             return;
         }
-        Console.WriteLine("\n ########### Sell animals from your Zoo! ########### \n");
+        
+        Console.WriteLine($"\n{title}########### Sell animals from your Zoo! ###########{reset}\n");
         myAccount.ShowInfos();
         Console.WriteLine("\n 1. Chickens \n 2. Eagles \n 3. Tigers \n\n 4. Back");
         Console.Write("\nChoice: ");
@@ -906,7 +947,7 @@ class Program
                 if (thisZoo.EnoughChickens() == true)
                 {
 
-                    Console.WriteLine("\n 1. Female chicken (6 months): +10€\n 2. Male chicken (6 months): +20€\n 3. Back");
+                    Console.WriteLine($"\n 1. Female chicken (6 months): {title}{yellow}+10€{reset}\n 2. Male chicken (6 months): {title}{yellow}+20€{reset}\n 3. Back");
 
                     var chicken_choice = Console.ReadLine();
                     switch (chicken_choice)
@@ -916,7 +957,6 @@ class Program
 
                             sfx.PlaySound("moneySFX.wav");
                             thisZoo.RemoveChickenFemale();
-                            chicken_habitat.RemoveAnimal();
                             myAccount.ShowInfos();
                             break;
 
@@ -932,7 +972,6 @@ class Program
                             {
                                 sfx.PlaySound("moneySFX.wav");
                                 thisZoo.RemoveChickenMale();
-                                chicken_habitat.RemoveAnimal();
                                 myAccount.ShowInfos();
                             }
                             break;
@@ -957,7 +996,7 @@ class Program
                 }
                 if (thisZoo.EnoughEagles() == true)
                 {
-                    Console.WriteLine("\n 1. Eagle (6 months) : +500€ \n 2. Eagle (4 years) : +2 000€ \n 3. Eagle (14 years) : +400€ \n 4. Back\n");
+                    Console.WriteLine($"\n 1. Eagle (6 months): {title}{yellow}+500€{reset} \n 2. Eagle (4 years): {title}{yellow}+2 000€{reset} \n 3. Eagle (14 years): {title}{yellow}+400€{reset} \n 4. Back\n");
 
                     var eagle_choice = Console.ReadLine();
 
@@ -976,7 +1015,6 @@ class Program
                             {
                                 sfx.PlaySound("moneySFX.wav");
                                 thisZoo.RemoveEagleOf6Months();
-                                eagle_habitat.RemoveAnimal();
                                 myAccount.ShowInfos();
                             }
                             break;
@@ -993,7 +1031,6 @@ class Program
                             {
                                 sfx.PlaySound("moneySFX.wav");
                                 thisZoo.RemoveEagleOf4Years();
-                                eagle_habitat.RemoveAnimal();
                                 myAccount.ShowInfos();
 
                             }
@@ -1011,7 +1048,6 @@ class Program
                             {
                                 sfx.PlaySound("moneySFX.wav");
                                 thisZoo.RemoveEagleOf14Years();
-                                eagle_habitat.RemoveAnimal();
                                 myAccount.ShowInfos();
 
                             }
@@ -1038,7 +1074,7 @@ class Program
                 }
                 if (thisZoo.EnoughTigerHabitats() == true)
                 {
-                    Console.WriteLine("\n 1. Tiger (6 months) : +1500€ \n 2. Tiger (4 years) : +60 000€ \n 3. Tiger (14 years) : +10 000€ \n 4. Back\n");
+                    Console.WriteLine($"\n 1. Tiger (6 months): {title}{yellow}+1500€{reset} \n 2. Tiger (4 years): {title}{yellow}+60 000€{reset} \n 3. Tiger (14 years): {title}{yellow}+10 000€{reset} \n 4. Back\n");
 
                     var tiger_choice = Console.ReadLine();
 
@@ -1056,7 +1092,6 @@ class Program
                             {
                                 sfx.PlaySound("moneySFX.wav");
                                 thisZoo.RemoveTigerOf6Months();
-                                tiger_habitat.RemoveAnimal();
                                 myAccount.ShowInfos();
                             }
                             break;
@@ -1072,7 +1107,6 @@ class Program
                             {
                                 sfx.PlaySound("moneySFX.wav");
                                 thisZoo.RemoveTigerOf4Years();
-                                tiger_habitat.RemoveAnimal();
                                 myAccount.ShowInfos();
                             }
                             break;
@@ -1088,7 +1122,6 @@ class Program
                             {
                                 sfx.PlaySound("moneySFX.wav");
                                 thisZoo.RemoveTigerOf14Years();
-                                tiger_habitat.RemoveAnimal();
                                 myAccount.ShowInfos();
                             }
                             break;
@@ -1113,8 +1146,13 @@ class Program
     //display menu + code to sell food from the zoo to "customers"
     public void SellFoodMenu()
     {
+
+        string yellow = "\u001b[33m";
+        string title = "\u001b[1m";
+        string reset = "\u001b[0m";
+
         Console.Clear();
-        Console.WriteLine("\n########### Sell food to customers! ###########\n");
+        Console.WriteLine($"\n{title}########### Sell food to customers! ###########{reset}\n");
         myAccount.ShowInfos();
         food.ShowInfos();
 
@@ -1125,7 +1163,7 @@ class Program
             return;
         }
 
-        Console.WriteLine("\n1. Seeds: +2.5€/Kg\n2. Meat: +5€/Kg\n");
+        Console.WriteLine($"\n1. Seeds: {title}{yellow}+2.5€{reset}/Kg\n2. Meat: {yellow}{title}+5€{reset}/Kg\n");
         Console.Write("\nChoice: ");
 
         var food_choice = Console.ReadLine();
@@ -1158,7 +1196,7 @@ class Program
                 sfx.PlaySound("moneySFX.wav");
                 sfx.PlaySound("seeds.wav");
                 Console.Clear();
-                Console.WriteLine($"\nYou sold {kgSeeds}kg of seeds for {food.seedsPricePerKg * kgSeeds}€ to a customer!\n");
+                Console.WriteLine($"\nYou sold {kgSeeds}kg of seeds for {title}{yellow}{food.seedsPricePerKg * kgSeeds}€{reset} to a customer!\n");
                 myAccount.ShowInfos();
                 break;
 
@@ -1188,7 +1226,7 @@ class Program
                 sfx.PlaySound("meat.wav");
                 sfx.PlaySound("moneySFX.wav");
                 Console.Clear();
-                Console.WriteLine($"\nYou sold {kgMeat}kg of meat for {food.meatPricePerKg * kgMeat}€ to a customer!\n");
+                Console.WriteLine($"\nYou sold {kgMeat}kg of meat for {title}{yellow}{food.meatPricePerKg * kgMeat}€{reset} to a customer!\n");
                 myAccount.ShowInfos();
                 break;
         }
@@ -1199,17 +1237,20 @@ class Program
     //display menu + code to sell habitats from the zoo to "customers"
     public void SellHabitatsMenu()
     {
+        string yellow = "\u001b[33m";
+        string title = "\u001b[1m";
+        string reset = "\u001b[0m";
 
         Console.Clear();
-        if (thisZoo.numberOfHabitats <= 0)
+        if (thisZoo.TotalHabitats <= 0)
         {
             Console.WriteLine("You don't have any habitat to sell.");
             PressKeyToContinue();
             return;
         }
-        Console.WriteLine("\n ########### Sell habitats from your Zoo! ########### \n");
+        Console.WriteLine($"\n{title}########### Sell habitats from your Zoo! ###########{reset}\n");
         myAccount.ShowInfos();
-        Console.WriteLine("\n 1. Chickens habitat: +50€\n 2. Eagles habitat: +500€\n 3. Tigers habitat: +500€\n\n 4. Back");
+        Console.WriteLine($"\n 1. Chickens habitat: {yellow}{title}+50€{reset}\n 2. Eagles habitat: {yellow}{title}+500€{reset}\n 3. Tigers habitat: {yellow}{title}+500€{reset}\n\n 4. Back");
         Console.Write("\nChoice: ");
 
         var sellHabitatsChoice = Console.ReadLine();
@@ -1226,7 +1267,7 @@ class Program
                 if (thisZoo.RemoveChickenHabitatOk() == true)
                 {
 
-                    Console.WriteLine("\nSell chickens habitat for 50€? (type yes or no)\n");
+                    Console.WriteLine($"\nSell chickens habitat for {yellow}{title}50€{reset}? (type yes or no)\n");
 
                     var chicken_choice = Console.ReadLine();
                     switch (chicken_choice)
@@ -1236,7 +1277,7 @@ class Program
                             thisZoo.SellChickenHabitat();
                             sfx.PlaySound("moneySFX.wav");
                             Console.Clear();
-                            Console.WriteLine("\nYour chickens habitat has been sold for 50€!\n");
+                            Console.WriteLine($"\nYour chickens habitat has been sold for {yellow}{title}50€{reset}!\n");
                             myAccount.ShowInfos();
 
                             break;
@@ -1260,7 +1301,7 @@ class Program
                 }
                 if (thisZoo.RemoveEagleHabitatOk() == true)
                 {
-                    Console.WriteLine("\nSell eagles habitat for 500€? (type yes or no)\n");
+                    Console.WriteLine($"\nSell eagles habitat for {yellow}{title}+500€{reset}? (type yes or no)\n");
 
                     var eagle_choice = Console.ReadLine();
 
@@ -1272,7 +1313,7 @@ class Program
                             thisZoo.SellEagleHabitat();
                             sfx.PlaySound("moneySFX.wav");
                             Console.Clear();
-                            Console.WriteLine("\nYour eagles habitat has been sold for 500€!\n");
+                            Console.WriteLine($"\nYour eagles habitat has been sold for {yellow}{title}500€{reset}!\n");
                             myAccount.ShowInfos();
                             break;
 
@@ -1297,7 +1338,7 @@ class Program
                 }
                 if (thisZoo.RemoveTigerHabitatOk() == true)
                 {
-                    Console.WriteLine("\n Sell tigers habitat for 500€? (type yes or no)\n");
+                    Console.WriteLine($"\n Sell tigers habitat for {yellow}{title}500€{reset}? (type yes or no)\n");
 
                     var tiger_choice = Console.ReadLine();
 
@@ -1309,7 +1350,7 @@ class Program
                             thisZoo.SellTigerHabitat();
                             sfx.PlaySound("moneySFX.wav");
                             Console.Clear();
-                            Console.WriteLine("\nYour tigers habitat has been sold for 500€!\n");
+                            Console.WriteLine($"\nYour tigers habitat has been sold for {yellow}{title}500€{reset}!\n");
                             myAccount.ShowInfos();
                             break;
 
@@ -1332,6 +1373,11 @@ class Program
     //Checks for rotten meat or bad seeds
     public void CheckFood()
     {
+
+        string red = "\u001b[31m";
+        string title = "\u001b[1m";
+        string reset = "\u001b[0m";  
+
         Random rand = new Random();
         var random20 = rand.Next(5); //number between 0 & 4 so 1/5chance so 20%
         var random10 = rand.Next(10); //number bewteen 0 & 10 so 1/10chance so 10%
@@ -1339,13 +1385,13 @@ class Program
         if (random20 == 0)
         {
             food.BadSeeds();
-            Console.WriteLine("\n[SILO] You lost 10% of your seeds this month because of insects.");
+            Console.WriteLine($"\n{red}[SILO] You lost {title}10%{reset}{red} of your seeds this month because of insects.{reset}");
         }
 
         if (random10 == 0)
         {
             food.BeRotten();
-            Console.WriteLine("\n[COLD-CHAMBER] 20% of your meat has rotten this month.");
+            Console.WriteLine($"\n{red}[COLD-CHAMBER] {title}20%{reset}{red} of your meat has rotten this month.{reset}");
         }
         else
         {
@@ -1412,45 +1458,35 @@ class Program
 
         myAccount.Buy(20);
         thisZoo.addChickenFemale2("Poulette");
-        chicken_habitat.AddAnimal();
 
         myAccount.Buy(20);
         thisZoo.addChickenFemale2("Poulette2");
-        chicken_habitat.AddAnimal();
 
         myAccount.Buy(20);
         thisZoo.addChickenFemale2("Poulette3");
-        chicken_habitat.AddAnimal();
 
         myAccount.Buy(100);
         thisZoo.addChickenMale2("Pouletto");
-        chicken_habitat.AddAnimal();
 
         myAccount.Buy(100);
         thisZoo.addChickenMale2("Pouletto2");
-        chicken_habitat.AddAnimal();
 
         myAccount.Buy(100);
         thisZoo.addChickenMale2("Pouletto3");
-        chicken_habitat.AddAnimal();
 
 
         myAccount.Buy(3000);
         thisZoo.addTigerFemale2("Tigrette", 6);
-        tiger_habitat.AddAnimal();
 
 
         myAccount.Buy(1000);
         thisZoo.addEagleMale2("Aiglou", 6);
-        eagle_habitat.AddAnimal();
 
         myAccount.Buy(1000);
         thisZoo.addEagleFemale2("Aiglette", 6);
-        eagle_habitat.AddAnimal();
 
         myAccount.Buy(1000);
         thisZoo.addEagleFemale2("Aiglette2", 6);
-        eagle_habitat.AddAnimal();
 
 
         myAccount.Buy(35000);

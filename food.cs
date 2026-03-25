@@ -100,7 +100,11 @@ public class Food
     //shows the info of the stocks
     public void ShowInfos()
     {
-        Console.WriteLine($"Seeds in your silo: {_seedsKg:F2}Kg");
-        Console.WriteLine($"Meat in your cold chamber: {_meatKg:F2}Kg\n");
+        string title = "\u001b[1m";
+        string green = "\u001b[32m";
+        string reset = "\u001b[0m";
+
+        Console.WriteLine($"Seeds in your silo: {title}{green}{_seedsKg:F2}Kg{reset}");
+        Console.WriteLine($"Meat in your cold chamber: {title}{green}{_meatKg:F2}Kg{reset}\n");
     }
 }

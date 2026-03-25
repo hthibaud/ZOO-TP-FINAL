@@ -57,53 +57,58 @@ public class Time
     //returns the name of the month of the year we are in a this time
     public void GetCurrentMonthName()
     {
+
+        string title = "\u001b[1m";
+        string blue = "\u001b[34m";
+        string reset = "\u001b[0m";
+
         if (GetCurrentMonth() == 1)
         {
-            Console.WriteLine("\n########## JANUARY ##########\n");
+            Console.WriteLine($"\n{title}{blue}########## JANUARY ##########{reset}\n");
         }
         if (GetCurrentMonth() == 2)
         {
-            Console.WriteLine("\n########## FEBRUARY ##########\n");
+            Console.WriteLine($"\n{title}{blue}########## FEBRUARY ##########{reset}\n");
         }
         else if (GetCurrentMonth() == 3)
         {
-            Console.WriteLine("\n########## MARCH ##########\n");
+            Console.WriteLine($"\n{title}{blue}########## MARCH ##########{reset}\n");
         }
         else if (GetCurrentMonth() == 4)
         {
-            Console.WriteLine("\n########## APRIL ##########\n");
+            Console.WriteLine($"\n{title}{blue}########## APRIL ##########{reset}\n");
         }
         else if (GetCurrentMonth() == 5)
         {
-            Console.WriteLine("\n########## MAY ##########\n");
+            Console.WriteLine($"\n{title}{blue}########## MAY ##########{reset}\n");
         }
         else if (GetCurrentMonth() == 6)
         {
-            Console.WriteLine("\n########## JUNE ##########\n");
+            Console.WriteLine($"\n{title}{blue}########## JUNE ##########{reset}\n");
         }
         else if (GetCurrentMonth() == 7)
         {
-            Console.WriteLine("\n########## JULY ##########\n");
+            Console.WriteLine($"\n{title}{blue}########## JULY ##########{reset}\n");
         }
         else if (GetCurrentMonth() == 8)
         {
-            Console.WriteLine("\n########## AUGUST ##########\n");
+            Console.WriteLine($"\n{title}{blue}########## AUGUST ##########{reset}\n");
         }
         else if (GetCurrentMonth() == 9)
         {
-            Console.WriteLine("\n########## SEPTEMBER ##########\n");
+            Console.WriteLine($"\n{title}{blue}########## SEPTEMBER ##########{reset}\n");
         }
         else if (GetCurrentMonth() == 10)
         {
-            Console.WriteLine("\n########## OCTOBER ##########\n");
+            Console.WriteLine($"\n{title}{blue}########## OCTOBER ##########{reset}\n");
         }
         else if (GetCurrentMonth() == 11)
         {
-            Console.WriteLine("\n########## NOVEMBER ##########\n");
+            Console.WriteLine($"\n{title}{blue}########## NOVEMBER ##########{reset}\n");
         }
         else if (GetCurrentMonth() == 12)
         {
-            Console.WriteLine("\n########## DECEMBER ##########\n");
+            Console.WriteLine($"\n{title}{blue}########## DECEMBER ##########{reset}\n");
         }
     }
 }

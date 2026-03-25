@@ -12,24 +12,4 @@ public class Habitat
         _maxAnimals = maxAnimals;
         _price = price;
     }
-
-    //adds 1 to the numberOfAnimal if the number of animal < max animals
-    public void AddAnimal()
-    {
-        if (_numberOfAnimals < _maxAnimals)
-        {
-            _numberOfAnimals++;
-        }
-        else
-        {
-            Console.WriteLine("Habitat is full!");
-        }
-    }
-
-    //removes 1 from the numberOfAnimal (when they die for example)
-    public void RemoveAnimal()
-    {
-        _numberOfAnimals--;
-    }
-
 }

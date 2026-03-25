@@ -1,24 +1,23 @@
 using System.ComponentModel.Design;
 using System.Globalization;
 using System.Net;
+using System.Resources;
 using System.Security.Cryptography.X509Certificates;
+using System.Linq;
 
 public class Zoo
 {
 
     //Initializes all I need for the Zoo Class
-    public int numberOfHabitats { get; private set; }
-    public int numberOfChickenHabitats { get; private set; }
-    public int numberOfEagleHabitats { get; private set; }
-    public int numberOfTigerHabitats { get; private set; }
+    public int TotalHabitats => _chickenHabitats.Count + _eagleHabitats.Count + _tigerHabitats.Count;
+    public int TotalChickenHabitats => _chickenHabitats.Count;
+    public int TotalEagleHabitats => _eagleHabitats.Count;
+    public int TotalTigerHabitats => _tigerHabitats.Count;
 
-    public int numberOfAnimals;
-
-    public int numberOfChickens;
-
-    public int numberOfEagles;
-
-    public int numberOfTigers;
+    public int TotalAnimals => _animals.Count;
+    public int TotalChickens => _animals.Count(animal => animal.GetSpecies().Contains("Chicken"));
+    public int TotalEagles => _animals.Count(animal => animal.GetSpecies().Contains("Eagle"));
+    public int TotalTigers => _animals.Count(animal => animal.GetSpecies().Contains("Tiger"));
 
     private List<Chicken_Habitat> _chickenHabitats = new List<Chicken_Habitat>();
 
@@ -39,7 +38,7 @@ public class Zoo
     {
         Console.Clear();
         Console.WriteLine("\n ########### STATS OF YOUR ZOO! ########### \n");
-        Console.WriteLine($"\nTotal of habitats : {numberOfHabitats}\nTotal of chicken habitats : {numberOfChickenHabitats}\nTotal of eagle habitats : {numberOfEagleHabitats}\nTotal of tiger habitats : {numberOfTigerHabitats}\nTotal of animals : {numberOfAnimals}\nTotal of chickens : {numberOfChickens}\nTotal of eagles : {numberOfEagles}\nTotal of tigers : {numberOfTigers}\n");
+        Console.WriteLine($"\nTotal of habitats : {TotalHabitats}\nTotal of chicken habitats : {TotalChickenHabitats}\nTotal of eagle habitats : {TotalEagleHabitats}\nTotal of tiger habitats : {TotalTigerHabitats}\nTotal of animals : {TotalAnimals}\nTotal of chickens : {TotalChickens}\nTotal of eagles : {TotalEagles}\nTotal of tigers : {TotalTigers}\n");
     }
 
 
@@ -51,7 +50,7 @@ public class Zoo
 
         Console.WriteLine($"\nTotal of chickens habitats : {_chickenHabitats.Count}\n");
 
-        Console.WriteLine($"\nTotal of chickens : {numberOfChickens}\n");
+        Console.WriteLine($"\nTotal of chickens : {TotalChickens}\n");
 
         int nbChickens = 0;
         for (var i = 0; i < _animals.Count(); i++)
@@ -78,7 +77,7 @@ public class Zoo
 
         Console.WriteLine($"\nTotal of eagles habitats : {_eagleHabitats.Count}\n");
 
-        Console.WriteLine($"\nTotal of eagles : {numberOfEagles}\n");
+        Console.WriteLine($"\nTotal of eagles : {TotalEagles}\n");
 
         int nbEagles = 0;
         for (var i = 0; i < _animals.Count(); i++)
@@ -105,7 +104,7 @@ public class Zoo
 
         Console.WriteLine($"\nTotal of tigers habitats : {_tigerHabitats.Count}\n");
 
-        Console.WriteLine($"\nTotal of tigers : {numberOfTigers}\n");
+        Console.WriteLine($"\nTotal of tigers : {TotalTigers}\n");
 
         int nbTigers = 0;
         for (var i = 0; i < _animals.Count(); i++)
@@ -124,9 +123,23 @@ public class Zoo
     }
 
 
+//Shows the minimum info of the zoo (number of animals)
+    public void ShowInfoStart()
+    {
+        string blue = "\u001b[34m";
+        string title = "\u001b[1m";
+        string reset = "\u001b[0m";
+
+        Console.WriteLine($"\nNumber of animals: {blue}{title}{TotalAnimals}{reset}\n");
+        
+    }
+
+
     //adds a chicken habitat in the list
     public void addChickenHabitat()
     {
+        string green = "\u001b[32m";
+        string reset = "\u001b[0m";
 
         Chicken_Habitat newChickenHabitat = new Chicken_Habitat();
 
@@ -134,15 +147,17 @@ public class Zoo
 
         Console.Clear();
 
-        Console.WriteLine("\n\n\nNew habitat for chickens has been built!\n");
-        numberOfChickenHabitats += 1;
-        numberOfHabitats += 1;
+        Console.WriteLine($"\n\n\n{green}New habitat for chickens has been built!{reset}\n");
+
     }
 
 
     //adds a eagle habitat in the list
     public void addEagleHabitat()
     {
+        string green = "\u001b[32m";
+        string reset = "\u001b[0m";
+
         Eagle_Habitat newEagleHabitat = new Eagle_Habitat();
 
         _eagleHabitats.Add(newEagleHabitat);
@@ -150,15 +165,16 @@ public class Zoo
         Console.Clear();
 
 
-        Console.WriteLine("\n\n\nNew habitat for eagles has been built!\n");
-        numberOfEagleHabitats += 1;
-        numberOfHabitats += 1;
+        Console.WriteLine($"\n\n\n{green}New habitat for eagles has been built!{reset}\n");
     }
 
 
     //adds a tiger habitat in the list
     public void addTigerHabitat()
     {
+        string green = "\u001b[32m";
+        string reset = "\u001b[0m";
+
         Tiger_Habitat newTigerHabitat = new Tiger_Habitat();
 
         _tigerHabitats.Add(newTigerHabitat);
@@ -166,9 +182,7 @@ public class Zoo
         Console.Clear();
 
 
-        Console.WriteLine("\n\n\nNew habitat for tigers has been built!\n");
-        numberOfTigerHabitats += 1;
-        numberOfHabitats += 1;
+        Console.WriteLine($"\n\n\n{green}New habitat for tigers has been built!{reset}\n");
     }
 
 
@@ -191,24 +205,21 @@ public class Zoo
     //adds a chicken female in the list of the animals (name is chosen in parameter here)
     public void addChickenFemale2(string chosenChickenFemaleName)
     {
-        foreach (var habitat in _chickenHabitats)
+        if (EnoughChickenHabitats())
         {
-            if (habitat.NumberOfAnimals < 10)
-            {
-                Chicken_Female ChickenFemale = new Chicken_Female(chosenChickenFemaleName, 6, false, true);
+            Chicken_Female ChickenFemale = new Chicken_Female(chosenChickenFemaleName, 6, false, true);
 
-                habitat.AddAnimal();
+            // habitat.AddAnimal();
 
-                numberOfChickens += 1;
+            // numberOfChickens += 1;
 
-                _animals.Add(ChickenFemale);
-                numberOfAnimals += 1;
+            _animals.Add(ChickenFemale);
+            // numberOfAnimals += 1;
 
-                Console.Clear();
+            Console.Clear();
 
-                Console.WriteLine($"\n\n\nYour new chicken {chosenChickenFemaleName} of 6 months has been added to your chicken habitat!\n");
-                return;
-            }
+            Console.WriteLine($"\n\n\nYour new (female) chicken {chosenChickenFemaleName} of 6 months has been added to your chicken habitat!\n");
+            return;
         }
         Console.WriteLine("You don't have enough habitats, buy a new one.");
     }
@@ -217,25 +228,16 @@ public class Zoo
     //adds a baby chicken female in the list of the animals (name is chosen in parameter here)
     public void addBabyChickenFemale2(string chosenChickenFemaleName)
     {
-        foreach (var habitat in _chickenHabitats)
+
+        if (EnoughChickenHabitats())
         {
-            if (habitat.NumberOfAnimals < 10)
-            {
-                Chicken_Female ChickenFemale = new Chicken_Female(chosenChickenFemaleName, 0, false, true);
+            Chicken_Female ChickenFemale = new Chicken_Female(chosenChickenFemaleName, 0, false, true);
 
-                habitat.AddAnimal();
+            _animals.Add(ChickenFemale);
 
-                numberOfChickens += 1;
-
-                _animals.Add(ChickenFemale);
-                numberOfAnimals += 1;
-
-                Console.Clear();
-
-                Console.WriteLine($"\n\n\nYour new (female) baby chicken {chosenChickenFemaleName} has been added to your chicken habitat!\n");
-                return;
-            }
+            return;
         }
+
         Console.WriteLine("You don't have enough habitats to have babies, buy a new one!");
     }
 
@@ -260,8 +262,6 @@ public class Zoo
             if (_animals[i].GetName() == chosenChickenFemaleName && _animals[i] is Chicken_Female)
             {
                 _animals.RemoveAt(i);
-                numberOfChickens -= 1;
-                numberOfAnimals -= 1;
                 found = true;
                 break;
 
@@ -298,24 +298,18 @@ public class Zoo
     public void addChickenMale2(string chosenChickenMaleName)
     {
 
-        foreach (var habitat in _chickenHabitats)
+
+        if (EnoughChickenHabitats())
         {
-            if (habitat.NumberOfAnimals < 10)
-            {
-                Chicken_Male ChickenMale = new Chicken_Male(chosenChickenMaleName, 6, false, true);
+            Chicken_Male ChickenMale = new Chicken_Male(chosenChickenMaleName, 6, false, true);
 
-                habitat.AddAnimal();
+            _animals.Add(ChickenMale);
 
-                numberOfChickens += 1;
+            Console.Clear();
 
-                _animals.Add(ChickenMale);
-                numberOfAnimals += 1;
+            Console.WriteLine($"\n\n\nYour new (male) chicken {chosenChickenMaleName} of 6 months has been added to your chicken habitat!\n");
+            return;
 
-                Console.Clear();
-
-                Console.WriteLine($"\n\n\nYour new (male) chicken {chosenChickenMaleName} of 6 months has been added to your chicken habitat!\n");
-                return;
-            }
         }
         Console.WriteLine("You don't have enough habitats, buy a new one.");
     }
@@ -325,24 +319,14 @@ public class Zoo
     public void addBabyChickenMale2(string chosenChickenMaleName)
     {
 
-        foreach (var habitat in _chickenHabitats)
+        if (EnoughChickenHabitats())
         {
-            if (habitat.NumberOfAnimals < 10)
-            {
-                Chicken_Male ChickenMale = new Chicken_Male(chosenChickenMaleName, 0, false, true);
+            Chicken_Male ChickenMale = new Chicken_Male(chosenChickenMaleName, 0, false, true);
 
-                habitat.AddAnimal();
+            _animals.Add(ChickenMale);
 
-                numberOfChickens += 1;
+            return;
 
-                _animals.Add(ChickenMale);
-                numberOfAnimals += 1;
-
-                Console.Clear();
-
-                Console.WriteLine($"\n\n\nYour new baby chicken {chosenChickenMaleName} has been added to your chicken habitat!\n");
-                return;
-            }
         }
         Console.WriteLine("You don't have enough habitats to have babies, buy a new one!");
     }
@@ -367,8 +351,6 @@ public class Zoo
             if (_animals[i].GetName() == chosenChickenMaleName && _animals[i] is Chicken_Male)
             {
                 _animals.RemoveAt(i);
-                numberOfChickens -= 1;
-                numberOfAnimals -= 1;
                 found = true;
                 break;
 
@@ -379,7 +361,6 @@ public class Zoo
             Console.WriteLine($"You don't have any chicken named {chosenChickenMaleName}");
             return;
         }
-        //_chickensFemales.Add(ChickenFemale);
 
         Console.Clear();
 
@@ -406,26 +387,20 @@ public class Zoo
     //adds an eagle female in the list of the animals (name and age are chosen in parameter here)
     public void addEagleFemale2(string chosenEagleFemaleName, int age)
     {
-        foreach (var habitat in _eagleHabitats)
+
+        if (EnoughEagleHabitats())
         {
-            if (habitat.NumberOfAnimals < 4)
-            {
 
-                Eagle_Female EagleFemale = new Eagle_Female(chosenEagleFemaleName, age, false, true);
+            Eagle_Female EagleFemale = new Eagle_Female(chosenEagleFemaleName, age, false, true);
 
-                numberOfEagles += 1;
+            _animals.Add(EagleFemale);
 
-                _animals.Add(EagleFemale);
-                habitat.AddAnimal();
+            Console.Clear();
 
-                numberOfAnimals += 1;
-
-                Console.Clear();
-
-                Console.WriteLine($"\n\n\nYour new (female) eagle {chosenEagleFemaleName} of {age} months has been added to your eagles habitat!\n");
-                return;
-            }
+            Console.WriteLine($"\n\n\nYour new (female) eagle {chosenEagleFemaleName} of {age} months has been added to your eagles habitat!\n");
+            return;
         }
+
         Console.WriteLine("You don't have enough habitats, buy a new one.");
     }
 
@@ -450,28 +425,19 @@ public class Zoo
     public void addEagleMale2(string chosenEagleMaleName, int age)
     {
 
-        foreach (var habitat in _eagleHabitats)
+        if (EnoughEagleHabitats())
         {
+            Eagle_Male EagleMale = new Eagle_Male(chosenEagleMaleName, age, false, true);
 
-            if (habitat.NumberOfAnimals < 4)
-            {
-                Eagle_Male EagleMale = new Eagle_Male(chosenEagleMaleName, age, false, true);
+            _animals.Add(EagleMale);
 
-                numberOfEagles += 1;
+            Console.Clear();
 
-                _animals.Add(EagleMale);
-                habitat.AddAnimal();
-                numberOfAnimals += 1;
-
-                Console.Clear();
-
-                Console.WriteLine($"\n\n\nYour new (male) eagle {chosenEagleMaleName} of {age} months has been added to your eagles habitat!\n");
-                return;
-            }
-
-            Console.WriteLine("You don't have enough habitat, buy a new one.");
-
+            Console.WriteLine($"\n\n\nYour new (male) eagle {chosenEagleMaleName} of {age} months has been added to your eagles habitat!\n");
+            return;
         }
+
+        Console.WriteLine("You don't have enough habitat, buy a new one.");
     }
 
 
@@ -495,8 +461,6 @@ public class Zoo
             if (_animals[i].GetName() == chosenEagleName && _animals[i].GetAge() >= 6 && _animals[i].GetAge() < 48)
             {
                 _animals.RemoveAt(i);
-                numberOfEagles -= 1;
-                numberOfAnimals -= 1;
                 found = true;
                 break;
 
@@ -534,8 +498,6 @@ public class Zoo
             if (_animals[i].GetName() == chosenEagleName && _animals[i].GetAge() >= 48 && _animals[i].GetAge() < 168)
             {
                 _animals.RemoveAt(i);
-                numberOfEagles -= 1;
-                numberOfAnimals -= 1;
                 found = true;
                 break;
 
@@ -573,8 +535,6 @@ public class Zoo
             if (_animals[i].GetName() == chosenEagleName && _animals[i].GetAge() >= 168)
             {
                 _animals.RemoveAt(i);
-                numberOfEagles -= 1;
-                numberOfAnimals -= 1;
                 found = true;
                 break;
 
@@ -614,24 +574,18 @@ public class Zoo
     {
 
 
-        foreach (var habitat in _tigerHabitats)
+        if (EnoughTigerHabitats())
         {
+            Tiger_Female TigerFemale = new Tiger_Female(chosenTigerFemaleName, age, false, true);
 
-            if (habitat.NumberOfAnimals < 2)
-            {
-                Tiger_Female TigerFemale = new Tiger_Female(chosenTigerFemaleName, age, false, true);
+            _animals.Add(TigerFemale);
 
-                numberOfTigers += 1;
-                habitat.AddAnimal();
-                _animals.Add(TigerFemale);
-                numberOfAnimals += 1;
+            Console.Clear();
 
-                Console.Clear();
-
-                Console.WriteLine($"\n\n\nYour new (female) tiger {chosenTigerFemaleName} of {age} months has been added to your tigers habitat!\n");
-                return;
-            }
+            Console.WriteLine($"\n\n\nYour new (female) tiger {chosenTigerFemaleName} of {age} months has been added to your tigers habitat!\n");
+            return;
         }
+
         Console.WriteLine("You don't have enough habitats, buy a new one.");
     }
 
@@ -656,22 +610,19 @@ public class Zoo
     public void addTigerMale2(string chosenTigerMaleName, int age)
     {
 
-        foreach (var habitat in _tigerHabitats)
+
+        if (EnoughTigerHabitats())
         {
-            if (habitat.NumberOfAnimals < 2)
-            {
-                Tiger_Male TigerMale = new Tiger_Male(chosenTigerMaleName, age, false, true);
+            Tiger_Male TigerMale = new Tiger_Male(chosenTigerMaleName, age, false, true);
 
-                numberOfTigers += 1;
 
-                _animals.Add(TigerMale);
-                numberOfAnimals += 1;
+            _animals.Add(TigerMale);
 
-                Console.Clear();
+            Console.Clear();
 
-                Console.WriteLine($"\n\n\nYour new (male) tiger {chosenTigerMaleName} of {age} months has been added to your tigers habitat!\n");
-                return;
-            }
+            Console.WriteLine($"\n\n\nYour new (male) tiger {chosenTigerMaleName} of {age} months has been added to your tigers habitat!\n");
+            return;
+
         }
         Console.WriteLine("You don't have enough habitats, buy a new one.");
     }
@@ -697,8 +648,6 @@ public class Zoo
             if (_animals[i].GetName() == chosenTigerName && _animals[i].GetAge() >= 6 && _animals[i].GetAge() < 48)
             {
                 _animals.RemoveAt(i);
-                numberOfTigers -= 1;
-                numberOfAnimals -= 1;
                 found = true;
                 break;
 
@@ -736,8 +685,6 @@ public class Zoo
             if (_animals[i].GetName() == chosenTigerName && _animals[i].GetAge() >= 48 && _animals[i].GetAge() < 168)
             {
                 _animals.RemoveAt(i);
-                numberOfTigers -= 1;
-                numberOfAnimals -= 1;
                 found = true;
                 break;
 
@@ -775,8 +722,6 @@ public class Zoo
             if (_animals[i].GetName() == chosenTigerName && _animals[i].GetAge() >= 168)
             {
                 _animals.RemoveAt(i);
-                numberOfTigers -= 1;
-                numberOfAnimals -= 1;
                 found = true;
                 break;
 
@@ -797,14 +742,14 @@ public class Zoo
     //checks if there's enough habitat when you buy an animal or if the animals of this species reproduct
     public bool EnoughChickenHabitats()
     {
-        return numberOfChickens < numberOfChickenHabitats * 10;
+        return TotalChickens < (TotalChickenHabitats * 10);
     }
 
 
     //checks if there's enough habitat when you buy an animal or if the animals of this species reproduct
     public bool EnoughEagleHabitats()
     {
-        return numberOfEagles < numberOfEagleHabitats * 4;
+        return TotalEagles < (TotalEagleHabitats * 4);
 
     }
 
@@ -812,7 +757,7 @@ public class Zoo
     //checks if there's enough habitat when you buy an animal or if the animals of this species reproduct
     public bool EnoughTigerHabitats()
     {
-        return numberOfTigers < numberOfTigerHabitats * 2;
+        return TotalTigers < (TotalTigerHabitats * 2);
     }
 
 
@@ -832,6 +777,10 @@ public class Zoo
     {
         Random rand = new Random();
 
+        string red = "\u001b[31m";
+        string green = "\u001b[32m";
+        string reset = "\u001b[0m";
+
         for (var i = _animals.Count - 1; i >= 0; i--)
         {
             if (_animals[i].IsPregnant() == true)
@@ -844,7 +793,7 @@ public class Zoo
 
                     if (randomChoice == 0)
                     {
-                        Console.WriteLine($"[DEATH] A baby chicken of {_animals[i].GetName()} has saddly passed away during birth.");
+                        Console.WriteLine($"{red}[DEATH] A baby chicken of {_animals[i].GetName()} has saddly passed away during birth.{reset}");
                     }
                     else
                     {
@@ -855,14 +804,14 @@ public class Zoo
                             _animals[i].IncrNumberOfKids();
 
                             addBabyChickenFemale2($"Baby{_animals[i].GetNumberOfKids()} of {_animals[i].GetName()}");
-                            Console.WriteLine($"[BIRTH] A baby (female) chicken of {_animals[i].GetName()} is born!");
+                            Console.WriteLine($"{green}[BIRTH] A baby (female) chicken of {_animals[i].GetName()} is born!{reset}");
                         }
                         else
                         {
                             _animals[i].IncrNumberOfKids();
 
                             addBabyChickenMale2($"Baby{_animals[i].GetNumberOfKids()} of {_animals[i].GetName()}");
-                            Console.WriteLine($"[BIRTH] A baby (male) chicken of {_animals[i].GetName()} is born!");
+                            Console.WriteLine($"{green}[BIRTH] A baby (male) chicken of {_animals[i].GetName()} is born!{reset}");
                         }
                     }
                     _animals[i].ResetGestation();
@@ -873,7 +822,7 @@ public class Zoo
 
                     if (randomChoice == 0)
                     {
-                        Console.WriteLine($"[DEATH] A baby eagle of {_animals[i].GetName()} has saddly passed away during birth.");
+                        Console.WriteLine($"{red}[DEATH] A baby eagle of {_animals[i].GetName()} has saddly passed away during birth.{reset}");
                     }
                     else
                     {
@@ -885,14 +834,14 @@ public class Zoo
                             _animals[i].IncrNumberOfKids();
 
                             addEagleFemale2($"Baby{_animals[i].GetNumberOfKids()} of {_animals[i].GetName()}", 0);
-                            Console.WriteLine($"[BIRTH] A baby (female) eagle of {_animals[i].GetName()} is born!");
+                            Console.WriteLine($"{green}[BIRTH] A baby (female) eagle of {_animals[i].GetName()} is born!{reset}");
                         }
                         else
                         {
                             _animals[i].IncrNumberOfKids();
 
                             addEagleMale2($"Baby{_animals[i].GetNumberOfKids()} of {_animals[i].GetName()}", 0);
-                            Console.WriteLine($"[BIRTH] A baby (male) eagle of {_animals[i].GetName()} is born!");
+                            Console.WriteLine($"{green}[BIRTH] A baby (male) eagle of {_animals[i].GetName()} is born!{reset}");
                         }
                     }
                     _animals[i].ResetGestation();
@@ -904,7 +853,7 @@ public class Zoo
 
                     if (randomChoice == 0 || randomChoice == 1)
                     {
-                        Console.WriteLine($"[DEATH] A baby tiger of {_animals[i].GetName()} has saddly passed away during birth.");
+                        Console.WriteLine($"{red}[DEATH] A baby tiger of {_animals[i].GetName()} has saddly passed away during birth.{reset}");
                     }
                     else
                     {
@@ -916,14 +865,14 @@ public class Zoo
                             _animals[i].IncrNumberOfKids();
 
                             addTigerFemale2($"Baby{_animals[i].GetNumberOfKids()} of {_animals[i].GetName()}", 0);
-                            Console.WriteLine($"[BIRTH] A baby (female) tiger of {_animals[i].GetName()} is born!");
+                            Console.WriteLine($"{green}[BIRTH] A baby (female) tiger of {_animals[i].GetName()} is born!{reset}");
                         }
                         else
                         {
                             _animals[i].IncrNumberOfKids();
 
                             addTigerMale2($"Baby{_animals[i].GetNumberOfKids()} of {_animals[i].GetName()}", 0);
-                            Console.WriteLine($"[BIRTH] A baby (male) tiger of {_animals[i].GetName()} is born!");
+                            Console.WriteLine($"{green}[BIRTH] A baby (male) tiger of {_animals[i].GetName()} is born!{reset}");
                         }
                     }
                     _animals[i].ResetGestation();
@@ -942,28 +891,16 @@ public class Zoo
 
             if (thisAnimal.GetAge() >= thisAnimal.GetLifeTime())
             {
-                Console.WriteLine($"\n[DEATH] : {thisAnimal.GetName()} has passed away due to old age.");
+                string red = "\u001b[31m";
+                string reset = "\u001b[0m";
+
+                Console.WriteLine($"\n{red}[DEATH] : {thisAnimal.GetName()} has passed away due to old age.{reset}");
 
                 _animals.RemoveAt(i);
-
-                numberOfAnimals -= 1;
 
                 Console.WriteLine("\n[Press any key to return to Main Menu]");
                 Console.ReadKey();
 
-
-                if (thisAnimal.GetSpecies().Contains("Chicken"))
-                {
-                    numberOfChickens -= 1;
-                }
-                else if (thisAnimal.GetSpecies().Contains("Eagle"))
-                {
-                    numberOfEagles -= 1;
-                }
-                else
-                {
-                    numberOfTigers -= 1;
-                }
             }
         }
     }
@@ -973,6 +910,8 @@ public class Zoo
     public void CheckStarvation()
 
     {
+        string red = "\u001b[31m";
+        string reset = "\u001b[0m";
 
         for (int i = _animals.Count - 1; i >= 0; i--)
         {
@@ -980,27 +919,9 @@ public class Zoo
 
             if (thisAnimal.GetHunger() > (thisAnimal.GetDaysBeforeStarvation() * 2))
             {
-                Console.WriteLine($"[DEATH] : You didn't feed {thisAnimal.GetName()} for {thisAnimal.GetHunger():F2} days");
+                Console.WriteLine($"{red}[DEATH] : You didn't feed {thisAnimal.GetName()} for {thisAnimal.GetHunger():F2} days{reset}");
 
                 _animals.RemoveAt(i);
-
-                numberOfAnimals -= 1;
-
-                if (thisAnimal.GetSpecies().Contains("Chicken"))
-                {
-                    numberOfChickens -= 1;
-                }
-                else if (thisAnimal.GetSpecies().Contains("Eagle"))
-                {
-                    numberOfEagles -= 1;
-                }
-                else
-                {
-                    numberOfTigers -= 1;
-                }
-
-                //Console.WriteLine("\n[Press any key to continue]");
-                //Console.ReadLine();
             }
         }
     }
@@ -1008,7 +929,7 @@ public class Zoo
     //checks if there are enough chickens for one to be sold
     public bool EnoughChickens()
     {
-        if (numberOfChickens <= 0)
+        if (TotalChickens <= 0)
         {
             return false;
         }
@@ -1022,7 +943,7 @@ public class Zoo
     //checks if there are enough eagles for one to be sold
     public bool EnoughEagles()
     {
-        if (numberOfEagles <= 0)
+        if (TotalEagles <= 0)
         {
             return false;
         }
@@ -1033,7 +954,7 @@ public class Zoo
     //checks if there are enough tigers for one to be sold
     public bool EnoughTigers()
     {
-        if (numberOfTigers <= 0)
+        if (TotalTigers <= 0)
         {
             return false;
         }
@@ -1093,8 +1014,6 @@ public class Zoo
             if (RemoveChickenHabitatOk() == true)
             {
                 _chickenHabitats.Remove(habitat);
-                numberOfChickenHabitats--;
-                numberOfHabitats--;
                 return;
             }
         }
@@ -1108,8 +1027,6 @@ public class Zoo
         {
             if (RemoveEagleHabitatOk() == true)
             {
-                numberOfEagleHabitats--;
-                numberOfHabitats--;
                 _eagleHabitats.Remove(habitat);
                 return;
             }
@@ -1124,8 +1041,6 @@ public class Zoo
         {
             if (RemoveTigerHabitatOk() == true)
             {
-                numberOfTigerHabitats--;
-                numberOfHabitats--;
                 _tigerHabitats.Remove(habitat);
                 return;
             }
@@ -1245,6 +1160,12 @@ public class Zoo
     //makes a thief steal an random animal
     public void StolenAnimal()
     {
+        string red = "\u001b[31m";
+        string reset = "\u001b[0m";
+        string title = "\u001b[1m";
+
+
+
         if (_animals.Count == 0)
         {
             return;
@@ -1257,31 +1178,19 @@ public class Zoo
 
         _animals.RemoveAt(randomAnimal);
 
-        numberOfAnimals--;
+        Console.WriteLine($"\n{red}{title}[THEFT]{reset} Oh no! A thief stole {red}{title}{stolenAnimal.GetName()}{reset}...");
 
-        Console.WriteLine($"\n[THEFT] Oh no! A thief stole {stolenAnimal.GetName()}...");
-
-        if (stolenAnimal.GetSpecies().Contains("Chicken"))
-        {
-            numberOfChickens--;
-            numberOfAnimals--;
-        }
-        else if (stolenAnimal.GetSpecies().Contains("Eagle"))
-        {
-            numberOfEagles--;
-            numberOfAnimals--;
-        }
-        else
-        {
-            numberOfTigers--;
-            numberOfAnimals--;
-        }
     }
 
 
     //Checks if some animals are going to be sick (so they can't reproduce for example)
     public void CheckIllnesses()
     {
+
+        string red = "\u001b[31m";
+        string yellow = "\u001b[33m";
+        string reset = "\u001b[0m";
+
         if (_animals.Count == 0)
         {
             return;
@@ -1302,17 +1211,15 @@ public class Zoo
                 if (rand.Next(100) <= 4) //4% chance per month
                 {
                     thisAnimal.SetIllnessToTrue();
-                    Console.WriteLine($"[ILLNESS] Oh no! Your chicken {thisAnimal.GetName()} is ill during this month... ");
+                    Console.WriteLine($"{yellow}[ILLNESS] Oh no! Your chicken {thisAnimal.GetName()} is ill during this month...{reset}");
 
 
                     if (rand.Next(10) == 0) //then 10% chance of death caused by illness
                     {
 
-                        Console.WriteLine($"[DEATH] Oh no! Your chicken {thisAnimal.GetName()} passed away from illness... ");
+                        Console.WriteLine($"{red}[DEATH] Oh no! Your chicken {thisAnimal.GetName()} passed away from illness...{reset}");
 
                         _animals.RemoveAt(i);
-                        numberOfChickens--;
-                        numberOfAnimals--;
                     }
                 }
             }
@@ -1323,17 +1230,15 @@ public class Zoo
                 if (rand.Next(100) <= 5) //5%chance per month
                 {
                     thisAnimal.SetIllnessToTrue();
-                    Console.WriteLine($"[ILLNESS] Oh no! Your eagle {thisAnimal.GetName()} is ill during this month... ");
+                    Console.WriteLine($"{yellow}[ILLNESS] Oh no! Your eagle {thisAnimal.GetName()} is ill during this month...{reset}");
 
 
                     if (rand.Next(10) == 0) //then 10% chance of death caused by illness
                     {
 
-                        Console.WriteLine($"[DEATH] Oh no! Your eagle {thisAnimal.GetName()} passed away from illness... ");
+                        Console.WriteLine($"{red}[DEATH] Oh no! Your eagle {thisAnimal.GetName()} passed away from illness...{reset}");
 
                         _animals.RemoveAt(i);
-                        numberOfEagles--;
-                        numberOfAnimals--;
                     }
                 }
             }
@@ -1343,16 +1248,14 @@ public class Zoo
                 if (rand.Next(100) <= 3) //3% chance per month
                 {
                     thisAnimal.SetIllnessToTrue();
-                    Console.WriteLine($"[ILLNESS] Oh no! Your tiger {thisAnimal.GetName()} is ill during this month... ");
+                    Console.WriteLine($"{yellow}[ILLNESS] Oh no! Your tiger {thisAnimal.GetName()} is ill during this month...{reset}");
 
                     if (rand.Next(10) == 0) //then 10% chance of death caused by illness
                     {
 
-                        Console.WriteLine($"[DEATH] Oh no! Your tiger {thisAnimal.GetName()} passed away from illness... ");
+                        Console.WriteLine($"{red}[DEATH] Oh no! Your tiger {thisAnimal.GetName()} passed away from illness...{reset}");
 
                         _animals.RemoveAt(i);
-                        numberOfTigers--;
-                        numberOfAnimals--;
                     }
                 }
             }
@@ -1364,7 +1267,10 @@ public class Zoo
     public void BurnRandomHabitat()
     {
 
-        if (numberOfHabitats == 0)
+        string yellow = "\u001b[33m";
+        string reset = "\u001b[0m";
+
+        if (TotalHabitats == 0)
         {
             return;
         }
@@ -1381,27 +1287,22 @@ public class Zoo
         int index = rand.Next(allHabitats.Count);
         object habitatToBurn = allHabitats[index];
 
-        if (habitatToBurn is Chicken_Habitat ch)
+        if (habitatToBurn is Chicken_Habitat chickenHabitat)
         {
-            _chickenHabitats.Remove(ch);
-            numberOfChickenHabitats--;
+            _chickenHabitats.Remove(chickenHabitat);
 
-            Console.WriteLine("[EVENT] A fire destroyed a Chicken Habitat! Hurry up, buy anew one.");
+            Console.WriteLine($"{yellow}[EVENT] A fire destroyed a Chicken Habitat! Hurry up, buy anew one.{reset}");
         }
-        else if (habitatToBurn is Eagle_Habitat eh)
+        else if (habitatToBurn is Eagle_Habitat eagleHabitat)
         {
-            _eagleHabitats.Remove(eh);
-            numberOfEagleHabitats--;
-            Console.WriteLine("[EVENT] A fire destroyed an Eagle Habitat! Hurry up, buy anew one.");
+            _eagleHabitats.Remove(eagleHabitat);
+            Console.WriteLine($"{yellow}[EVENT] A fire destroyed an Eagle Habitat! Hurry up, buy anew one.{reset}");
         }
-        else if (habitatToBurn is Tiger_Habitat th)
+        else if (habitatToBurn is Tiger_Habitat tigerHabitat)
         {
-            _tigerHabitats.Remove(th);
-            numberOfTigerHabitats--;
-            Console.WriteLine("[EVENT] A fire destroyed a Tiger Habitat! Hurry up, buy anew one.");
+            _tigerHabitats.Remove(tigerHabitat);
+            Console.WriteLine($"{yellow}[EVENT] A fire destroyed a Tiger Habitat! Hurry up, buy anew one.{reset}");
         }
-
-        numberOfHabitats--;
     }
 
 

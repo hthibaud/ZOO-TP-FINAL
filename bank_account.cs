@@ -50,11 +50,6 @@ public class BankAccount
         }
         currentMoney += amount;
     }
-    public float getMoney()
-    {
-        Console.WriteLine($"[Account] : {currentMoney}€");
-        return currentMoney;
-    }
     public void Buy(float amount)
     {
         resetError();
@@ -74,7 +69,11 @@ public class BankAccount
     }
     public void ShowInfos()
     {
-        Console.WriteLine($"[BANK-ACCOUNT] Balance: {currentMoney}€\n");
+        string title = "\u001b[1m";
+        string yellow = "\u001b[33m";
+        string reset = "\u001b[0m";
+
+        Console.WriteLine($"{title}[BANK-ACCOUNT]{reset} Balance: {title}{yellow}{currentMoney}€{reset}\n");
     }
     public void IncrSubventions()
     {
@@ -89,10 +88,6 @@ public class BankAccount
     public void IncrVisitorsMoney(float money)
     {
         _totalVisitorsMoney += money;
-    }
-    public float GetTotalVisitorsMoney()
-    {
-        return _totalVisitorsMoney;
     }
 }
 
