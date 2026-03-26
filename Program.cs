@@ -169,6 +169,7 @@ class Program
                 {
 
                     Console.WriteLine($"\n 1. Female chicken (6 months) : {title}{yellow}20€{reset}\n 2. Male chicken (6 months) : {title}{yellow}100€{reset}\n 3. Back");
+                    Console.Write("\nChoice: ");
 
                     var chicken_choice = Console.ReadLine();
                     switch (chicken_choice)
@@ -227,6 +228,7 @@ class Program
                 if (thisZoo.EnoughEagleHabitats() == true)
                 {
                     Console.WriteLine($"\n 1. Eagle (6 months) : {title}{yellow}1000€{reset} \n 2. Eagle (4 years) : {title}{yellow}4 000€{reset} \n 3. Eagle (14 years) : {title}{yellow}2 000€{reset} \n 4. Back\n");
+                    Console.Write("\nChoice: ");
 
                     var eagle_choice = Console.ReadLine();
 
@@ -335,6 +337,7 @@ class Program
                 if (thisZoo.EnoughTigerHabitats() == true)
                 {
                     Console.WriteLine($"\n 1. Tiger (6 months) : {title}{yellow}3 000€{reset} \n 2. Tiger (4 years) : {title}{yellow}120 000€{reset} \n 3. Tiger (14 years) : {title}{yellow}60 000€{reset} \n 4. Back\n");
+                    Console.Write("\nChoice: ");
 
                     var tiger_choice = Console.ReadLine();
 
@@ -524,96 +527,7 @@ class Program
         if (myAccount.hasError) Console.WriteLine($"{myAccount.errorString}");
         PressKeyToContinue();
     }
-
-
-    //     var habitat_choice = Console.ReadLine();
-
-    //     switch (habitat_choice)
-    //     {
-    //         case "1":
-
-    //             Console.WriteLine($"\nBuy a chicken habitat (max.10 chickens) for {title}{yellow}300€{reset}? (type yes or no)\n");
-
-    //             var confirm_chicken_habitat_choice = Console.ReadLine();
-
-    //             switch (confirm_chicken_habitat_choice)
-    //             {
-    //                 case "yes":
-    //                     myAccount.Buy(300);
-    //                     myAccount.ShowInfos();
-    //                     sfx.PlaySound("moneySFX.wav");
-    //                     sfx.PlaySound("building.wav");
-    //                     thisZoo.addChickenHabitat();
-    //                     break;
-
-    //                 case "no":
-    //                     break;
-    //                 default:
-    //                     Console.WriteLine("invalid choice");
-    //                     break;
-    //             }
-    //             break;
-
-    //         case "2":
-
-    //             Console.WriteLine($"\nBuy an eagle habitat (max.4 eagles) for {title}{yellow}2 000€{reset}? (type yes or no)\n");
-
-    //             var confirm_eagle_habitat_choice = Console.ReadLine();
-    //             switch (confirm_eagle_habitat_choice)
-    //             {
-    //                 case "yes":
-    //                     myAccount.Buy(2000);
-    //                     sfx.PlaySound("moneySFX.wav");
-    //                     sfx.PlaySound("building.wav");
-    //                     myAccount.ShowInfos();
-    //                     thisZoo.addEagleHabitat();
-    //                     break;
-
-    //                 case "no":
-    //                     break;
-
-    //                 default:
-    //                     Console.WriteLine("invalid choice");
-    //                     break;
-    //             }
-    //             break;
-
-    //         case "3":
-
-    //             Console.WriteLine($"\nBuy a tiger habitat (max.2 tigers) for {title}{yellow}2 000€{reset}? (type yes or no)\n");
-
-    //             var confirm_tiger_habitat_choice = Console.ReadLine();
-    //             switch (confirm_tiger_habitat_choice)
-    //             {
-    //                 case "yes":
-    //                     myAccount.Buy(2000);
-    //                     sfx.PlaySound("moneySFX.wav");
-    //                     sfx.PlaySound("building.wav");
-    //                     thisZoo.addTigerHabitat();
-    //                     myAccount.ShowInfos();
-    //                     break;
-
-    //                 case "no":
-    //                     break;
-
-    //                 default:
-    //                     Console.WriteLine("invalid choice");
-    //                     break;
-
-    //             }
-    //             break;
-
-    //         case "4":
-    //             return;
-
-    //         default:
-    //             Console.WriteLine("invalid choice");
-    //             break;
-
-    //     }
-    //     PressKeyToContinue();
-    // }
-
+    
 
     //menu where you can choose to see which one of your stats
     private void StatsMenu()
@@ -943,13 +857,13 @@ class Program
     //verifies if you are in a low or high season 
     public void HaveVisitors()
     {
-        if (time.GetCurrentMonth() > 9 && time.GetCurrentMonth() < 6)
+        if (time.GetCurrentMonth() > 6 && time.GetCurrentMonth() < 9)
         {
-            HaveVisitors_low();
+            HaveVisitors_high();
         }
         else
         {
-            HaveVisitors_high();
+            HaveVisitors_low();
         }
         myAccount.ShowInfos();
     }
@@ -958,7 +872,7 @@ class Program
     //just a menu function that says Press key to return to main menu and waits for that key to continue
     public void PressKeyToContinue()
     {
-        Console.WriteLine("\n[Press any key to return to main menu]");
+        Console.WriteLine("\n[Press enter to return to main menu]");
         Console.ReadLine();
         sfx.PlaySound("clickSFX.wav");
     }
@@ -967,7 +881,7 @@ class Program
     //just a menu function that says Press key to continue and waits for that key to continue
     public void PressKeyToContinue2()
     {
-        Console.WriteLine("\n[Press any key to continue]");
+        Console.WriteLine("\n[Press enter to continue]");
         Console.ReadLine();
         sfx.PlaySound("clickSFX.wav");
     }
