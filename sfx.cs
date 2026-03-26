@@ -1,19 +1,14 @@
 using System.Runtime.InteropServices;
 using System.Diagnostics;
-using System.Media;
 
 public class SFX
 {
-
-    //Launches the sounds as one shots
     public void PlaySound(string fileName)
     {
         string path = Path.Combine("Sounds", fileName);
 
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         {
-            // if you are on WINDOWS
-            // it uses PowerShell to launch sounds on windows
             Process.Start(new ProcessStartInfo
             {
                 FileName = "powershell",
@@ -23,46 +18,51 @@ public class SFX
         }
         else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
         {
-            //Ubuntu
-            // it uses aplay
             Process.Start("aplay", $"-q {path}");
         }
     }
 
-
-    //Starts the loops musics
     public void StartMusic(string fileName)
     {
         string path = Path.Combine("Sounds", fileName);
 
-        // For linux, using ffplay
-        Process.Start("ffplay", $"-nodisp -loop 0 -loglevel quiet {path}");
-
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            // Windows : launching PowerShell that plays the song in loop (.PlayLooping)
+            // using the Start-Job so PowerShell does it in the background without blocking C#
+            string script = $"$p = New-Object Media.SoundPlayer '{path}'; $p.PlayLooping(); while($true){{Start-Sleep 1}}";
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "powershell",
+                Arguments = $"-c \"{script}\"",
+                CreateNoWindow = true,
+                WindowStyle = ProcessWindowStyle.Hidden
+            });
+        }
+        else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            Process.Start("ffplay", $"-nodisp -loop 0 -loglevel quiet {path}");
+        }
     }
 
-    //Starts the SFX loop
-    public void StartSFXMusic(string fileName)
-    {
-        string path = Path.Combine("Sounds", fileName);
+    // Same logic for SFXMusic
+    public void StartSFXMusic(string fileName) => StartMusic(fileName);
 
-        // For linux, using ffplay
-        Process.Start("ffplay", $"-nodisp -loop 0 -loglevel quiet {path}");
-
-    }
-
-
-    //Stops the loops musics
     public void StopMusic()
     {
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
         {
-            // Linux (PowerShell)
             Process.Start("pkill", "ffplay");
         }
         else if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         {
-            // Windows (PowerShell)
-            Process.Start("powershell", "-c \"Get-Process ffplay, powershell | Stop-Process -ErrorAction SilentlyContinue\"");
+            // Windows : killing all the processes PowerShell that could play sounds
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "powershell",
+                Arguments = "-c \"Stop-Process -Name powershell -Force -ErrorAction SilentlyContinue\"",
+                CreateNoWindow = true
+            });
         }
     }
 }
