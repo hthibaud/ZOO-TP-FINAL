@@ -1184,6 +1184,8 @@ public class Zoo
     //Checks if some animals are going to be sick (so they can't reproduce for example)
     public void CheckIllnesses()
     {
+        int illAnimals = 0;
+        int deathsFromIllness = 0;
 
         string red = "\u001b[31m";
         string yellow = "\u001b[33m";
@@ -1198,6 +1200,7 @@ public class Zoo
 
         for (int i = _animals.Count - 1; i >= 0; i--)
         {
+            
 
             var thisAnimal = _animals[i];
 
@@ -1209,14 +1212,12 @@ public class Zoo
                 if (rand.Next(100) <= 4) //4% chance per month
                 {
                     thisAnimal.SetIllnessToTrue();
-                    Console.WriteLine($"{yellow}[ILLNESS] Oh no! Your chicken {thisAnimal.GetName()} is ill during this month...{reset}");
-
+                    illAnimals++;
 
                     if (rand.Next(10) == 0) //then 10% chance of death caused by illness
                     {
 
-                        Console.WriteLine($"{red}[DEATH] Oh no! Your chicken {thisAnimal.GetName()} passed away from illness...{reset}");
-
+                        deathsFromIllness++;
                         _animals.RemoveAt(i);
                     }
                 }
@@ -1228,13 +1229,12 @@ public class Zoo
                 if (rand.Next(100) <= 5) //5%chance per month
                 {
                     thisAnimal.SetIllnessToTrue();
-                    Console.WriteLine($"{yellow}[ILLNESS] Oh no! Your eagle {thisAnimal.GetName()} is ill during this month...{reset}");
-
+                    illAnimals++;
 
                     if (rand.Next(10) == 0) //then 10% chance of death caused by illness
                     {
 
-                        Console.WriteLine($"{red}[DEATH] Oh no! Your eagle {thisAnimal.GetName()} passed away from illness...{reset}");
+                        deathsFromIllness++;
 
                         _animals.RemoveAt(i);
                     }
@@ -1246,18 +1246,42 @@ public class Zoo
                 if (rand.Next(100) <= 3) //3% chance per month
                 {
                     thisAnimal.SetIllnessToTrue();
-                    Console.WriteLine($"{yellow}[ILLNESS] Oh no! Your tiger {thisAnimal.GetName()} is ill during this month...{reset}");
-
+                    illAnimals++;
                     if (rand.Next(10) == 0) //then 10% chance of death caused by illness
                     {
 
-                        Console.WriteLine($"{red}[DEATH] Oh no! Your tiger {thisAnimal.GetName()} passed away from illness...{reset}");
+                        deathsFromIllness++;
 
                         _animals.RemoveAt(i);
                     }
                 }
             }
         }
+            if (illAnimals == 0)
+        {
+            return;
+        }
+            if (illAnimals == 1)
+        {
+            
+            Console.WriteLine($"{yellow}[ILLNESS] Oh no! One animal is ill during this month...{reset}");
+
+        } else
+            {
+                Console.WriteLine($"{yellow}[ILLNESS] Oh no! {illAnimals} animals are ill during this month...{reset}");
+            }
+
+            if (deathsFromIllness == 0)
+        {
+            return;
+        }
+            if (deathsFromIllness == 1)
+            {
+                Console.WriteLine($"{red}[DEATH] Oh no! One animal passed away from illness this month...{reset}");
+            } else
+            {
+                Console.WriteLine($"{red}[DEATH] Oh no! {deathsFromIllness} animals passed away from illness this month...{reset}");
+            }
     }
 
 
