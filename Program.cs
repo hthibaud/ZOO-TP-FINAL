@@ -45,12 +45,11 @@ class Program
     }
 
     //Run starts the game/simulation
+    bool isPlaying = true;
     public void Run()
     {
         //Starts loop music of the game
         sfx.StartMusic("zoomusic.wav");
-
-        bool isPlaying = true;
 
         while (isPlaying)
         {
@@ -64,7 +63,6 @@ class Program
             switch (choice)
             {
                 case "0":
-
 
                     Console.WriteLine("Goodbye!");
                     sfx.StopMusic();
@@ -610,6 +608,7 @@ class Program
         thisZoo.GrowUpAnimalsMonths();
         CheckEvents();
         PressKeyToContinue2();
+        CheckLoseCondition();
     }
 
 
@@ -1441,6 +1440,32 @@ class Program
         Console.Clear();
         thisZoo.AsciiZoo();
     }
+
+    public void CheckLoseCondition()
+    {
+        if(thisZoo.TotalAnimals == 0 && myAccount.GetCurrentMoney() < 42.5 && thisZoo.TotalChickenHabitats == 1)
+        {
+            YouLose();
+        } else if (thisZoo.TotalAnimals == 0 && myAccount.GetCurrentMoney() < 342.5 && thisZoo.TotalHabitats == 0){
+            
+            YouLose();
+        }
+    }
+
+    public void YouLose()
+    {
+        string red = "\u001b[31m";
+        string title = "\u001b[1m";
+        string reset = "\u001b[0m";
+        
+        Console.Clear();
+        Console.WriteLine($"\n\n\n\n\n{red}{title}YOU LOSE! you don't have enough habitats, money and animals{reset}");
+        Console.WriteLine("[press any key to quit the game]");
+        Console.ReadLine();
+        sfx.StopMusic();
+        isPlaying = false;
+    }
+
 
     //Initializes the scenario 1 (for testing) that gives you directly :
     //1 habitat for each animal 

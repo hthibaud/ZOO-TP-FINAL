@@ -89,5 +89,10 @@ public class BankAccount
     {
         _totalVisitorsMoney += money;
     }
+
+    public float GetCurrentMoney()
+    {
+        return currentMoney;
+    }
 }
 
