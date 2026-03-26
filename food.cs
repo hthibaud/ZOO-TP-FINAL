@@ -36,7 +36,7 @@ public class Food
 
         if (_meatKg < 0)
         {
-            Console.WriteLine($"Not enough meat : {_meatKg:F2}Kg");
+            //Console.WriteLine($"Not enough meat : {_meatKg:F2}Kg");
             _meatKg = 0;
         }
         return surplus;
@@ -51,7 +51,7 @@ public class Food
 
         if (_seedsKg < 0)
         {
-            Console.WriteLine($"Not enough seeds : {_seedsKg:F2}Kg");
+            //Console.WriteLine($"Not enough seeds : {_seedsKg:F2}Kg");
             _seedsKg = 0;
         }
         return surplus;

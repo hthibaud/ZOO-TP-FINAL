@@ -674,6 +674,7 @@ class Program
         thisZoo.DeathByAge();
         thisZoo.CheckIllnesses();
         FeedAnimals();
+        food.ShowInfos();
         thisZoo.CheckStarvation();
         HaveVisitors();
         EarnSubvention();
