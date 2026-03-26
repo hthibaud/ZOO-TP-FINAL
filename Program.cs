@@ -924,7 +924,7 @@ class Program
             PressKeyToContinue();
             return;
         }
-        
+
         Console.WriteLine($"\n{title}########### Sell animals from your Zoo! ###########{reset}\n");
         myAccount.ShowInfos();
         Console.WriteLine("\n 1. Chickens \n 2. Eagles \n 3. Tigers \n\n 4. Back");
@@ -1139,7 +1139,7 @@ class Program
                 }
                 break;
         }
-            PressKeyToContinue();
+        PressKeyToContinue();
     }
 
 
@@ -1376,7 +1376,7 @@ class Program
 
         string red = "\u001b[31m";
         string title = "\u001b[1m";
-        string reset = "\u001b[0m";  
+        string reset = "\u001b[0m";
 
         Random rand = new Random();
         var random20 = rand.Next(5); //number between 0 & 4 so 1/5chance so 20%
@@ -1487,101 +1487,6 @@ class Program
 
         myAccount.Buy(1000);
         thisZoo.addEagleFemale2("Aiglette2", 6);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         myAccount.Buy(35000);
