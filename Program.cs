@@ -440,10 +440,11 @@ class Program
     }
 
 
-    //menu + code where you can buy your habitats
+    //menu + code where you can buy your habitats, and how many of them
     private void BuyHabitatsMenu()
     {
 
+        string green = "\u001b[32m";
         string yellow = "\u001b[33m";
         string reset = "\u001b[0m";
         string title = "\u001b[1m";
@@ -451,94 +452,167 @@ class Program
         sfx.PlaySound("clickSFX.wav");
         Console.Clear();
         Console.WriteLine($"\n{title}########### Buy an habitat for your Zoo! ###########{reset}\n");
-        Console.WriteLine("\n 1.Chicken habitat (10 chickens)\n 2.Eagle habitat (4 eagles) \n 3.Tiger habitat (2 tigers)\n");
+        Console.WriteLine($"\n1. Chicken habitat (10 chickens): {title}{yellow}300€{reset}");
+        Console.WriteLine($"2. Eagle habitat (4 eagles): {title}{yellow}2 000€{reset}");
+        Console.WriteLine($"3. Tiger habitat (2 tigers): {title}{yellow}2 000€{reset}");
+        Console.WriteLine("\n4. Back\n");
+        myAccount.ShowInfos();
         Console.Write("\nChoice: ");
 
+        var choice = Console.ReadLine();
+        if (choice == "4") return;
 
-        var habitat_choice = Console.ReadLine();
+        Console.WriteLine("\nHow many habitats do you want to build?");
+        if (!int.TryParse(Console.ReadLine(), out int amount) || amount <= 0 || amount > 10)
+        {
+            Console.WriteLine("Invalid amount! (you can't buy more than 10 habitats at once)");
+            PressKeyToContinue();
+            return;
+        }
 
-        switch (habitat_choice)
+        switch (choice)
         {
             case "1":
+                int totalCostChicken = amount * 300;
 
-                Console.WriteLine($"\nBuy a chicken habitat (max.10 chickens) for {title}{yellow}300€{reset}? (type yes or no)\n");
+                myAccount.Buy(totalCostChicken);
 
-                var confirm_chicken_habitat_choice = Console.ReadLine();
-
-                switch (confirm_chicken_habitat_choice)
+                if (!myAccount.hasError)
                 {
-                    case "yes":
-                        myAccount.Buy(300);
-                        myAccount.ShowInfos();
-                        sfx.PlaySound("moneySFX.wav");
-                        sfx.PlaySound("building.wav");
-                        thisZoo.addChickenHabitat();
-                        break;
-
-                    case "no":
-                        break;
-                    default:
-                        Console.WriteLine("invalid choice");
-                        break;
+                    for (int i = 0; i < amount; i++)
+                    { 
+                    thisZoo.addChickenHabitat();
+                    }
+                    sfx.PlaySound("building.wav");
+                    Console.WriteLine($"{green}Successfully built {title}{amount}{reset} {green}chicken habitats!{reset}");
                 }
                 break;
 
             case "2":
+                int totalCostEagle = amount * 2000;
 
-                Console.WriteLine($"\nBuy an eagle habitat (max.4 eagles) for {title}{yellow}2 000€{reset}? (type yes or no)\n");
+                myAccount.Buy(totalCostEagle);
 
-                var confirm_eagle_habitat_choice = Console.ReadLine();
-                switch (confirm_eagle_habitat_choice)
+                if (!myAccount.hasError)
                 {
-                    case "yes":
-                        myAccount.Buy(2000);
-                        sfx.PlaySound("moneySFX.wav");
-                        sfx.PlaySound("building.wav");
-                        myAccount.ShowInfos();
+                    for (int i = 0; i < amount; i++)
+                    {
                         thisZoo.addEagleHabitat();
-                        break;
-
-                    case "no":
-                        break;
-
-                    default:
-                        Console.WriteLine("invalid choice");
-                        break;
+                    }
+                    sfx.PlaySound("building.wav");
+                    Console.WriteLine($"{green}Successfully built {title}{amount}{reset} {green}eagle habitats!{reset}");
                 }
                 break;
 
             case "3":
+                int totalCostTiger = amount * 2000;
 
-                Console.WriteLine($"\nBuy a tiger habitat (max.2 tigers) for {title}{yellow}2 000€{reset}? (type yes or no)\n");
+                myAccount.Buy(totalCostTiger);
 
-                var confirm_tiger_habitat_choice = Console.ReadLine();
-                switch (confirm_tiger_habitat_choice)
+                if (!myAccount.hasError)
                 {
-                    case "yes":
-                        myAccount.Buy(2000);
-                        sfx.PlaySound("moneySFX.wav");
-                        sfx.PlaySound("building.wav");
+                    for (int i = 0; i < amount; i++)
+                    {
                         thisZoo.addTigerHabitat();
-                        myAccount.ShowInfos();
-                        break;
-
-                    case "no":
-                        break;
-
-                    default:
-                        Console.WriteLine("invalid choice");
-                        break;
-
+                    }
+                    sfx.PlaySound("building.wav");
+                    Console.WriteLine($"{green}Successfully built {title}{amount}{reset} {green}tiger habitats!{reset}");
                 }
                 break;
-
-            default:
-                Console.WriteLine("invalid choice");
-                break;
-
         }
+
+        if (myAccount.hasError) Console.WriteLine($"{myAccount.errorString}");
         PressKeyToContinue();
     }
+
+
+    //     var habitat_choice = Console.ReadLine();
+
+    //     switch (habitat_choice)
+    //     {
+    //         case "1":
+
+    //             Console.WriteLine($"\nBuy a chicken habitat (max.10 chickens) for {title}{yellow}300€{reset}? (type yes or no)\n");
+
+    //             var confirm_chicken_habitat_choice = Console.ReadLine();
+
+    //             switch (confirm_chicken_habitat_choice)
+    //             {
+    //                 case "yes":
+    //                     myAccount.Buy(300);
+    //                     myAccount.ShowInfos();
+    //                     sfx.PlaySound("moneySFX.wav");
+    //                     sfx.PlaySound("building.wav");
+    //                     thisZoo.addChickenHabitat();
+    //                     break;
+
+    //                 case "no":
+    //                     break;
+    //                 default:
+    //                     Console.WriteLine("invalid choice");
+    //                     break;
+    //             }
+    //             break;
+
+    //         case "2":
+
+    //             Console.WriteLine($"\nBuy an eagle habitat (max.4 eagles) for {title}{yellow}2 000€{reset}? (type yes or no)\n");
+
+    //             var confirm_eagle_habitat_choice = Console.ReadLine();
+    //             switch (confirm_eagle_habitat_choice)
+    //             {
+    //                 case "yes":
+    //                     myAccount.Buy(2000);
+    //                     sfx.PlaySound("moneySFX.wav");
+    //                     sfx.PlaySound("building.wav");
+    //                     myAccount.ShowInfos();
+    //                     thisZoo.addEagleHabitat();
+    //                     break;
+
+    //                 case "no":
+    //                     break;
+
+    //                 default:
+    //                     Console.WriteLine("invalid choice");
+    //                     break;
+    //             }
+    //             break;
+
+    //         case "3":
+
+    //             Console.WriteLine($"\nBuy a tiger habitat (max.2 tigers) for {title}{yellow}2 000€{reset}? (type yes or no)\n");
+
+    //             var confirm_tiger_habitat_choice = Console.ReadLine();
+    //             switch (confirm_tiger_habitat_choice)
+    //             {
+    //                 case "yes":
+    //                     myAccount.Buy(2000);
+    //                     sfx.PlaySound("moneySFX.wav");
+    //                     sfx.PlaySound("building.wav");
+    //                     thisZoo.addTigerHabitat();
+    //                     myAccount.ShowInfos();
+    //                     break;
+
+    //                 case "no":
+    //                     break;
+
+    //                 default:
+    //                     Console.WriteLine("invalid choice");
+    //                     break;
+
+    //             }
+    //             break;
+
+    //         case "4":
+    //             return;
+
+    //         default:
+    //             Console.WriteLine("invalid choice");
+    //             break;
+
+    //     }
+    //     PressKeyToContinue();
+    // }
 
 
     //menu where you can choose to see which one of your stats
@@ -1443,11 +1517,13 @@ class Program
 
     public void CheckLoseCondition()
     {
-        if(thisZoo.TotalAnimals == 0 && myAccount.GetCurrentMoney() < 42.5 && thisZoo.TotalChickenHabitats == 1)
+        if (thisZoo.TotalAnimals == 0 && myAccount.GetCurrentMoney() < 42.5 && thisZoo.TotalChickenHabitats == 1)
         {
             YouLose();
-        } else if (thisZoo.TotalAnimals == 0 && myAccount.GetCurrentMoney() < 342.5 && thisZoo.TotalHabitats == 0){
-            
+        }
+        else if (thisZoo.TotalAnimals == 0 && myAccount.GetCurrentMoney() < 342.5 && thisZoo.TotalHabitats == 0)
+        {
+
             YouLose();
         }
     }
@@ -1457,7 +1533,7 @@ class Program
         string red = "\u001b[31m";
         string title = "\u001b[1m";
         string reset = "\u001b[0m";
-        
+
         Console.Clear();
         Console.WriteLine($"\n\n\n\n\n{red}{title}YOU LOSE! you don't have enough habitats, money and animals{reset}");
         Console.WriteLine("[press any key to quit the game]");

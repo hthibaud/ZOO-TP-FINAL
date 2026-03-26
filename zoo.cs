@@ -138,25 +138,17 @@ public class Zoo
     //adds a chicken habitat in the list
     public void addChickenHabitat()
     {
-        string green = "\u001b[32m";
-        string reset = "\u001b[0m";
-
         Chicken_Habitat newChickenHabitat = new Chicken_Habitat();
 
         _chickenHabitats.Add(newChickenHabitat);
 
         Console.Clear();
-
-        Console.WriteLine($"\n\n\n{green}New habitat for chickens has been built!{reset}\n");
-
     }
 
 
     //adds a eagle habitat in the list
     public void addEagleHabitat()
     {
-        string green = "\u001b[32m";
-        string reset = "\u001b[0m";
 
         Eagle_Habitat newEagleHabitat = new Eagle_Habitat();
 
@@ -164,25 +156,18 @@ public class Zoo
 
         Console.Clear();
 
-
-        Console.WriteLine($"\n\n\n{green}New habitat for eagles has been built!{reset}\n");
     }
 
 
     //adds a tiger habitat in the list
     public void addTigerHabitat()
     {
-        string green = "\u001b[32m";
-        string reset = "\u001b[0m";
 
         Tiger_Habitat newTigerHabitat = new Tiger_Habitat();
 
         _tigerHabitats.Add(newTigerHabitat);
 
         Console.Clear();
-
-
-        Console.WriteLine($"\n\n\n{green}New habitat for tigers has been built!{reset}\n");
     }
 
 
