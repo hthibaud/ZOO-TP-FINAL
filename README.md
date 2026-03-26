@@ -30,20 +30,21 @@ Bienvenue dans notre simulation de zoo ! Gérez votre parc animalier et dévelop
 - Attention à votre viande qui peut pourrir et vous faire perdre du stock...
 - Attention aux indésirables qui peuvent vous faire perdre pas mal de vos graines...
 
-## Comment démarrer
-
-1. Lancez le programme avec "dotnet run" dans la console
-2. Explorez le menu principal pour acheter vos premiers animaux et habitats (choix a rentrer manuelleent en chiffre dans la console ou parfois on vous demandera d'écrire "yes" ou "no" pour répondre à la question)
-3. Nourrissez régulièrement vos animaux
-4. Passez les mois ou les années pour voir votre zoo se développer
-
-Bonne partie!
-
-
 ## Côté dev
+
+- La version que vous allez lancer a été testée sur un ordinateur portable MSI avec Windows 11, dans le terminal de VSCode 1.113.0 sans téléchargement externe
 
 - Certaines fonctionnalités présentes sur le tableau ont été modifiées, des fois pour des raisons de mauvaise architecture, de difficulté ou par manque de temps. Cela-dit nous tenions a avoir le plus de fonctionnalités possible quitte à y laisser une partie de ces dernières.
 
 - Nous avons pas mal bossé en Live Share ou présentiel directement
 
 - Nous voulions une expérience de jeu un peu plus immersive que seulement une console et du texte blanc. C'est pourquoi nous avons décidé d'ajouter des SFX et de la musique de fond. Sur Linux, ce sytème fonctionne bien et sans latence. Nous avons quand même remarqué que sur Windows (10 et +) cela compile tout pareil mais les sons ont l'air d'avoir un peu de latence, sûrement à cause de l'utilisation de powershell pour jouer les sons en background.
+
+## Comment démarrer
+
+1. Lancez le programme avec "dotnet run" dans la console
+2. Explorez le menu principal pour acheter vos premiers animaux et habitats (choix a rentrer manuellement en chiffre dans la console ou parfois on vous demandera d'écrire "yes" ou "no" pour répondre à la question)
+3. Nourrissez régulièrement vos animaux
+4. Passez les mois ou les années pour voir votre zoo se développer
+
+Bonne partie!
