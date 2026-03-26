@@ -4,6 +4,7 @@ using System.Net;
 using System.Resources;
 using System.Security.Cryptography.X509Certificates;
 using System.Linq;
+using System.Reflection;
 
 public class Zoo
 {
@@ -123,7 +124,7 @@ public class Zoo
     }
 
 
-//Shows the minimum info of the zoo (number of animals)
+    //Shows the minimum info of the zoo (number of animals)
     public void ShowInfoStart()
     {
         string blue = "\u001b[34m";
@@ -131,7 +132,7 @@ public class Zoo
         string reset = "\u001b[0m";
 
         Console.WriteLine($"\nNumber of animals: {blue}{title}{TotalAnimals}{reset}\n");
-        
+
     }
 
 
@@ -766,6 +767,9 @@ public class Zoo
         string green = "\u001b[32m";
         string reset = "\u001b[0m";
 
+        int totalBirths = 0;
+        int totalInfantDeaths = 0;
+
         for (var i = _animals.Count - 1; i >= 0; i--)
         {
             if (_animals[i].IsPregnant() == true)
@@ -778,7 +782,7 @@ public class Zoo
 
                     if (randomChoice == 0)
                     {
-                        Console.WriteLine($"{red}[DEATH] A baby chicken of {_animals[i].GetName()} has saddly passed away during birth.{reset}");
+                        totalInfantDeaths++;
                     }
                     else
                     {
@@ -789,14 +793,14 @@ public class Zoo
                             _animals[i].IncrNumberOfKids();
 
                             addBabyChickenFemale2($"Baby{_animals[i].GetNumberOfKids()} of {_animals[i].GetName()}");
-                            Console.WriteLine($"{green}[BIRTH] A baby (female) chicken of {_animals[i].GetName()} is born!{reset}");
+                            totalBirths++;
                         }
                         else
                         {
                             _animals[i].IncrNumberOfKids();
 
                             addBabyChickenMale2($"Baby{_animals[i].GetNumberOfKids()} of {_animals[i].GetName()}");
-                            Console.WriteLine($"{green}[BIRTH] A baby (male) chicken of {_animals[i].GetName()} is born!{reset}");
+                            totalBirths++;
                         }
                     }
                     _animals[i].ResetGestation();
@@ -807,7 +811,7 @@ public class Zoo
 
                     if (randomChoice == 0)
                     {
-                        Console.WriteLine($"{red}[DEATH] A baby eagle of {_animals[i].GetName()} has saddly passed away during birth.{reset}");
+                        totalInfantDeaths++;
                     }
                     else
                     {
@@ -819,14 +823,14 @@ public class Zoo
                             _animals[i].IncrNumberOfKids();
 
                             addEagleFemale2($"Baby{_animals[i].GetNumberOfKids()} of {_animals[i].GetName()}", 0);
-                            Console.WriteLine($"{green}[BIRTH] A baby (female) eagle of {_animals[i].GetName()} is born!{reset}");
+                            totalBirths++;
                         }
                         else
                         {
                             _animals[i].IncrNumberOfKids();
 
                             addEagleMale2($"Baby{_animals[i].GetNumberOfKids()} of {_animals[i].GetName()}", 0);
-                            Console.WriteLine($"{green}[BIRTH] A baby (male) eagle of {_animals[i].GetName()} is born!{reset}");
+                            totalBirths++;
                         }
                     }
                     _animals[i].ResetGestation();
@@ -838,7 +842,7 @@ public class Zoo
 
                     if (randomChoice == 0 || randomChoice == 1)
                     {
-                        Console.WriteLine($"{red}[DEATH] A baby tiger of {_animals[i].GetName()} has saddly passed away during birth.{reset}");
+                        totalInfantDeaths++;
                     }
                     else
                     {
@@ -850,18 +854,27 @@ public class Zoo
                             _animals[i].IncrNumberOfKids();
 
                             addTigerFemale2($"Baby{_animals[i].GetNumberOfKids()} of {_animals[i].GetName()}", 0);
-                            Console.WriteLine($"{green}[BIRTH] A baby (female) tiger of {_animals[i].GetName()} is born!{reset}");
+                            totalBirths++;
                         }
                         else
                         {
                             _animals[i].IncrNumberOfKids();
 
                             addTigerMale2($"Baby{_animals[i].GetNumberOfKids()} of {_animals[i].GetName()}", 0);
-                            Console.WriteLine($"{green}[BIRTH] A baby (male) tiger of {_animals[i].GetName()} is born!{reset}");
+                            totalBirths++;
                         }
                     }
                     _animals[i].ResetGestation();
                 }
+            }
+        }
+        if (totalBirths > 0)
+        {
+            Console.WriteLine($"{green}[BIRTHS] {totalBirths} new babies joined the zoo this month!{reset}");
+
+            if (totalInfantDeaths > 0)
+            {
+                Console.WriteLine($"{red}[DEATHS] {totalInfantDeaths} babies died during birth...{reset}");
             }
         }
     }

@@ -480,8 +480,8 @@ class Program
                 if (!myAccount.hasError)
                 {
                     for (int i = 0; i < amount; i++)
-                    { 
-                    thisZoo.addChickenHabitat();
+                    {
+                        thisZoo.addChickenHabitat();
                     }
                     sfx.PlaySound("building.wav");
                     Console.WriteLine($"{green}Successfully built {title}{amount}{reset} {green}chicken habitats!{reset}");
@@ -793,51 +793,72 @@ class Program
     }
 
 
-    //function that will let you know what is going on during the month (what animal ate food, what animal didn't)
+    //function that will let you know what is going on during the month (how much seeds and meat your aimals consumed this month)
     public void FeedAnimals()
     {
-        for (var i = 0; i < thisZoo._animals.Count; i++)
+        double totalSeedsEaten = 0;
+        double totalMeatEaten = 0;
+        int animalsHungry = 0;
+
+        for (int i = 0; i < thisZoo._animals.Count; i++)
         {
-            double kgPerDay = thisZoo._animals[i].GetKgPerDay();
-            double nbDaysWithoutFeeding = 0;
             Animal thisAnimal = thisZoo._animals[i];
+
+            double kgNeeded = thisAnimal.GetKgPerDay() * 30;
+            double nbDaysWithoutFeeding = 0;
 
             if (thisAnimal.GetSpecies().Contains("Chicken"))
             {
-                double nbRemainingKg = food.DecreaseSeeds(kgPerDay * 30);
+                double nbRemainingKg = food.DecreaseSeeds(kgNeeded);
 
                 if (nbRemainingKg < 0)
                 {
-                    nbDaysWithoutFeeding = -1 * nbRemainingKg / kgPerDay;
-                    Console.WriteLine($"[FEED] {thisAnimal.GetName()} didn't eat for {nbDaysWithoutFeeding:F2} days");
-                    Console.WriteLine($"[FEED] {thisAnimal.GetName()} ate only {(kgPerDay * 30) + nbRemainingKg:F2}Kg of seeds.");
+                    nbDaysWithoutFeeding = -1 * nbRemainingKg / thisAnimal.GetKgPerDay();
+
+                    totalSeedsEaten = totalSeedsEaten + (kgNeeded + nbRemainingKg);
+
+                    animalsHungry += 1;
                 }
                 else
                 {
-                    Console.WriteLine($"[FEED] {thisAnimal.GetName()} ate {kgPerDay * 30:F2}Kg of seeds.");
+                    totalSeedsEaten = totalSeedsEaten + kgNeeded;
                 }
             }
             else
             {
-                double nbRemainingKg = food.DecreaseMeat(kgPerDay * 30);
+                double nbRemainingKg = food.DecreaseMeat(kgNeeded);
+
                 if (nbRemainingKg < 0)
                 {
-                    nbDaysWithoutFeeding = -1 * nbRemainingKg / kgPerDay;
-                    Console.WriteLine($"[FEED] {thisAnimal.GetName()} didn't eat for {nbDaysWithoutFeeding:F2} days");
-                    Console.WriteLine($"[FEED] {thisAnimal.GetName()} ate only {(kgPerDay * 30) + nbRemainingKg:F2}Kg of meat.");
+                    nbDaysWithoutFeeding = -1 * nbRemainingKg / thisAnimal.GetKgPerDay();
+
+                    totalMeatEaten = totalMeatEaten + (kgNeeded + nbRemainingKg);
+                    animalsHungry = animalsHungry + 1;
                 }
                 else
                 {
-
-
-                    Console.WriteLine($"[FEED] {thisAnimal.GetName()} ate {kgPerDay * 30:F2}Kg of meat.");
+                    totalMeatEaten = totalMeatEaten + kgNeeded;
                 }
             }
 
             thisAnimal.SetHunger(nbDaysWithoutFeeding);
         }
-    }
 
+        string red = "\u001b[31m";
+        string reset = "\u001b[0m";
+        string green = "\u001b[32m";
+        string title = "\u001b[1m";
+
+        Console.WriteLine($"\n{green}[FEEDING REPORT]{reset}");
+
+        Console.WriteLine($"[SEEDS] Your chickens ate: {title}{green}{totalSeedsEaten:F2}Kg{reset} of seeds this month.");
+        Console.WriteLine($"[MEAT] Your eagles and tigers ate: {title}{green}{totalMeatEaten:F2}Kg{reset} of meat this month.");
+
+        if (animalsHungry > 0)
+        {
+            Console.WriteLine($"{red}[WARNING] {title}{animalsHungry}{reset}{red} animals didn't have enough food this month!{reset}");
+        }
+    }
 
     //to calculate when you deserve a subvention on the 12th month of the year
     public void EarnSubvention()
